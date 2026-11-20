@@ -548,7 +548,7 @@ async function boot(){
     return best && {id: 'cc-' + (f.properties.a2 || f.properties.n), a2: f.properties.a2, name: f.properties.n, lat: best.lat, lng: best.lng, area: tot, cl: true};
   }).filter(Boolean);
   // pastel continent fill used at world zoom, fading out as tiles take over
-  const landFor = (f, d) => { const b = CONT[f.properties.ct] || CONT.AS, j = hash(f.properties.a2 || f.properties.n), v = [b[0] + (j%9) - 4, b[1], b[2] + (j%7) - 3]; return d ? `hsl(${v[0]}, ${Math.round(b[1]*.42)}%, ${40 + (j%7) - 3}%)` : hsl(v) };
+  const landFor = (f, d) => { const b = CONT[f.properties.ct] || CONT.AS, j = hash(f.properties.a2 || f.properties.n), v = [b[0] + (j%9) - 4, b[1], b[2] + (j%7) - 3]; return d ? `hsl(${v[0]}, ${Math.round(b[1]*.3)}%, ${36 + (j%7) - 3}%)` : hsl(v) };
   const unwrap = ring => { const out = []; let off = 0, prev = null; for (const [x, y] of ring) { if (prev !== null) { const d = x + off - prev; if (d > 180) off -= 360; else if (d < -180) off += 360 } const nx = x + off; out.push([nx, y]); prev = nx } return out };
   const cfill = fc(geo.filter(f => f.properties.ct !== 'AN').map(f => ({type: 'Feature', properties: {a2: f.properties.a2 || '', n: f.properties.n, cl: landFor(f, false), cd: landFor(f, true)},
     geometry: {type: 'MultiPolygon', coordinates: f._pg.map(pg => pg.map(unwrap))}})));
@@ -576,7 +576,7 @@ function onStyle(cfill){
   const firstSym = (L.find(l => l.type === 'symbol') || {}).id;
   const vec = Object.entries(map.getStyle().sources).find(([, s]) => s.type === 'vector');
   map.addSource('k-ctry', {type: 'geojson', data: cfill});
-  map.addLayer({id: 'k-cfill', type: 'fill', source: 'k-ctry', paint: {'fill-color': ['get', isDark() ? 'cd' : 'cl'], 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, .9, 3, .75, 5, .25, 6.5, 0]}}, firstSym);
+  map.addLayer({id: 'k-cfill', type: 'fill', source: 'k-ctry', paint: {'fill-color': ['get', isDark() ? 'cd' : 'cl'], 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, isDark() ? .6 : .9, 3, isDark() ? .5 : .75, 5, .2, 6.5, 0]}}, firstSym);
   map.addLayer({id: 'k-hl', type: 'line', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'line-color': '#8b7cf6', 'line-width': 2.5, 'line-opacity': .9}}, firstSym);
   map.addLayer({id: 'k-hlf', type: 'fill', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'fill-color': '#8b7cf6', 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, .18, 6, .06]}}, firstSym);
   if (vec) map.addLayer({id: 'k-b3d', type: 'fill-extrusion', source: vec[0], 'source-layer': 'building', minzoom: 14.5, paint: {'fill-extrusion-color': '#ddd4f2', 'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 8], 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0], 'fill-extrusion-opacity': .85}}, firstSym);
