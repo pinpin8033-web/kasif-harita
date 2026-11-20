@@ -1,0 +1,2006 @@
+[
+{
+"id": "istanbul",
+"name": "İstanbul",
+"country": "Türkiye",
+"cont": "Avrupa / Asya",
+"lat": 41.0082,
+"lng": 28.9784,
+"tz": "Europe/Istanbul",
+"tag": "İki kıtanın buluştuğu, üç imparatorluğa başkentlik etmiş şehir.",
+"season": "Nisan–Haziran, Eylül–Ekim",
+"lang": "Türkçe",
+"cur": "Türk lirası",
+"days": "3–4 gün",
+"sig": {
+"tarih": "MÖ 667",
+"lezzet": "Balık ekmek",
+"gezi": "Ayasofya"
+},
+"history": [
+{
+"y": "MÖ 667",
+"t": "Byzantion kuruluyor",
+"d": "Megaralı koloniciler Sarayburnu'na yerleşir. Efsaneye göre şehir adını kurucusu Byzas'tan alır."
+},
+{
+"y": "330",
+"t": "Roma'nın yeni başkenti",
+"d": "İmparator Konstantin şehri yeniden kurar; adı zamanla Konstantinopolis olur."
+},
+{
+"y": "537",
+"t": "Ayasofya tamamlanıyor",
+"d": "Justinianus döneminde yapılan kubbe, yaklaşık bin yıl boyunca dünyanın en büyük kapalı mekânlarından biri olarak kalır."
+},
+{
+"y": "1453",
+"t": "Fetih",
+"d": "Fatih Sultan Mehmed şehri alır; İstanbul Osmanlı İmparatorluğu'nun başkenti olur."
+},
+{
+"y": "1923",
+"t": "Başkent Ankara'ya taşınıyor",
+"d": "Cumhuriyet'le birlikte siyasi merkez değişir, İstanbul ticaret ve kültürün kalbi olarak kalır."
+},
+{
+"y": "1973",
+"t": "İki kıta köprüyle bağlanıyor",
+"d": "Boğaziçi Köprüsü açılır; Avrupa ile Asya ilk kez karayoluyla birleşir."
+}
+],
+"foods": [
+{
+"n": "Balık ekmek",
+"k": "Sokak lezzeti",
+"d": "Izgara uskumru, soğan ve marul; ekmeğin arasında, deniz kenarında.",
+"w": "Eminönü iskelesi"
+},
+{
+"n": "Midye dolma",
+"k": "Sokak lezzeti",
+"d": "Baharatlı pilavla doldurulmuş midye, üstüne limon sıkılarak tane tane yenir.",
+"w": "Beşiktaş, Kadıköy"
+},
+{
+"n": "Baklava",
+"k": "Tatlı",
+"d": "İncecik yufka katları, Antep fıstığı ve şerbet. Kaymakla da denenebilir.",
+"w": "Karaköy"
+},
+{
+"n": "Simit ve çay",
+"k": "Kahvaltı",
+"d": "Susamlı simit ve ince belli bardakta demli çay; şehrin en basit ritüeli.",
+"w": "Her köşe başında"
+}
+],
+"places": [
+{
+"n": "Ayasofya",
+"k": "Tarih",
+"lat": 41.0086,
+"lng": 28.9802,
+"d": "Bizans'tan Osmanlı'ya, mimarlık tarihinin dönüm noktası olan kubbe.",
+"t": "1–2 saat"
+},
+{
+"n": "Yerebatan Sarnıcı",
+"k": "Tarih",
+"lat": 41.0084,
+"lng": 28.9779,
+"d": "336 sütunlu yeraltı sarnıcı; Medusa başlı sütunlarıyla ünlü.",
+"t": "45 dk"
+},
+{
+"n": "Topkapı Sarayı",
+"k": "Müze",
+"lat": 41.0115,
+"lng": 28.9834,
+"d": "Osmanlı sultanlarının yaklaşık 400 yıl yaşadığı saray, Harem ve hazine.",
+"t": "3 saat"
+},
+{
+"n": "Kapalıçarşı",
+"k": "Çarşı",
+"lat": 41.0107,
+"lng": 28.9681,
+"d": "Dünyanın en eski ve en büyük kapalı çarşılarından biri.",
+"t": "1–2 saat"
+},
+{
+"n": "Galata Kulesi",
+"k": "Manzara",
+"lat": 41.0256,
+"lng": 28.9741,
+"d": "Haliç'e ve Tarihi Yarımada'ya 360 derece bakış.",
+"t": "1 saat"
+},
+{
+"n": "Kız Kulesi",
+"k": "Manzara",
+"lat": 41.0211,
+"lng": 29.0041,
+"d": "Üsküdar açığındaki küçük adacıkta, efsaneleriyle ünlü kule.",
+"t": "1 saat"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Kalabalık gelmeden Ayasofya, ardından birkaç adım ötedeki Yerebatan Sarnıcı."
+},
+{
+"s": "Öğleden önce",
+"p": 2,
+"d": "Topkapı Sarayı ve Harem; Boğaz manzaralı avlularda mola."
+},
+{
+"s": "Öğle",
+"p": 3,
+"d": "Kapalıçarşı'da dolaşıp Mısır Çarşısı'na in, Eminönü'nde balık ekmek."
+},
+{
+"s": "Akşamüstü",
+"p": 4,
+"d": "Karaköy'de baklava, gün batımında Galata Kulesi."
+}
+],
+"tip": "Şehir içi ulaşımda İstanbulkart al; vapur hem ulaşım hem de en ucuz Boğaz turu.",
+"cc": "TR"
+},
+{
+"id": "safranbolu",
+"name": "Safranbolu",
+"country": "Türkiye",
+"cont": "Asya",
+"lat": 41.2436,
+"lng": 32.6917,
+"tz": "Europe/Istanbul",
+"tag": "Osmanlı ahşap konak mimarisinin en iyi korunduğu kasaba.",
+"season": "Mayıs–Ekim",
+"lang": "Türkçe",
+"cur": "Türk lirası",
+"days": "1–2 gün",
+"sig": {
+"tarih": "UNESCO 1994",
+"lezzet": "Safranlı lokum",
+"gezi": "Cinci Hanı"
+},
+"history": [
+{
+"y": "Antik çağ",
+"t": "Paflagonya toprakları",
+"d": "Bölge, Karadeniz'in iç kesimlerindeki Paflagonya'nın bir parçasıdır."
+},
+{
+"y": "17. yy",
+"t": "Kervan yolunun durağı",
+"d": "İstanbul ile Karadeniz arasındaki ticaret yolunda önemli bir konaklama noktasına dönüşür."
+},
+{
+"y": "1645",
+"t": "Cinci Hanı yapılıyor",
+"d": "Kesme taştan büyük kervansaray, bugün de çarşının simgesidir."
+},
+{
+"y": "1661",
+"t": "Köprülü Mehmed Paşa Camii",
+"d": "Sadrazam Köprülü Mehmed Paşa adına yapılan cami, Arasta'nın hemen yanındadır."
+},
+{
+"y": "19. yy",
+"t": "Konakların altın çağı",
+"d": "Kışlık çarşı evleri ve yazlık bağ evleriyle iki mevsimli bir yaşam düzeni gelişir."
+},
+{
+"y": "1994",
+"t": "UNESCO Dünya Mirası",
+"d": "Kent bütünüyle Dünya Mirası Listesi'ne alınır."
+}
+],
+"foods": [
+{
+"n": "Safranlı lokum",
+"k": "Tatlı",
+"d": "Yörede yetişen safranla renklenen, kentin en bilinen hediyeliği.",
+"w": "Çarşı"
+},
+{
+"n": "Zerde",
+"k": "Tatlı",
+"d": "Safranla sararan pirinç tatlısı; düğünlerin ve bayramların vazgeçilmezi.",
+"w": "Konak restoranları"
+},
+{
+"n": "Bükme",
+"k": "Hamur işi",
+"d": "Kıymalı iç harçla sarılan ince yufka, sacda ya da fırında pişer.",
+"w": "Çarşı lokantaları"
+},
+{
+"n": "Kuyu kebabı",
+"k": "Ana yemek",
+"d": "Toprağa kazılmış kuyu fırınlarda saatlerce pişen yumuşacık kuzu eti.",
+"w": "Yöresel lokantalar"
+}
+],
+"places": [
+{
+"n": "Cinci Hanı",
+"k": "Tarih",
+"lat": 41.244,
+"lng": 32.6916,
+"d": "Çatısından kırmızı kiremitli konakların manzarası görülen kervansaray.",
+"t": "45 dk"
+},
+{
+"n": "Yemeniciler Arastası",
+"k": "Çarşı",
+"lat": 41.2434,
+"lng": 32.6908,
+"d": "Geleneksel ayakkabı ustalarının dükkânlarıyla dolu üstü örtülü çarşı.",
+"t": "1 saat"
+},
+{
+"n": "Kaymakamlar Gezi Evi",
+"k": "Müze",
+"lat": 41.2425,
+"lng": 32.6929,
+"d": "Bir Safranbolu evinin oda düzenini ve gündelik hayatını canlandıran konak.",
+"t": "45 dk"
+},
+{
+"n": "Hıdırlık Tepesi",
+"k": "Manzara",
+"lat": 41.2409,
+"lng": 32.6947,
+"d": "Eski kenti tepeden gören, gün batımı için en iyi nokta.",
+"t": "30 dk"
+},
+{
+"n": "İncekaya Su Kemeri",
+"k": "Doğa",
+"lat": 41.2684,
+"lng": 32.6707,
+"d": "Tokatlı Kanyonu'nun üzerinden geçen tarihi su kemeri.",
+"t": "1 saat"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 1,
+"d": "Arasta'da kahvaltı ve sokak sokak çarşı gezisi."
+},
+{
+"s": "Öğleden önce",
+"p": 0,
+"d": "Cinci Hanı'nın çatısına çık, konakların arasından yürü."
+},
+{
+"s": "Öğle",
+"p": 2,
+"d": "Bükme ve zerde; ardından Kaymakamlar Gezi Evi."
+},
+{
+"s": "Akşamüstü",
+"p": 4,
+"d": "Kanyon kıyısında İncekaya Su Kemeri, dönüşte Hıdırlık'ta gün batımı."
+}
+],
+"tip": "Bir gece konak otelinde kal; ahşap evlerin asıl havası akşam fenerler yanınca çıkıyor.",
+"cc": "TR"
+},
+{
+"id": "goreme",
+"name": "Kapadokya",
+"country": "Türkiye",
+"cont": "Asya",
+"lat": 38.6431,
+"lng": 34.8289,
+"tz": "Europe/Istanbul",
+"tag": "Peribacaları, kaya kiliseleri ve gün doğumunda yüzlerce balon.",
+"season": "Nisan–Haziran, Eylül–Ekim",
+"lang": "Türkçe",
+"cur": "Türk lirası",
+"days": "2–3 gün",
+"sig": {
+"tarih": "Kaya kiliseleri",
+"lezzet": "Testi kebabı",
+"gezi": "Balon turu"
+},
+"history": [
+{
+"y": "Milyonlarca yıl önce",
+"t": "Volkanlar manzarayı çiziyor",
+"d": "Erciyes ve Hasandağı'nın külleri yumuşak tüf katmanları oluşturur; rüzgâr ve su peribacalarını yontar."
+},
+{
+"y": "MÖ 2. binyıl",
+"t": "Hitit toprakları",
+"d": "Bölge Anadolu'nun büyük uygarlıklarının etkisi altındadır."
+},
+{
+"y": "4. yy",
+"t": "Kapadokyalı kilise babaları",
+"d": "Hristiyanlığın erken düşünürleri bölgeden çıkar, manastır hayatı yayılır."
+},
+{
+"y": "10–11. yy",
+"t": "Kaya kiliseleri",
+"d": "Göreme'deki fresklerle süslü kiliselerin önemli bir kısmı bu dönemde oyulur."
+},
+{
+"y": "1985",
+"t": "UNESCO Dünya Mirası",
+"d": "Göreme Milli Parkı ve Kapadokya kayalık alanları listeye alınır."
+}
+],
+"foods": [
+{
+"n": "Testi kebabı",
+"k": "Ana yemek",
+"d": "Toprak testide ağır ağır pişen et ve sebze, masada testi kırılarak servis edilir.",
+"w": "Göreme, Avanos"
+},
+{
+"n": "Kayseri mantısı",
+"k": "Ana yemek",
+"d": "Bir kaşığa kırk tane sığdığı söylenen minik mantı, yoğurt ve tereyağıyla.",
+"w": "Bölge lokantaları"
+},
+{
+"n": "Pastırma",
+"k": "Şarküteri",
+"d": "Çemenle kaplanmış kurutulmuş et; Kayseri'nin imzası.",
+"w": "Kayseri çarşısı"
+},
+{
+"n": "Pekmez ve tahin",
+"k": "Kahvaltı",
+"d": "Bağ bozumundan kalan üzüm pekmezi, tahinle karıştırılıp ekmeğe sürülür.",
+"w": "Kahvaltı sofraları"
+}
+],
+"places": [
+{
+"n": "Göreme Açık Hava Müzesi",
+"k": "Tarih",
+"lat": 38.64,
+"lng": 34.845,
+"d": "Freskli kaya kiliselerinin en yoğun olduğu manastır alanı.",
+"t": "2 saat"
+},
+{
+"n": "Uçhisar Kalesi",
+"k": "Manzara",
+"lat": 38.63,
+"lng": 34.805,
+"d": "Bölgenin en yüksek doğal kaya kalesi; tepeden bütün vadiler görülür.",
+"t": "1 saat"
+},
+{
+"n": "Paşabağ",
+"k": "Doğa",
+"lat": 38.672,
+"lng": 34.856,
+"d": "Çok başlı peribacalarıyla ünlü vadi.",
+"t": "45 dk"
+},
+{
+"n": "Kızılçukur Vadisi",
+"k": "Doğa",
+"lat": 38.658,
+"lng": 34.867,
+"d": "Gün batımında kızıla dönen kayalar ve yürüyüş yolları.",
+"t": "2 saat"
+},
+{
+"n": "Derinkuyu Yeraltı Şehri",
+"k": "Tarih",
+"lat": 38.374,
+"lng": 34.735,
+"d": "Katlarca aşağı inen, binlerce kişiyi saklayabilen yeraltı kenti.",
+"t": "1,5 saat"
+}
+],
+"route": [
+{
+"s": "Gün doğumu",
+"p": null,
+"d": "Balon turu ya da balonları izlemek için Göreme'nin tepelerinden birine çık."
+},
+{
+"s": "Sabah",
+"p": 0,
+"d": "Göreme Açık Hava Müzesi'nde freskli kiliseler."
+},
+{
+"s": "Öğle",
+"p": 2,
+"d": "Avanos'ta testi kebabı, ardından Paşabağ peribacaları."
+},
+{
+"s": "Akşamüstü",
+"p": 3,
+"d": "Kızılçukur'da yürüyüş ve gün batımı."
+}
+],
+"tip": "Balon turları rüzgâra bağlı iptal olabilir; turu kalışının ilk sabahına koy ki yedek günün olsun.",
+"cc": "TR"
+},
+{
+"id": "roma",
+"name": "Roma",
+"country": "İtalya",
+"cont": "Avrupa",
+"lat": 41.9028,
+"lng": 12.4964,
+"tz": "Europe/Rome",
+"tag": "Her sokağında iki bin yıllık bir hikâye taşıyan Ebedi Şehir.",
+"season": "Nisan–Haziran, Eylül–Ekim",
+"lang": "İtalyanca",
+"cur": "Avro",
+"days": "3–4 gün",
+"sig": {
+"tarih": "MÖ 753",
+"lezzet": "Carbonara",
+"gezi": "Kolezyum"
+},
+"history": [
+{
+"y": "MÖ 753",
+"t": "Efsanevi kuruluş",
+"d": "Geleneğe göre şehri Romulus kurar; Roma yedi tepenin üzerinde büyür."
+},
+{
+"y": "MÖ 27",
+"t": "İmparatorluk başlıyor",
+"d": "Augustus ilk Roma imparatoru olur; şehir Akdeniz dünyasının merkezine dönüşür."
+},
+{
+"y": "80",
+"t": "Kolezyum açılıyor",
+"d": "On binlerce seyirciyi alan amfitiyatro gladyatör oyunlarıyla açılır."
+},
+{
+"y": "1506",
+"t": "Aziz Petrus Bazilikası",
+"d": "Yeni bazilikanın yapımı başlar; Michelangelo kubbesini tasarlar."
+},
+{
+"y": "1871",
+"t": "İtalya'nın başkenti",
+"d": "Birleşen İtalya'nın başkenti Roma olur."
+}
+],
+"foods": [
+{
+"n": "Carbonara",
+"k": "Makarna",
+"d": "Yumurta sarısı, pecorino, guanciale ve karabiber; krema yok.",
+"w": "Testaccio trattoriaları"
+},
+{
+"n": "Cacio e pepe",
+"k": "Makarna",
+"d": "Sadece pecorino ve karabiberle yapılan, ustalık isteyen sade lezzet.",
+"w": "Trastevere"
+},
+{
+"n": "Supplì",
+"k": "Sokak lezzeti",
+"d": "İçinde mozzarella eriyen kızarmış domatesli pirinç topu.",
+"w": "Pizza al taglio dükkânları"
+},
+{
+"n": "Maritozzo",
+"k": "Tatlı",
+"d": "Ortadan yarılıp kremayla doldurulan yumuşak çörek; Roma kahvaltısı.",
+"w": "Mahalle pastaneleri"
+}
+],
+"places": [
+{
+"n": "Kolezyum",
+"k": "Tarih",
+"lat": 41.8902,
+"lng": 12.4922,
+"d": "Roma İmparatorluğu'nun en büyük amfitiyatrosu.",
+"t": "1,5 saat"
+},
+{
+"n": "Roma Forumu",
+"k": "Tarih",
+"lat": 41.8925,
+"lng": 12.4853,
+"d": "Antik şehrin tapınakları, meydanları ve siyasi kalbi.",
+"t": "1,5 saat"
+},
+{
+"n": "Pantheon",
+"k": "Tarih",
+"lat": 41.8986,
+"lng": 12.4769,
+"d": "Ortası açık beton kubbesiyle neredeyse iki bin yıldır ayakta.",
+"t": "30 dk"
+},
+{
+"n": "Trevi Çeşmesi",
+"k": "Manzara",
+"lat": 41.9009,
+"lng": 12.4833,
+"d": "Geleneğe göre buraya bozuk para atan Roma'ya geri döner.",
+"t": "20 dk"
+},
+{
+"n": "Vatikan Müzeleri",
+"k": "Müze",
+"lat": 41.9065,
+"lng": 12.4536,
+"d": "Sistina Şapeli ve Rafael odalarıyla dünyanın en zengin koleksiyonlarından biri.",
+"t": "3 saat"
+},
+{
+"n": "Trastevere",
+"k": "Mahalle",
+"lat": 41.8897,
+"lng": 12.47,
+"d": "Sarmaşıklı dar sokaklar, akşam yemeği için şehrin en canlı mahallesi.",
+"t": "Akşam"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Erken saatli biletle Kolezyum, ardından Roma Forumu."
+},
+{
+"s": "Öğle",
+"p": 2,
+"d": "Pantheon'un çevresinde supplì ve kahve."
+},
+{
+"s": "Öğleden sonra",
+"p": 3,
+"d": "Trevi Çeşmesi ve İspanyol Merdivenleri'ne yürüyüş."
+},
+{
+"s": "Akşam",
+"p": 5,
+"d": "Trastevere'de cacio e pepe."
+}
+],
+"tip": "Vatikan ve Kolezyum biletlerini önceden al; kuyruk saatlerini doğrudan kazandırır.",
+"cc": "IT"
+},
+{
+"id": "paris",
+"name": "Paris",
+"country": "Fransa",
+"cont": "Avrupa",
+"lat": 48.8566,
+"lng": 2.3522,
+"tz": "Europe/Paris",
+"tag": "Seine kıyısında müzeler, kafeler ve demirden bir kule.",
+"season": "Nisan–Haziran, Eylül–Ekim",
+"lang": "Fransızca",
+"cur": "Avro",
+"days": "3–4 gün",
+"sig": {
+"tarih": "1789",
+"lezzet": "Kruvasan",
+"gezi": "Eyfel Kulesi"
+},
+"history": [
+{
+"y": "MÖ 3. yy",
+"t": "Parisii kabilesi",
+"d": "Kelt kabilesi Seine'deki adaya, bugünkü Île de la Cité'ye yerleşir."
+},
+{
+"y": "MÖ 52",
+"t": "Roma'nın Lutetia'sı",
+"d": "Romalılar bölgeyi ele geçirir ve şehri Lutetia adıyla büyütür."
+},
+{
+"y": "1163",
+"t": "Notre-Dame'ın temeli",
+"d": "Gotik katedralin yapımı başlar ve yaklaşık iki yüzyıl sürer."
+},
+{
+"y": "1789",
+"t": "Fransız Devrimi",
+"d": "Bastille'in alınmasıyla başlayan devrim dünyanın siyasi dilini değiştirir."
+},
+{
+"y": "1889",
+"t": "Eyfel Kulesi",
+"d": "Dünya Fuarı için geçici yapılan kule, şehrin kalıcı simgesi olur."
+}
+],
+"foods": [
+{
+"n": "Kruvasan",
+"k": "Kahvaltı",
+"d": "Kat kat tereyağlı hamur; en iyisi fırından yeni çıkmışı.",
+"w": "Mahalle boulangerie'leri"
+},
+{
+"n": "Soğan çorbası",
+"k": "Çorba",
+"d": "Karamelize soğan, et suyu ve üstünde eriyen gruyère'li ekmek.",
+"w": "Bistrolar"
+},
+{
+"n": "Krep",
+"k": "Sokak lezzeti",
+"d": "İncecik krep; tatlı ya da karabuğday unlu tuzlu galette olarak.",
+"w": "Montparnasse"
+},
+{
+"n": "Makaron",
+"k": "Tatlı",
+"d": "Badem unlu iki kurabiye arasında ganaj; renk renk.",
+"w": "Saint-Germain pastaneleri"
+}
+],
+"places": [
+{
+"n": "Eyfel Kulesi",
+"k": "Manzara",
+"lat": 48.8584,
+"lng": 2.2945,
+"d": "Paris'in simgesi; gece her saat başı ışıklarla parıldar.",
+"t": "2 saat"
+},
+{
+"n": "Louvre",
+"k": "Müze",
+"lat": 48.8606,
+"lng": 2.3376,
+"d": "Mona Lisa'dan Mısır eserlerine dünyanın en çok ziyaret edilen müzesi.",
+"t": "3–4 saat"
+},
+{
+"n": "Notre-Dame",
+"k": "Tarih",
+"lat": 48.853,
+"lng": 2.3499,
+"d": "Yangın sonrası yeniden ziyarete açılan gotik katedral.",
+"t": "1 saat"
+},
+{
+"n": "Musée d'Orsay",
+"k": "Müze",
+"lat": 48.86,
+"lng": 2.3266,
+"d": "Eski bir tren garında izlenimci tablolar.",
+"t": "2 saat"
+},
+{
+"n": "Le Marais",
+"k": "Mahalle",
+"lat": 48.859,
+"lng": 2.362,
+"d": "Butikler, falafel tezgâhları ve 17. yüzyıl konaklarıyla canlı mahalle.",
+"t": "2 saat"
+},
+{
+"n": "Montmartre",
+"k": "Manzara",
+"lat": 48.8867,
+"lng": 2.3431,
+"d": "Ressamların tepesi ve Sacré-Cœur'den şehrin panoraması.",
+"t": "2 saat"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 2,
+"d": "Île de la Cité'de Notre-Dame, kahvaltıda taze kruvasan."
+},
+{
+"s": "Öğleden önce",
+"p": 1,
+"d": "Louvre'da birkaç seçilmiş salon; her şeyi bir günde görmeye çalışma."
+},
+{
+"s": "Öğleden sonra",
+"p": 4,
+"d": "Le Marais sokakları ve kafeler."
+},
+{
+"s": "Akşam",
+"p": 0,
+"d": "Seine kıyısında yürüyüş, gece ışıl ışıl Eyfel Kulesi."
+}
+],
+"tip": "Müzelerin çoğu haftada bir gün kapalı; gününü planlamadan önce kapalı günleri kontrol et.",
+"cc": "FR"
+},
+{
+"id": "barselona",
+"name": "Barselona",
+"country": "İspanya",
+"cont": "Avrupa",
+"lat": 41.3874,
+"lng": 2.1686,
+"tz": "Europe/Madrid",
+"tag": "Gaudí'nin rüya gibi binaları, Akdeniz ve gece yarısı akşam yemekleri.",
+"season": "Mayıs–Haziran, Eylül–Ekim",
+"lang": "Katalanca, İspanyolca",
+"cur": "Avro",
+"days": "3 gün",
+"sig": {
+"tarih": "1882",
+"lezzet": "Pa amb tomàquet",
+"gezi": "Sagrada Família"
+},
+"history": [
+{
+"y": "MÖ 1. yy",
+"t": "Roma kolonisi Barcino",
+"d": "Romalılar bugünkü Gotik Mahalle'nin bulunduğu yerde surlu bir kasaba kurar."
+},
+{
+"y": "1298",
+"t": "Katedral yükseliyor",
+"d": "Barselona Katedrali'nin gotik yapısının inşaatı başlar."
+},
+{
+"y": "1882",
+"t": "Sagrada Família",
+"d": "Bazilikanın temeli atılır; ertesi yıl Gaudí projeyi devralır ve hâlâ tamamlanmamıştır."
+},
+{
+"y": "1888",
+"t": "Dünya Fuarı",
+"d": "Şehir modernleşir, Eixample'ın ızgara planlı mahalleleri dolmaya başlar."
+},
+{
+"y": "1992",
+"t": "Olimpiyat Oyunları",
+"d": "Olimpiyatlarla sahil yenilenir ve Barselona dünya turizminin gözdesi olur."
+}
+],
+"foods": [
+{
+"n": "Pa amb tomàquet",
+"k": "Kahvaltı",
+"d": "Kızarmış ekmeğe sürülen olgun domates, zeytinyağı ve tuz.",
+"w": "Her tapas barı"
+},
+{
+"n": "Patatas bravas",
+"k": "Tapas",
+"d": "Kızarmış patates, acı brava sosu ve sarımsaklı alioli.",
+"w": "Barceloneta"
+},
+{
+"n": "Deniz ürünlü pilav",
+"k": "Ana yemek",
+"d": "Valensiya kökenli paella'nın sahil yorumu; mürekkepli arròs negre'yi de dene.",
+"w": "Sahil restoranları"
+},
+{
+"n": "Crema catalana",
+"k": "Tatlı",
+"d": "Üstü şekerle karamelize edilen limon ve tarçın aromalı muhallebi.",
+"w": "Gotik Mahalle"
+}
+],
+"places": [
+{
+"n": "Sagrada Família",
+"k": "Tarih",
+"lat": 41.4036,
+"lng": 2.1744,
+"d": "Gaudí'nin 140 yılı aşkın süredir yapımı süren başyapıtı.",
+"t": "1,5 saat"
+},
+{
+"n": "Park Güell",
+"k": "Manzara",
+"lat": 41.4145,
+"lng": 2.1527,
+"d": "Mozaik banklar ve şehre bakan masalsı bir park.",
+"t": "1,5 saat"
+},
+{
+"n": "Casa Batlló",
+"k": "Müze",
+"lat": 41.3916,
+"lng": 2.1649,
+"d": "Ejderha sırtını andıran çatısıyla Gaudí evi.",
+"t": "1 saat"
+},
+{
+"n": "La Boqueria",
+"k": "Çarşı",
+"lat": 41.3817,
+"lng": 2.1716,
+"d": "La Rambla üzerindeki renkli gıda pazarı.",
+"t": "45 dk"
+},
+{
+"n": "Gotik Mahalle",
+"k": "Mahalle",
+"lat": 41.3833,
+"lng": 2.1767,
+"d": "Roma surlarının izleri, dar sokaklar ve katedral.",
+"t": "2 saat"
+},
+{
+"n": "Barceloneta",
+"k": "Doğa",
+"lat": 41.3784,
+"lng": 2.1925,
+"d": "Şehrin içindeki kumsal ve deniz ürünü lokantaları.",
+"t": "Öğleden sonra"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Sabah ışığında Sagrada Família'nın vitrayları."
+},
+{
+"s": "Öğleden önce",
+"p": 2,
+"d": "Passeig de Gràcia'da Casa Batlló."
+},
+{
+"s": "Öğle",
+"p": 3,
+"d": "La Boqueria'da atıştırmalık, ardından Gotik Mahalle."
+},
+{
+"s": "Akşamüstü",
+"p": 5,
+"d": "Barceloneta'da deniz ve geç saatte deniz ürünlü pilav."
+}
+],
+"tip": "İspanya'da akşam yemeği geç yenir; restoranlar 21:00'den önce çoğu zaman boş olur.",
+"cc": "ES"
+},
+{
+"id": "atina",
+"name": "Atina",
+"country": "Yunanistan",
+"cont": "Avrupa",
+"lat": 37.9838,
+"lng": 23.7275,
+"tz": "Europe/Athens",
+"tag": "Demokrasinin ve felsefenin doğduğu, Akropolis'in gölgesindeki şehir.",
+"season": "Nisan–Haziran, Eylül–Ekim",
+"lang": "Yunanca",
+"cur": "Avro",
+"days": "2–3 gün",
+"sig": {
+"tarih": "MÖ 508",
+"lezzet": "Suvlaki",
+"gezi": "Akropolis"
+},
+"history": [
+{
+"y": "MÖ 508",
+"t": "Demokrasinin temeli",
+"d": "Kleisthenes'in reformları yurttaşların yönetime katıldığı bir düzen kurar."
+},
+{
+"y": "MÖ 447",
+"t": "Parthenon yükseliyor",
+"d": "Perikles döneminde Akropolis'teki tapınağın yapımına başlanır."
+},
+{
+"y": "MÖ 387",
+"t": "Platon'un Akademisi",
+"d": "Batı düşüncesini biçimlendiren okul Atina'da kurulur."
+},
+{
+"y": "1834",
+"t": "Modern Yunanistan'ın başkenti",
+"d": "Küçük bir kasabaya dönüşmüş Atina yeniden başkent olur."
+},
+{
+"y": "1896",
+"t": "İlk modern Olimpiyatlar",
+"d": "Oyunlar mermer Panathinaiko Stadı'nda yeniden başlar."
+}
+],
+"foods": [
+{
+"n": "Suvlaki",
+"k": "Sokak lezzeti",
+"d": "Şişte ızgara et, pide, cacık ve domatesle dürüm olarak.",
+"w": "Monastiraki"
+},
+{
+"n": "Musakka",
+"k": "Ana yemek",
+"d": "Patlıcan, kıyma ve beşamel katmanlarıyla fırında.",
+"w": "Plaka tavernaları"
+},
+{
+"n": "Ispanakopita",
+"k": "Hamur işi",
+"d": "Ispanak ve beyaz peynirli yufka böreği.",
+"w": "Fırınlar"
+},
+{
+"n": "Lukumades",
+"k": "Tatlı",
+"d": "Bal şerbeti ve tarçınla servis edilen kızarmış hamur topları.",
+"w": "Tatlıcılar"
+}
+],
+"places": [
+{
+"n": "Akropolis",
+"k": "Tarih",
+"lat": 37.9715,
+"lng": 23.7257,
+"d": "Parthenon ve Erekhtheion'la antik dünyanın en ünlü tepesi.",
+"t": "2 saat"
+},
+{
+"n": "Akropolis Müzesi",
+"k": "Müze",
+"lat": 37.9685,
+"lng": 23.7285,
+"d": "Cam zeminlerin altında antik kent kalıntıları ve özgün heykeller.",
+"t": "2 saat"
+},
+{
+"n": "Antik Agora",
+"k": "Tarih",
+"lat": 37.9747,
+"lng": 23.7224,
+"d": "Sokrates'in tartıştığı pazar yeri ve Hephaistos Tapınağı.",
+"t": "1,5 saat"
+},
+{
+"n": "Plaka",
+"k": "Mahalle",
+"lat": 37.9725,
+"lng": 23.73,
+"d": "Akropolis'in eteğinde begonvilli sokaklar ve tavernalar.",
+"t": "Akşam"
+},
+{
+"n": "Panathinaiko Stadı",
+"k": "Tarih",
+"lat": 37.9683,
+"lng": 23.7411,
+"d": "Tamamen mermerden yapılmış tarihi stadyum.",
+"t": "45 dk"
+},
+{
+"n": "Likavitos Tepesi",
+"k": "Manzara",
+"lat": 37.9838,
+"lng": 23.743,
+"d": "Şehrin en yüksek noktası; gün batımında Akropolis manzarası.",
+"t": "1,5 saat"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Sıcak bastırmadan, açılış saatinde Akropolis."
+},
+{
+"s": "Öğleden önce",
+"p": 1,
+"d": "Akropolis Müzesi'nde serinle."
+},
+{
+"s": "Öğle",
+"p": 2,
+"d": "Antik Agora ve Monastiraki'de suvlaki."
+},
+{
+"s": "Akşamüstü",
+"p": 5,
+"d": "Likavitos'ta gün batımı, akşam Plaka'da yemek."
+}
+],
+"tip": "Yazın öğle sıcağında açık alan gezme; antik alanları sabah erken ya da akşamüstü ziyaret et.",
+"cc": "GR"
+},
+{
+"id": "kahire",
+"name": "Kahire",
+"country": "Mısır",
+"cont": "Afrika",
+"lat": 30.0444,
+"lng": 31.2357,
+"tz": "Africa/Cairo",
+"tag": "Nil kıyısında piramitlerin, minarelerin ve bin yıllık çarşıların şehri.",
+"season": "Ekim–Nisan",
+"lang": "Arapça",
+"cur": "Mısır lirası",
+"days": "3 gün",
+"sig": {
+"tarih": "MÖ ~2560",
+"lezzet": "Koşari",
+"gezi": "Giza Piramitleri"
+},
+"history": [
+{
+"y": "MÖ ~2560",
+"t": "Büyük Piramit",
+"d": "Firavun Keops için yapılan piramit, antik dünyanın yedi harikasından ayakta kalan tek yapıdır."
+},
+{
+"y": "969",
+"t": "Fatımiler El-Kahire'yi kuruyor",
+"d": "Yeni başkentin adı \"muzaffer\" anlamına gelen El-Kahire olur."
+},
+{
+"y": "970",
+"t": "El-Ezher Camii",
+"d": "Kısa sürede dünyanın en eski eğitim kurumlarından birine dönüşen cami inşa edilir."
+},
+{
+"y": "1176",
+"t": "Selahaddin Kalesi",
+"d": "Selahaddin Eyyubi şehri koruyan kalenin yapımını başlatır."
+},
+{
+"y": "1517",
+"t": "Osmanlı dönemi",
+"d": "Yavuz Sultan Selim Memlükleri yener; Mısır Osmanlı eyaleti olur."
+}
+],
+"foods": [
+{
+"n": "Koşari",
+"k": "Sokak lezzeti",
+"d": "Pirinç, mercimek, makarna, nohut, domates sosu ve kızarmış soğan; Mısır'ın ulusal yemeği.",
+"w": "Merkez lokantaları"
+},
+{
+"n": "Ful medames",
+"k": "Kahvaltı",
+"d": "Ağır ateşte pişen bakla ezmesi, zeytinyağı ve kimyonla.",
+"w": "Sabah tezgâhları"
+},
+{
+"n": "Tamiya",
+"k": "Sokak lezzeti",
+"d": "Nohut yerine bakla ile yapılan, içi yemyeşil Mısır falafeli.",
+"w": "Her köşe"
+},
+{
+"n": "Om Ali",
+"k": "Tatlı",
+"d": "Süt, kuru yemiş ve hamurla fırında pişen sıcak tatlı.",
+"w": "Tatlıcılar"
+}
+],
+"places": [
+{
+"n": "Giza Piramitleri",
+"k": "Tarih",
+"lat": 29.9792,
+"lng": 31.1342,
+"d": "Keops, Kefren ve Mikerinos piramitleri ile Sfenks.",
+"t": "Yarım gün"
+},
+{
+"n": "Büyük Mısır Müzesi",
+"k": "Müze",
+"lat": 29.9946,
+"lng": 31.1196,
+"d": "Piramitlerin yanında, Tutankamon koleksiyonuna ev sahipliği yapan dev müze.",
+"t": "3–4 saat"
+},
+{
+"n": "Han el-Halili",
+"k": "Çarşı",
+"lat": 30.0477,
+"lng": 31.2622,
+"d": "14. yüzyıldan beri süren baharat, bakır ve fener çarşısı.",
+"t": "2 saat"
+},
+{
+"n": "El-Ezher Camii",
+"k": "Tarih",
+"lat": 30.0457,
+"lng": 31.2627,
+"d": "Fatımi döneminden kalma cami ve medrese.",
+"t": "45 dk"
+},
+{
+"n": "Selahaddin Kalesi",
+"k": "Manzara",
+"lat": 30.0287,
+"lng": 31.2599,
+"d": "Mehmed Ali Paşa Camii ve şehrin panoraması.",
+"t": "1,5 saat"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Sıcak artmadan Giza Piramitleri ve Sfenks."
+},
+{
+"s": "Öğle",
+"p": 1,
+"d": "Büyük Mısır Müzesi'nde Tutankamon'un hazineleri."
+},
+{
+"s": "Akşamüstü",
+"p": 2,
+"d": "İslami Kahire'de El-Ezher ve Han el-Halili."
+},
+{
+"s": "Akşam",
+"p": null,
+"d": "Çarşıdaki tarihi bir kahvede nane çayı, ardından koşari."
+}
+],
+"tip": "Yaz ayları çok sıcak; ekim ile nisan arası gezmek için en rahat dönem.",
+"cc": "EG"
+},
+{
+"id": "marakes",
+"name": "Marakeş",
+"country": "Fas",
+"cont": "Afrika",
+"lat": 31.6295,
+"lng": -7.9811,
+"tz": "Africa/Casablanca",
+"tag": "Kırmızı surlar, labirent çarşılar ve hiç uyumayan bir meydan.",
+"season": "Mart–Mayıs, Ekim–Kasım",
+"lang": "Arapça, Berberice, Fransızca",
+"cur": "Fas dirhemi",
+"days": "2–3 gün",
+"sig": {
+"tarih": "1070",
+"lezzet": "Tajin",
+"gezi": "Cemaa el-Fna"
+},
+"history": [
+{
+"y": "1070",
+"t": "Murabıtlar kuruyor",
+"d": "Şehir, Kuzey Afrika ve Endülüs'e yayılan bir hanedanın başkenti olarak kurulur."
+},
+{
+"y": "12. yy",
+"t": "Kutubiye Camii",
+"d": "Muvahhidler döneminde yükselen minare, şehrin simgesi olur."
+},
+{
+"y": "1578",
+"t": "El Badi Sarayı",
+"d": "Sadi hanedanı döneminde görkemli saray inşa edilmeye başlanır."
+},
+{
+"y": "1985",
+"t": "UNESCO Dünya Mirası",
+"d": "Marakeş Medinesi listeye alınır."
+}
+],
+"foods": [
+{
+"n": "Tajin",
+"k": "Ana yemek",
+"d": "Konik toprak kapta ağır ağır pişen et, sebze, kuru meyve ve baharat.",
+"w": "Medine lokantaları"
+},
+{
+"n": "Tanjia",
+"k": "Ana yemek",
+"d": "Marakeş'e özgü; testide hamam ateşinin küllerinde saatlerce pişen et.",
+"w": "Meydan çevresi"
+},
+{
+"n": "Kuskus",
+"k": "Ana yemek",
+"d": "Geleneksel olarak cuma günleri yapılan buharda pişmiş irmik ve sebze.",
+"w": "Aile lokantaları"
+},
+{
+"n": "Naneli çay",
+"k": "İçecek",
+"d": "Yüksekten dökülen, şekerli yeşil çay ve taze nane.",
+"w": "Her yerde"
+}
+],
+"places": [
+{
+"n": "Cemaa el-Fna",
+"k": "Meydan",
+"lat": 31.6258,
+"lng": -7.9891,
+"d": "Gün boyu yılan oynatıcıları, akşam yüzlerce yemek tezgâhı.",
+"t": "Akşam"
+},
+{
+"n": "Kutubiye Camii",
+"k": "Tarih",
+"lat": 31.6237,
+"lng": -7.9935,
+"d": "Şehrin her yerinden görülen 12. yüzyıl minaresi.",
+"t": "30 dk"
+},
+{
+"n": "Majorelle Bahçesi",
+"k": "Doğa",
+"lat": 31.6417,
+"lng": -8.0033,
+"d": "Kobalt mavisi köşk ve kaktüs bahçeleri.",
+"t": "1 saat"
+},
+{
+"n": "Bahia Sarayı",
+"k": "Tarih",
+"lat": 31.6216,
+"lng": -7.9831,
+"d": "Çini, ahşap oyma ve avlularla 19. yüzyıl sarayı.",
+"t": "1 saat"
+},
+{
+"n": "Ben Yusuf Medresesi",
+"k": "Tarih",
+"lat": 31.632,
+"lng": -7.986,
+"d": "Kuzey Afrika'nın en büyük medreselerinden biri.",
+"t": "45 dk"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 2,
+"d": "Kalabalıktan önce Majorelle Bahçesi."
+},
+{
+"s": "Öğleden önce",
+"p": 4,
+"d": "Ben Yusuf Medresesi ve çarşılarda kaybol."
+},
+{
+"s": "Öğleden sonra",
+"p": 3,
+"d": "Bahia Sarayı'nın gölgeli avluları."
+},
+{
+"s": "Akşam",
+"p": 0,
+"d": "Cemaa el-Fna'nın yemek tezgâhlarında tanjia."
+}
+],
+"tip": "Çarşılarda pazarlık beklenir; ilk teklif genellikle gerçek fiyatın epey üstündedir.",
+"cc": "MA"
+},
+{
+"id": "kyoto",
+"name": "Kyoto",
+"country": "Japonya",
+"cont": "Asya",
+"lat": 35.0116,
+"lng": 135.7681,
+"tz": "Asia/Tokyo",
+"tag": "Bin yıl imparatorluk başkentliği yapmış tapınaklar ve bahçeler şehri.",
+"season": "Mart–Mayıs, Ekim–Kasım",
+"lang": "Japonca",
+"cur": "Japon yeni",
+"days": "3 gün",
+"sig": {
+"tarih": "794",
+"lezzet": "Kaiseki",
+"gezi": "Fushimi Inari"
+},
+"history": [
+{
+"y": "794",
+"t": "Heian-kyō kuruluyor",
+"d": "İmparatorluk başkenti buraya taşınır; şehir bin yılı aşkın süre başkent kalır."
+},
+{
+"y": "1397",
+"t": "Altın Köşk",
+"d": "Kinkaku-ji, şogun Ashikaga Yoshimitsu'nun köşkü olarak yapılır."
+},
+{
+"y": "1603",
+"t": "Nijō Kalesi",
+"d": "Tokugawa Ieyasu kaleyi Kyoto'daki konutu olarak yaptırır."
+},
+{
+"y": "1869",
+"t": "Başkent Tokyo'ya",
+"d": "İmparator Tokyo'ya taşınır; Kyoto kültür başkenti olarak kalır."
+},
+{
+"y": "1994",
+"t": "UNESCO Dünya Mirası",
+"d": "Antik Kyoto'nun tarihi anıtları listeye alınır."
+}
+],
+"foods": [
+{
+"n": "Kaiseki",
+"k": "Ana yemek",
+"d": "Mevsimin ürünleriyle hazırlanan, küçük tabaklardan oluşan çok aşamalı Japon sofrası.",
+"w": "Gion"
+},
+{
+"n": "Yudofu",
+"k": "Ana yemek",
+"d": "Kyoto'nun yumuşak suyuyla yapılan tofu, sıcak su içinde sade servis edilir.",
+"w": "Tapınak çevreleri"
+},
+{
+"n": "Matcha tatlıları",
+"k": "Tatlı",
+"d": "Yakındaki Uji'nin ünlü yeşil çayıyla dondurma, parfe ve mochi.",
+"w": "Gion, Uji"
+},
+{
+"n": "Yatsuhashi",
+"k": "Tatlı",
+"d": "Tarçınlı pirinç hamurundan yapılan üçgen tatlı; klasik hediyelik.",
+"w": "Kiyomizu yokuşu"
+}
+],
+"places": [
+{
+"n": "Fushimi Inari",
+"k": "Tarih",
+"lat": 34.9671,
+"lng": 135.7727,
+"d": "Dağ boyunca uzanan binlerce turuncu torii kapısı.",
+"t": "2–3 saat"
+},
+{
+"n": "Kiyomizu-dera",
+"k": "Tarih",
+"lat": 34.9949,
+"lng": 135.785,
+"d": "Çivisiz ahşap terasından şehre bakan tapınak.",
+"t": "1,5 saat"
+},
+{
+"n": "Gion",
+"k": "Mahalle",
+"lat": 35.0037,
+"lng": 135.7788,
+"d": "Ahşap çayevleri ve taş sokaklarıyla geyşa mahallesi.",
+"t": "Akşam"
+},
+{
+"n": "Nishiki Pazarı",
+"k": "Çarşı",
+"lat": 35.005,
+"lng": 135.765,
+"d": "\"Kyoto'nun mutfağı\" denen dar ve uzun gıda pazarı.",
+"t": "1 saat"
+},
+{
+"n": "Kinkaku-ji",
+"k": "Tarih",
+"lat": 35.0394,
+"lng": 135.7292,
+"d": "Gölete yansıyan altın kaplı köşk.",
+"t": "1 saat"
+},
+{
+"n": "Arashiyama Bambu Ormanı",
+"k": "Doğa",
+"lat": 35.017,
+"lng": 135.6713,
+"d": "Rüzgârda hışırdayan yüksek bambulardan bir koridor.",
+"t": "2 saat"
+}
+],
+"route": [
+{
+"s": "Gün doğumu",
+"p": 0,
+"d": "Kalabalık gelmeden Fushimi Inari'nin torii yolları."
+},
+{
+"s": "Öğleden önce",
+"p": 1,
+"d": "Kiyomizu-dera ve tarihi Sannenzaka yokuşu."
+},
+{
+"s": "Öğle",
+"p": 3,
+"d": "Nishiki Pazarı'nda atıştırmalıklar."
+},
+{
+"s": "Akşam",
+"p": 2,
+"d": "Gion sokakları ve kaiseki akşam yemeği."
+}
+],
+"tip": "Kiraz çiçeği ve sonbahar yaprakları dönemlerinde konaklama aylar önceden doluyor.",
+"cc": "JP"
+},
+{
+"id": "bangkok",
+"name": "Bangkok",
+"country": "Tayland",
+"cont": "Asya",
+"lat": 13.7563,
+"lng": 100.5018,
+"tz": "Asia/Bangkok",
+"tag": "Altın tapınaklar, nehir tekneleri ve dünyanın en iyi sokak yemekleri.",
+"season": "Kasım–Şubat",
+"lang": "Tayca",
+"cur": "Tay bahtı",
+"days": "3 gün",
+"sig": {
+"tarih": "1782",
+"lezzet": "Pad thai",
+"gezi": "Wat Arun"
+},
+"history": [
+{
+"y": "1767",
+"t": "Ayutthaya düşüyor",
+"d": "Eski başkentin yıkılmasının ardından merkez Chao Phraya nehrinin kıyısına kayar."
+},
+{
+"y": "1782",
+"t": "Rattanakosin dönemi",
+"d": "Kral I. Rama başkenti nehrin doğu yakasına taşır ve Büyük Saray'ın yapımı başlar."
+},
+{
+"y": "1932",
+"t": "Anayasal monarşi",
+"d": "Mutlak monarşi sona erer, ülke anayasal düzene geçer."
+},
+{
+"y": "1999",
+"t": "Skytrain",
+"d": "Raylı sistem açılır; şehir yukarıdan hızla dolaşılabilir olur."
+}
+],
+"foods": [
+{
+"n": "Pad thai",
+"k": "Sokak lezzeti",
+"d": "Demirhindi soslu wokta pirinç eriştesi, karides, yer fıstığı ve limon.",
+"w": "Sokak tezgâhları"
+},
+{
+"n": "Tom yum",
+"k": "Çorba",
+"d": "Limon otu, galangal ve biberle ekşi-acı karides çorbası.",
+"w": "Nehir kıyısı lokantaları"
+},
+{
+"n": "Som tam",
+"k": "Salata",
+"d": "Havanda dövülmüş yeşil papaya salatası; acı, ekşi, tatlı ve tuzlu bir arada.",
+"w": "Sokak tezgâhları"
+},
+{
+"n": "Mangolu yapışkan pilav",
+"k": "Tatlı",
+"d": "Hindistan cevizi sütlü yapışkan pirinç ve olgun mango.",
+"w": "Yaowarat"
+}
+],
+"places": [
+{
+"n": "Büyük Saray",
+"k": "Tarih",
+"lat": 13.75,
+"lng": 100.4913,
+"d": "Zümrüt Buda'nın bulunduğu Wat Phra Kaew ile birlikte saray kompleksi.",
+"t": "2 saat"
+},
+{
+"n": "Wat Pho",
+"k": "Tarih",
+"lat": 13.7465,
+"lng": 100.4927,
+"d": "46 metrelik uzanmış Buda heykeli ve geleneksel Tay masajı okulu.",
+"t": "1 saat"
+},
+{
+"n": "Wat Arun",
+"k": "Manzara",
+"lat": 13.7437,
+"lng": 100.4889,
+"d": "Nehrin karşı yakasında porselen süslemeli Şafak Tapınağı.",
+"t": "1 saat"
+},
+{
+"n": "Yaowarat",
+"k": "Mahalle",
+"lat": 13.7406,
+"lng": 100.51,
+"d": "Çin Mahallesi; geceleri neon ışıkları altında sokak yemeği cenneti.",
+"t": "Akşam"
+},
+{
+"n": "Chatuchak Pazarı",
+"k": "Çarşı",
+"lat": 13.7999,
+"lng": 100.55,
+"d": "Binlerce tezgâhıyla hafta sonu pazarı.",
+"t": "Yarım gün"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Uygun kıyafetle açılışta Büyük Saray."
+},
+{
+"s": "Öğleden önce",
+"p": 1,
+"d": "Wat Pho ve uzanmış Buda."
+},
+{
+"s": "Öğleden sonra",
+"p": 2,
+"d": "Küçük tekneyle karşıya geç, Wat Arun."
+},
+{
+"s": "Akşam",
+"p": 3,
+"d": "Yaowarat'ta sokak yemekleri turu."
+}
+],
+"tip": "Tapınaklarda omuzlar ve dizler kapalı olmalı; yanında ince bir şal taşı.",
+"cc": "TH"
+},
+{
+"id": "newyork",
+"name": "New York",
+"country": "ABD",
+"cont": "Kuzey Amerika",
+"lat": 40.7128,
+"lng": -74.006,
+"tz": "America/New_York",
+"tag": "Gökdelenler, göçmen hikâyeleri ve gece gündüz açık bir şehir.",
+"season": "Nisan–Haziran, Eylül–Kasım",
+"lang": "İngilizce",
+"cur": "ABD doları",
+"days": "4–5 gün",
+"sig": {
+"tarih": "1624",
+"lezzet": "Dilim pizza",
+"gezi": "Central Park"
+},
+"history": [
+{
+"y": "1624",
+"t": "Yeni Amsterdam",
+"d": "Hollandalı tüccarlar Manhattan'ın güney ucunda bir ticaret yerleşimi kurar."
+},
+{
+"y": "1664",
+"t": "New York adı",
+"d": "İngilizler yerleşimi ele geçirir ve Yorklu Dük'ün adını verir."
+},
+{
+"y": "1886",
+"t": "Özgürlük Heykeli",
+"d": "Fransa'nın hediyesi heykel liman girişine dikilir."
+},
+{
+"y": "1892",
+"t": "Ellis Adası",
+"d": "Göçmen kabul merkezi açılır; milyonlarca kişi Amerika'ya buradan girer."
+},
+{
+"y": "1931",
+"t": "Empire State Binası",
+"d": "Yaklaşık kırk yıl dünyanın en yüksek binası olarak kalır."
+}
+],
+"foods": [
+{
+"n": "Dilim pizza",
+"k": "Sokak lezzeti",
+"d": "İnce, geniş ve katlanarak yenen New York usulü pizza.",
+"w": "Her mahallede"
+},
+{
+"n": "Bagel",
+"k": "Kahvaltı",
+"d": "Haşlanıp fırınlanan halka ekmek; krem peynir ve somonla klasik.",
+"w": "Lower East Side"
+},
+{
+"n": "Pastırmalı sandviç",
+"k": "Ana yemek",
+"d": "Çavdar ekmeği arasında kat kat ince dilimlenmiş pastrami.",
+"w": "Delikatesenler"
+},
+{
+"n": "Cheesecake",
+"k": "Tatlı",
+"d": "Krem peynirle yapılan yoğun ve kremamsı New York usulü pasta.",
+"w": "Brooklyn"
+}
+],
+"places": [
+{
+"n": "Central Park",
+"k": "Doğa",
+"lat": 40.7829,
+"lng": -73.9654,
+"d": "Manhattan'ın ortasında 340 hektarlık yeşil alan.",
+"t": "2 saat"
+},
+{
+"n": "Met Müzesi",
+"k": "Müze",
+"lat": 40.7794,
+"lng": -73.9632,
+"d": "Mısır tapınağından Van Gogh'a uzanan dev koleksiyon.",
+"t": "3 saat"
+},
+{
+"n": "Times Square",
+"k": "Meydan",
+"lat": 40.758,
+"lng": -73.9855,
+"d": "Dev ekranlar ve Broadway tiyatroları.",
+"t": "Akşam"
+},
+{
+"n": "High Line",
+"k": "Manzara",
+"lat": 40.748,
+"lng": -74.0048,
+"d": "Eski yük treni hattından dönüştürülmüş havada bir park.",
+"t": "1 saat"
+},
+{
+"n": "Brooklyn Köprüsü",
+"k": "Manzara",
+"lat": 40.7061,
+"lng": -73.9969,
+"d": "Yürüyerek geçildiğinde Manhattan siluetinin en güzel görüntüsü.",
+"t": "1 saat"
+},
+{
+"n": "Özgürlük Heykeli",
+"k": "Tarih",
+"lat": 40.6892,
+"lng": -74.0445,
+"d": "Feribotla Liberty ve Ellis adalarına gidilir.",
+"t": "Yarım gün"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Central Park'ta yürüyüş, ardından Met Müzesi."
+},
+{
+"s": "Öğle",
+"p": 3,
+"d": "Chelsea Market'te yemek ve High Line."
+},
+{
+"s": "Akşamüstü",
+"p": 4,
+"d": "Brooklyn Köprüsü'nde gün batımı, DUMBO'da dilim pizza."
+},
+{
+"s": "Akşam",
+"p": 2,
+"d": "Times Square ışıkları ya da bir Broadway gösterisi."
+}
+],
+"tip": "Metro 7/24 çalışıyor; temassız kartla turnikelerden doğrudan geçebilirsin.",
+"cc": "US"
+},
+{
+"id": "meksiko",
+"name": "Meksiko",
+"country": "Meksika",
+"cont": "Kuzey Amerika",
+"lat": 19.4326,
+"lng": -99.1332,
+"tz": "America/Mexico_City",
+"tag": "Bir Aztek gölünün üzerine kurulmuş renkli, devasa bir başkent.",
+"season": "Ekim–Nisan",
+"lang": "İspanyolca",
+"cur": "Meksika pesosu",
+"days": "3–4 gün",
+"sig": {
+"tarih": "1325",
+"lezzet": "Tacos al pastor",
+"gezi": "Teotihuacan"
+},
+"history": [
+{
+"y": "1–6. yy",
+"t": "Teotihuacan",
+"d": "Yakındaki antik kent Amerika kıtasının en büyük şehirlerinden biri olur."
+},
+{
+"y": "1325",
+"t": "Tenochtitlan kuruluyor",
+"d": "Aztekler başkentlerini Texcoco Gölü'ndeki bir adaya kurar."
+},
+{
+"y": "1521",
+"t": "İspanyol fethi",
+"d": "Tenochtitlan düşer; yıkıntılarının üzerine yeni şehir yükselir."
+},
+{
+"y": "1821",
+"t": "Bağımsızlık",
+"d": "Meksika, İspanya'dan bağımsızlığını kazanır."
+},
+{
+"y": "1968",
+"t": "Olimpiyat Oyunları",
+"d": "Meksiko, Latin Amerika'da Olimpiyatlara ev sahipliği yapan ilk şehir olur."
+}
+],
+"foods": [
+{
+"n": "Tacos al pastor",
+"k": "Sokak lezzeti",
+"d": "Dikey şişte pişen marine domuz eti, ananas ve kişniş; Lübnanlı göçmenlerin şavurmasından ilhamla doğmuş.",
+"w": "Taquerialar"
+},
+{
+"n": "Mole",
+"k": "Ana yemek",
+"d": "Kuru biber, baharat ve çikolatayla yapılan koyu ve katmanlı sos.",
+"w": "Geleneksel lokantalar"
+},
+{
+"n": "Tamales",
+"k": "Kahvaltı",
+"d": "Mısır yaprağında buharda pişen mısır hamuru.",
+"w": "Sabah tezgâhları"
+},
+{
+"n": "Churros",
+"k": "Tatlı",
+"d": "Şekere bulanmış kızarmış hamur, yoğun sıcak çikolatayla.",
+"w": "Merkez pastaneleri"
+}
+],
+"places": [
+{
+"n": "Zócalo",
+"k": "Meydan",
+"lat": 19.4326,
+"lng": -99.1332,
+"d": "Katedral ve Ulusal Saray'la çevrili dev meydan.",
+"t": "1 saat"
+},
+{
+"n": "Templo Mayor",
+"k": "Tarih",
+"lat": 19.4346,
+"lng": -99.1316,
+"d": "Aztek başkentinin ana tapınağının kalıntıları.",
+"t": "1,5 saat"
+},
+{
+"n": "Ulusal Antropoloji Müzesi",
+"k": "Müze",
+"lat": 19.426,
+"lng": -99.1863,
+"d": "Aztek Güneş Taşı'nın da bulunduğu dünyaca ünlü müze.",
+"t": "3 saat"
+},
+{
+"n": "Coyoacán",
+"k": "Mahalle",
+"lat": 19.3552,
+"lng": -99.1625,
+"d": "Frida Kahlo'nun Mavi Ev'i ve renkli meydanlar.",
+"t": "Yarım gün"
+},
+{
+"n": "Xochimilco",
+"k": "Doğa",
+"lat": 19.2572,
+"lng": -99.1036,
+"d": "Renkli trajinera tekneleriyle Aztek kanalları.",
+"t": "3 saat"
+},
+{
+"n": "Teotihuacan",
+"k": "Tarih",
+"lat": 19.6925,
+"lng": -98.8438,
+"d": "Güneş ve Ay piramitleriyle antik kent.",
+"t": "Yarım gün"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 0,
+"d": "Zócalo ve Templo Mayor'un kalıntıları."
+},
+{
+"s": "Öğle",
+"p": null,
+"d": "Merkezde tacos al pastor."
+},
+{
+"s": "Öğleden sonra",
+"p": 2,
+"d": "Chapultepec'te Antropoloji Müzesi."
+},
+{
+"s": "Akşam",
+"p": null,
+"d": "Roma ve Condesa mahallelerinde akşam yemeği."
+}
+],
+"tip": "Şehir 2.200 metre yükseklikte; ilk gün yavaş tempo ve bol su iyi gelir.",
+"cc": "MX"
+},
+{
+"id": "cusco",
+"name": "Cusco",
+"country": "Peru",
+"cont": "Güney Amerika",
+"lat": -13.532,
+"lng": -71.9675,
+"tz": "America/Lima",
+"tag": "İnka İmparatorluğu'nun başkenti ve Machu Picchu'nun kapısı.",
+"season": "Mayıs–Eylül",
+"lang": "İspanyolca, Keçuva",
+"cur": "Peru solü",
+"days": "3–4 gün",
+"sig": {
+"tarih": "İnka başkenti",
+"lezzet": "Lomo saltado",
+"gezi": "Machu Picchu"
+},
+"history": [
+{
+"y": "13. yy",
+"t": "İnka krallığının merkezi",
+"d": "Cusco vadisinde küçük bir krallık olarak başlayan İnka devleti büyümeye başlar."
+},
+{
+"y": "15. yy",
+"t": "İmparatorluğun başkenti",
+"d": "Pachacuti döneminde Cusco, And Dağları boyunca uzanan imparatorluğun kalbi olur."
+},
+{
+"y": "~1450",
+"t": "Machu Picchu",
+"d": "Dağ sırtındaki kraliyet yerleşimi inşa edilir."
+},
+{
+"y": "1533",
+"t": "İspanyol fethi",
+"d": "İspanyollar şehri ele geçirir, İnka duvarlarının üzerine kiliseler yapar."
+},
+{
+"y": "1983",
+"t": "UNESCO Dünya Mirası",
+"d": "Cusco şehri ve Machu Picchu aynı yıl listeye alınır."
+}
+],
+"foods": [
+{
+"n": "Lomo saltado",
+"k": "Ana yemek",
+"d": "Wokta sotelenmiş et, soğan, domates ve patates kızartması; Peru-Çin mutfağı karışımı.",
+"w": "Merkez lokantaları"
+},
+{
+"n": "Kuy",
+"k": "Ana yemek",
+"d": "And Dağları'nın geleneksel bayram yemeği olan fırında kobay.",
+"w": "Geleneksel picanterialar"
+},
+{
+"n": "Kinoa çorbası",
+"k": "Çorba",
+"d": "Yüksek rakımda içi ısıtan sebzeli kinoa çorbası.",
+"w": "San Pedro Pazarı"
+},
+{
+"n": "Chicha morada",
+"k": "İçecek",
+"d": "Mor mısır, ananas ve tarçınla yapılan soğuk içecek.",
+"w": "Her yerde"
+}
+],
+"places": [
+{
+"n": "Plaza de Armas",
+"k": "Meydan",
+"lat": -13.5167,
+"lng": -71.9781,
+"d": "İnka meydanının üzerine kurulmuş katedralli ana meydan.",
+"t": "1 saat"
+},
+{
+"n": "Qorikancha",
+"k": "Tarih",
+"lat": -13.5196,
+"lng": -71.9752,
+"d": "Bir zamanlar altınla kaplı İnka güneş tapınağı, üzerinde Santo Domingo manastırı.",
+"t": "1 saat"
+},
+{
+"n": "Sacsayhuamán",
+"k": "Tarih",
+"lat": -13.5094,
+"lng": -71.9817,
+"d": "Harçsız oturtulmuş dev taş bloklarıyla İnka kalesi.",
+"t": "1,5 saat"
+},
+{
+"n": "San Pedro Pazarı",
+"k": "Çarşı",
+"lat": -13.5225,
+"lng": -71.9845,
+"d": "Meyve suları, çorbalar ve yüzlerce patates çeşidi.",
+"t": "1 saat"
+},
+{
+"n": "Pisac",
+"k": "Tarih",
+"lat": -13.422,
+"lng": -71.849,
+"d": "Kutsal Vadi'de teraslar ve renkli el sanatları pazarı.",
+"t": "Yarım gün"
+},
+{
+"n": "Machu Picchu",
+"k": "Tarih",
+"lat": -13.1631,
+"lng": -72.545,
+"d": "Bulutların arasındaki İnka kenti; trenle ya da İnka Yolu'yla ulaşılır.",
+"t": "Tam gün"
+}
+],
+"route": [
+{
+"s": "Sabah",
+"p": 3,
+"d": "San Pedro Pazarı'nda taze meyve suyu ve kinoa çorbası."
+},
+{
+"s": "Öğleden önce",
+"p": 1,
+"d": "Qorikancha'da İnka taş işçiliği."
+},
+{
+"s": "Öğle",
+"p": 0,
+"d": "Plaza de Armas ve katedral; öğle yemeğinde lomo saltado."
+},
+{
+"s": "Akşamüstü",
+"p": 2,
+"d": "Sacsayhuamán'a çıkıp şehrin üzerinde gün batımı."
+}
+],
+"tip": "Rakım 3.400 metre; Machu Picchu'dan önce bir iki gün Cusco'da alışma süresi bırak.",
+"cc": "PE"
+}
+]

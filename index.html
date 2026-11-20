@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>kâşif · dünya haritası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: friendly, calm, precise — a well-made consumer travel app, not a sci-fi dashboard.
+   IDEA: a hand-painted pastel desk globe; each city opens like a card in a travel notebook.
+   PICTURE: the globe itself — pastel countries by continent, every city over 50k as a dot, labels appear as you zoom.
+   COLOUR and TYPE: soft lavender-white ground; continent pastels (lavender, peach, butter, mint, pink, aqua); ink #1e1b2e; Geist only, tight headings.
+   LAYOUT: floating white cards over a full-bleed globe; right-hand city card on desktop, bottom sheet on phones. */
+:root{color-scheme:light dark;
+--bg:light-dark(#f5f3fa,#121119);--surface:light-dark(#ffffff,#1c1a27);--s2:light-dark(#f3f1f9,#262334);--s3:light-dark(#ebe8f4,#302c40);
+--ink:light-dark(#1e1b2e,#f2f0fb);--mut:light-dark(#6e6a86,#a8a3c0);--line:light-dark(#e9e6f2,#2f2b40);
+--shadow:light-dark(0 1px 2px rgba(40,30,90,.05),0 1px 2px rgba(0,0,0,.3)),light-dark(0 14px 44px rgba(40,30,90,.10),0 14px 44px rgba(0,0,0,.45));
+--lav:light-dark(#eeeaff,rgba(155,135,255,.15));--lav-i:light-dark(#5a46c8,#c9bfff);
+--pch:light-dark(#ffeee5,rgba(255,160,120,.14));--pch-i:light-dark(#ad4e1c,#ffc2a3);
+--mnt:light-dark(#e1f5eb,rgba(110,210,160,.14));--mnt-i:light-dark(#1d7651,#a3e6c6);
+--sky:light-dark(#e6efff,rgba(120,170,255,.14));--sky-i:light-dark(#2b5fb3,#accaff);
+--pnk:light-dark(#ffe9f0,rgba(255,140,180,.14));--pnk-i:light-dark(#b0336a,#ffb8d2);
+--btn:light-dark(#1e1b2e,#f2f0fb);--btn-i:light-dark(#ffffff,#1e1b2e);
+--pw:420px}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(55% 45% at 8% 6%,light-dark(#ffe9de,rgba(255,150,110,.08)) 0,transparent 70%),radial-gradient(45% 45% at 96% 96%,light-dark(#ddf4e9,rgba(110,210,160,.07)) 0,transparent 70%),radial-gradient(40% 40% at 92% 8%,light-dark(#ebe5ff,rgba(150,130,255,.09)) 0,transparent 70%),var(--bg);color:var(--ink);font:16px/1.5 Geist,ui-sans-serif,system-ui,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+a{color:inherit}
+:focus-visible{outline:2px solid #8b7cf6;outline-offset:2px;border-radius:12px}
+#globe{position:fixed;inset:0;transition:right .5s cubic-bezier(.2,.8,.2,1),bottom .5s cubic-bezier(.2,.8,.2,1)}
+body.open #globe{right:calc(var(--pw) + 24px)}
+.card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px}
+
+/* top */
+.topL{position:fixed;z-index:8;left:16px;top:16px;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 14px;width:min(430px,calc(100vw - 32px))}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-weight:650;font-size:19px;letter-spacing:-.03em;padding-right:6px;border-right:1px solid var(--line);margin-right:4px;flex:none}
+.brand svg{width:26px;height:26px}
+.search{position:relative;flex:1}
+.search input{width:100%;height:40px;border:0;background:transparent;padding:0 10px 0 30px;font-size:16px;outline:0}
+.search input::placeholder{color:var(--mut)}
+.search>svg{position:absolute;left:6px;top:11px;width:18px;height:18px;stroke:var(--mut)}
+.sugg{position:absolute;top:50px;left:-130px;right:-6px;padding:6px;max-height:min(420px,70vh);overflow:auto}
+.sugg[hidden]{display:none}
+.sugg button{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:14px;min-height:48px;align-items:center}
+.sugg button:hover,.sugg button.on{background:var(--s2)}
+.sugg .ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:700}
+.sugg b{font-weight:600;display:block;line-height:1.2}
+.sugg small{color:var(--mut);font-size:13px}
+.sugg .meta{font-size:12px;color:var(--mut);white-space:nowrap}
+.sugg .empty{padding:14px;color:var(--mut);font-size:14px}
+.topR{position:fixed;z-index:5;right:16px;top:16px;display:flex;gap:8px;align-items:center;transition:right .5s cubic-bezier(.2,.8,.2,1)}
+body.open .topR{right:auto;left:16px;top:78px}
+.seg{display:flex;gap:2px;padding:4px;border-radius:16px}
+.seg button{height:36px;padding:0 13px;border-radius:12px;font-size:14px;font-weight:500;color:var(--mut);white-space:nowrap}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--s3);color:var(--ink)}
+.seg button i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px;background:var(--c)}
+.ibtn{height:46px;min-width:46px;padding:0 14px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:500;white-space:nowrap}
+.ibtn svg{width:18px;height:18px}
+.badge{min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--lav);color:var(--lav-i);font-size:12px;font-weight:700;display:inline-grid;place-items:center}
+
+/* zoom */
+.zoom{position:fixed;z-index:4;right:16px;bottom:16px;display:flex;flex-direction:column;padding:4px;border-radius:16px;transition:right .5s cubic-bezier(.2,.8,.2,1)}
+body.open .zoom{right:calc(var(--pw) + 40px)}
+.zoom button{width:40px;height:40px;border-radius:12px;display:grid;place-items:center}
+.zoom button:hover{background:var(--s2)}
+.zoom svg{width:18px;height:18px}
+
+/* pins */
+.pin{position:relative;width:0;height:0;pointer-events:auto;cursor:pointer}
+.pin .dot{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--c);border:2.5px solid var(--surface);box-shadow:0 2px 6px rgba(40,30,90,.25)}
+.pin .lab{position:absolute;left:11px;top:-14px;display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;background:var(--surface);box-shadow:0 2px 10px rgba(40,30,90,.14);white-space:nowrap;font-size:13px;font-weight:600;transition:opacity .2s}
+.pin .lab small{font-weight:500;color:var(--mut);font-size:12px}
+.pin.sel .dot{left:-8px;top:-8px;width:16px;height:16px;background:#8b7cf6}
+.pin.sel .lab{background:var(--btn);color:var(--btn-i)}
+.pin.sel .lab small{color:inherit;opacity:.7}
+.pin.stamped .dot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px dashed #8b7cf6}
+.gl{position:relative;width:0;height:0;pointer-events:auto;cursor:pointer}
+.gl span{position:absolute;left:6px;top:-9px;white-space:nowrap;font-size:12px;font-weight:500;color:var(--ink);text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 3px var(--bg),0 0 6px var(--bg);transition:opacity .2s}
+.gl.big span{font-size:13px;font-weight:600}
+.gl.sel span{background:var(--btn);color:var(--btn-i);text-shadow:none;padding:4px 9px;border-radius:12px;top:-14px;left:9px}
+.pin.nolab .lab,.gl.nolab>span{opacity:0;pointer-events:none}
+.pin.nolab:hover .lab,.gl.nolab:hover>span{opacity:1}
+.cl{position:relative;width:0;height:0;pointer-events:none}
+.cl span{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font-size:12px;font-weight:600;color:var(--mut);text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 6px var(--bg)}
+body.quiz .pin,body.quiz .gl:not(.qt){display:none}
+.gl.qg span{background:var(--surface);color:var(--ink);text-shadow:none;padding:4px 9px;border-radius:12px;top:-14px;left:9px;box-shadow:0 2px 10px rgba(40,30,90,.14)}
+.where{position:fixed;z-index:4;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;height:46px;padding:0 6px 0 14px;border-radius:16px;font-size:14px;white-space:nowrap;transition:left .5s cubic-bezier(.2,.8,.2,1)}
+.where[hidden]{display:none}
+.where svg{width:16px;height:16px;color:#8b7cf6;flex:none}
+.where b{font-weight:650}
+.where button{height:34px;padding:0 11px;border-radius:11px;background:var(--s2);font-size:13px;font-weight:500}
+.where button:hover{background:var(--s3)}
+body.open .where{left:calc((100vw - var(--pw) - 24px) / 2)}
+.quizc{position:fixed;z-index:7;bottom:16px;left:50%;transform:translateX(-50%);width:min(380px,calc(100vw - 20px));padding:18px 20px;border-radius:24px}
+.quizc[hidden]{display:none}
+.qh{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);font-weight:500}
+.qa{margin:10px 0 0;font-size:14px;color:var(--mut)}
+.quizc h3{margin:2px 0 0;font-size:32px;line-height:1.1;font-weight:650;letter-spacing:-.04em}
+.qs{margin:2px 0 0;font-size:15px;color:var(--mut)}
+.qb{display:flex;gap:8px;margin-top:14px}.qb .btn{flex:1}
+.qr{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:4px;font-size:14px}
+.qr li{display:grid;grid-template-columns:minmax(0,1fr) auto 64px;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.qr li span:nth-child(2){color:var(--mut)}.qr b{text-align:right;color:var(--lav-i)}
+.quizc .close{top:14px;right:14px}
+body.quiz .intro,body.quiz .trip{display:none}
+.daily{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 10px;width:100%;text-align:left;padding:12px 14px;border-radius:16px;background:var(--sky);margin-bottom:12px}
+.daily small{font-size:12px;font-weight:600;color:var(--sky-i)}
+.daily b{grid-column:1;font-size:16px;font-weight:650;letter-spacing:-.01em}
+.daily span{grid-column:1;font-size:13px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.daily svg{grid-column:2;grid-row:1/4;width:20px;height:20px;color:var(--sky-i)}
+.cl span{pointer-events:auto;cursor:pointer}.cl.pv span{pointer-events:none;font-style:italic;font-weight:500;font-size:11.5px;opacity:.9}.cl span:hover{color:var(--ink)}
+.sh{margin:22px 0 10px;font-size:15px;font-weight:650;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:baseline}
+.sh small{font-size:12.5px;font-weight:500;color:var(--mut)}
+.glist{display:grid;gap:8px}
+.gcard{display:grid;gap:2px;text-align:left;padding:13px 14px;border-radius:16px;background:var(--s2)}
+.gcard:hover{background:var(--s3)}
+.gcard b{font-size:15.5px;font-weight:650}
+.gcard span{font-size:13.5px;color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gcard small{font-size:12px;font-weight:600;color:var(--lav-i)}
+.empty2{margin:0;padding:14px;border-radius:16px;background:var(--s2);font-size:14px;color:var(--mut)}
+.clist{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.clist button{display:grid;grid-template-columns:28px minmax(0,1fr) auto auto;gap:10px;align-items:center;width:100%;text-align:left;min-height:44px;padding:6px 10px;border-radius:12px}
+.clist button:hover{background:var(--s2)}
+.clist .rk{font-size:12px;font-weight:600;color:var(--mut);text-align:right}
+.clist .nm{font-weight:550;font-size:15px}
+.clist .pp{font-size:13px;color:var(--mut);white-space:nowrap}
+.bd{font-size:11.5px;font-weight:650;padding:3px 8px;border-radius:8px;background:var(--lav);color:var(--lav-i)}
+.sfil{display:flex;gap:4px;flex-wrap:wrap;padding:4px 4px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.sugg .sfil button{display:inline-flex;width:auto;grid-template-columns:none;text-align:center;height:30px;padding:0 10px;border-radius:10px;font-size:12.5px;font-weight:500;color:var(--mut);background:var(--s2);display:inline-flex;align-items:center;gap:4px;min-height:0}
+.sugg .sfil button[aria-pressed=true]{background:var(--btn);color:var(--btn-i)}
+.sugg .sfil .cc{background:var(--sky);color:var(--sky-i);font-weight:600}
+/* plan */
+.pdates{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:16px}
+.pdates label{display:block;padding:9px 12px;border-radius:14px;background:var(--s2);font-size:12px;color:var(--mut)}
+.pdates input{display:block;width:100%;border:0;background:transparent;font-size:15px;font-weight:600;color:var(--ink);padding:2px 0 0;min-height:24px}
+.pdates div{padding:9px 12px;border-radius:14px;background:var(--s2);font-size:12px;color:var(--mut)}
+.pdates div b{display:block;font-size:15px;color:var(--ink);font-weight:600;margin-top:2px}
+.stops{list-style:none;margin:0;padding:0}
+.stopc{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:12px;border-radius:18px;background:var(--s2)}
+.stopc .n{width:30px;height:30px;border-radius:10px;background:var(--lav);color:var(--lav-i);display:grid;place-items:center;font-weight:700;font-size:13px;grid-row:span 2}
+.stopc .t{font-weight:650;font-size:15.5px;text-align:left}
+.stopc .t small{display:block;font-weight:500;font-size:12.5px;color:var(--mut)}
+.stopc .ctl{grid-column:2/4;display:flex;gap:6px;align-items:center;justify-content:space-between}
+.step{display:inline-flex;align-items:center;border-radius:12px;background:var(--surface);height:36px}
+.step button{width:36px;height:36px;border-radius:12px;font-size:18px;font-weight:500}
+.step span{min-width:56px;text-align:center;font-size:13.5px;font-weight:600}
+.mv{display:flex;gap:4px}.mv button{width:36px;height:36px;border-radius:12px;background:var(--surface);display:grid;place-items:center}
+.mv button:disabled{opacity:.35;cursor:default}.mv svg{width:16px;height:16px}
+.leg{display:flex;align-items:center;gap:10px;padding:8px 0 8px 22px;font-size:13px;color:var(--mut);position:relative}
+.leg::before{content:"";position:absolute;left:14px;top:0;bottom:0;border-left:2px dashed var(--s3)}
+.leg svg{width:16px;height:16px;color:var(--sky-i);flex:none;background:var(--surface);position:relative}
+.padd{position:relative;margin-top:10px}
+.padd input{width:100%;height:44px;border-radius:14px;border:1.5px dashed var(--s3);background:transparent;padding:0 14px;font-size:15px}
+.padd .sugg{left:0;right:0;top:50px}
+.days{display:grid;gap:10px}
+.dayc{border-radius:18px;background:var(--s2);padding:14px}
+.dayc header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.dayc header b{font-size:15px;font-weight:650}
+.dayc header span{font-size:12.5px;color:var(--mut);white-space:nowrap}
+.dayc ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dayc li{display:flex;gap:10px;align-items:baseline;font-size:14px}
+.dayc li i{width:8px;height:8px;border-radius:50%;flex:none;transform:translateY(-1px);background:var(--c)}
+.dayc li button{font-weight:600;color:var(--lav-i);text-decoration:underline;text-underline-offset:3px}
+.pact{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pact .btn{flex:1}
+body.plan .trip{display:none}
+.trip .btn{height:34px;padding:0 12px;border-radius:11px;font-size:13px;flex:none}
+.where .wb{height:auto;padding:0;background:none;font-size:14px;font-weight:650}
+.where .wb:hover{background:none;text-decoration:underline;text-underline-offset:3px}
+.pulse{width:18px;height:18px;border-radius:50%;background:#8b7cf6;border:3px solid #fff;box-shadow:0 0 0 0 rgba(139,124,246,.6);animation:pl 1.8s infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(139,124,246,.55)}100%{box-shadow:0 0 0 26px rgba(139,124,246,0)}}
+.drop{width:26px;height:34px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 34'%3E%3Cpath d='M13 33s11-11.6 11-20A11 11 0 0 0 2 13c0 8.4 11 20 11 20Z' fill='%23ff8fab' stroke='%23fff' stroke-width='2'/%3E%3Ccircle cx='13' cy='13' r='4' fill='%23fff'/%3E%3C/svg%3E")}
+.kpop .maplibregl-popup-content{font:14px Geist,system-ui,sans-serif;color:var(--ink);background:var(--surface);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);display:grid;gap:2px;max-width:240px}
+.kpop small{color:var(--mut);font-size:12.5px}.kpop a{font-size:12.5px;color:var(--lav-i);margin-top:4px}
+.kpop .maplibregl-popup-tip{border-top-color:var(--surface)!important;border-bottom-color:var(--surface)!important}
+.maplibregl-ctrl-attrib{font:11px Geist,system-ui,sans-serif;background:color-mix(in srgb,var(--surface) 80%,transparent)!important;color:var(--mut)}
+.maplibregl-ctrl-attrib a{color:var(--mut)}
+body:has(.trip:not([hidden])) .where{bottom:86px}
+.maplibregl-ctrl-bottom-right{right:72px}body.open .maplibregl-ctrl-bottom-right{right:0}
+#z3d[aria-pressed=true]{background:var(--lav);color:var(--lav-i)}
+.scene-tooltip{font:500 13px Geist,sans-serif!important;color:var(--ink)!important;background:var(--surface)!important;border:1px solid var(--line);border-radius:10px;padding:5px 9px!important;box-shadow:var(--shadow)}
+
+/* intro */
+.intro{position:fixed;z-index:4;left:16px;bottom:16px;width:min(400px,calc(100vw - 32px));padding:20px;transition:opacity .3s,transform .3s}
+body.open .intro{opacity:0;transform:translateY(10px);pointer-events:none}
+.intro h2{margin:0 0 6px;font-size:28px;line-height:1.1;font-weight:650;letter-spacing:-.035em;text-wrap:balance}
+.intro p{margin:0 0 14px;color:var(--mut);font-size:15px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.tiles div{padding:10px 12px;border-radius:14px;font-size:12px;line-height:1.3}
+.tiles b{display:block;font-size:22px;font-weight:650;letter-spacing:-.03em;margin-bottom:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{flex:none;height:34px;padding:0 12px;border-radius:12px;background:var(--s2);font-size:13px;font-weight:500;white-space:nowrap}
+.chip:hover{background:var(--s3)}
+
+/* panel */
+.panel{position:fixed;z-index:6;top:16px;right:16px;bottom:16px;width:var(--pw);overflow-y:auto;overscroll-behavior:contain;border-radius:28px;transform:translateX(calc(100% + 24px));transition:transform .5s cubic-bezier(.2,.8,.2,1);scrollbar-width:thin;scrollbar-color:var(--s3) transparent}
+body.open .panel{transform:none}
+.cover{position:relative;margin:8px;padding:20px 20px 18px;border-radius:22px;background:var(--cv)}
+.close{position:absolute;right:12px;top:12px;width:40px;height:40px;border-radius:14px;background:var(--surface);display:grid;place-items:center;box-shadow:0 1px 3px rgba(40,30,90,.12)}
+.close svg{width:16px;height:16px}
+.crumb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--mut);padding-right:48px}
+.pill{height:24px;padding:0 9px;border-radius:12px;background:var(--surface);display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink)}
+.cover h1{margin:14px 0 6px;font-size:clamp(36px,4vw,46px);line-height:1.02;font-weight:650;letter-spacing:-.045em;text-wrap:balance}
+.cover .tag{margin:0;font-size:16px;color:light-dark(#3e3a56,#d4d0e6)}
+.ai{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;font-weight:600;color:var(--lav-i);background:var(--surface);padding:5px 10px;border-radius:10px}
+.sec{padding:6px 20px 0}
+.acts{display:flex;gap:8px;margin:10px 0 0}
+.btn{height:44px;padding:0 16px;border-radius:14px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;background:var(--s2)}
+.btn:hover{background:var(--s3)}
+.btn.pri{background:var(--btn);color:var(--btn-i);flex:1}
+.btn.pri[aria-pressed=true]{background:var(--lav);color:var(--lav-i)}
+.btn[aria-pressed=true]:not(.pri){background:var(--mnt);color:var(--mnt-i)}
+.btn svg{width:17px;height:17px}
+.btn:disabled{opacity:.5;cursor:default}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:16px 0 0}
+.facts div{padding:11px 13px;border-radius:14px;background:var(--s2)}
+.facts dt{font-size:12px;color:var(--mut)}
+.facts dd{margin:1px 0 0;font-size:14px;font-weight:600;line-height:1.35}
+.mini{position:relative;margin:16px 0 0;height:240px;border-radius:20px;overflow:hidden;background:var(--s2)}
+.mini svg{position:absolute;inset:0;width:100%;height:100%}
+.mini figcaption{position:absolute;left:14px;top:11px;font-size:12px;font-weight:500;color:var(--mut)}
+.tabs{position:sticky;top:0;z-index:2;display:flex;gap:2px;margin:18px 0 0;padding:8px 20px;background:var(--surface)}
+.tabs div{display:flex;gap:2px;padding:4px;border-radius:14px;background:var(--s2);width:100%}
+.tabs button{flex:1;height:36px;border-radius:10px;font-size:13.5px;font-weight:500;color:var(--mut);white-space:nowrap}
+.tabs button[aria-selected=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(40,30,90,.12);font-weight:600}
+.tb{padding:10px 20px 4px}
+.era{padding:18px;border-radius:18px;background:var(--lav)}
+.era .y{font-size:34px;font-weight:650;letter-spacing:-.04em;color:var(--lav-i);line-height:1}
+.era h3{margin:10px 0 4px;font-size:17px;font-weight:650;letter-spacing:-.01em}
+.era p{margin:0;font-size:15px}
+.rail{position:relative;margin:16px 4px 0;padding-top:4px}
+.rail .track{position:absolute;left:8px;right:8px;top:15px;height:2px;background:var(--s3)}
+.rail .fill{position:absolute;left:8px;top:15px;height:2px;background:#8b7cf6;transition:width .3s}
+.ticks{position:relative;display:flex;justify-content:space-between}
+.ticks button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;color:var(--mut);min-width:16px;min-height:44px}
+.ticks button i{width:14px;height:14px;border-radius:50%;background:var(--surface);border:2px solid var(--s3)}
+.ticks button.done i{border-color:#8b7cf6}
+.ticks button.on i{background:#8b7cf6;border-color:#8b7cf6;box-shadow:0 0 0 4px var(--lav)}
+.ticks button.on{color:var(--ink);font-weight:600}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px}
+.src{font-size:13px;color:var(--mut)}
+.src a{color:var(--mut);text-underline-offset:3px}
+.foods{display:grid;gap:8px}
+.food{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 12px;align-items:start;padding:14px;border-radius:18px;background:var(--pch)}
+.food .ini{grid-row:span 3;width:44px;height:44px;border-radius:14px;background:var(--surface);display:grid;place-items:center;font-weight:650;color:var(--pch-i);font-size:16px}
+.food h4{margin:0;font-size:16px;font-weight:650;letter-spacing:-.01em;line-height:1.3}
+.food .k{font-size:12px;font-weight:600;color:var(--pch-i)}
+.food p{margin:0;font-size:14px;grid-column:2/4}
+.food small{grid-column:2/4;font-size:13px;color:var(--mut)}
+.taste{grid-row:1/3;grid-column:3;height:32px;padding:0 11px;border-radius:10px;background:var(--surface);font-size:12.5px;font-weight:600;white-space:nowrap}
+.taste[aria-pressed=true]{background:var(--pch-i);color:#fff}
+.places{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.places button{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:2px 12px;width:100%;text-align:left;padding:13px;border-radius:18px;background:var(--s2);border:1.5px solid transparent}
+.places button:hover{background:var(--s3)}
+.places button.on{border-color:#8b7cf6;background:var(--lav)}
+.num{grid-row:span 2;width:32px;height:32px;border-radius:11px;display:grid;place-items:center;font-size:13px;font-weight:700;color:#1e1b2e;background:var(--c)}
+.places strong{font-size:15.5px;font-weight:650;letter-spacing:-.01em}
+.places small{color:var(--mut);font-size:12.5px;white-space:nowrap;text-align:right}
+.places p{margin:0;font-size:14px;color:var(--mut);grid-column:2/4}
+.sched{list-style:none;margin:0;padding:0;position:relative}
+.sched li{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;padding:12px 0;cursor:pointer;position:relative}
+.sched li+li{border-top:1px dashed var(--line)}
+.sched .t{font-size:14px;font-weight:650;color:var(--sky-i);padding-top:1px}
+.sched b{display:block;font-size:15px;font-weight:650}
+.sched p{margin:2px 0 0;font-size:14px;color:var(--mut)}
+.sumline{margin:4px 0 8px;font-size:13px;color:var(--mut)}
+.tip{margin:16px 20px 0;padding:14px 16px;border-radius:18px;background:var(--mnt);font-size:14px}
+.tip b{display:block;color:var(--mnt-i);font-size:13px;margin-bottom:2px}
+.near{padding:18px 20px 0}
+.near h5{margin:0 0 8px;font-size:13px;font-weight:500;color:var(--mut)}
+.note{margin:16px 20px 22px;font-size:12.5px;color:var(--mut)}
+/* generate */
+.gen{margin:16px 0 0;padding:20px;border-radius:20px;background:var(--lav)}
+.gen h3{margin:0 0 6px;font-size:18px;font-weight:650;letter-spacing:-.02em}
+.gen p{margin:0 0 14px;font-size:14.5px}
+.gen .btn.pri{width:100%}
+.gen small{display:block;margin-top:10px;font-size:12.5px;color:var(--lav-i)}
+.steps{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px}
+.steps li{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--mut)}
+.steps li i{width:18px;height:18px;border-radius:50%;border:2px solid var(--s3);flex:none}
+.steps li.on{color:var(--ink);font-weight:600}.steps li.on i{border-color:#8b7cf6;border-top-color:transparent;animation:spin .8s linear infinite}
+.steps li.ok{color:var(--ink)}.steps li.ok i{background:#8b7cf6;border-color:#8b7cf6}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* trip */
+.trip{position:fixed;z-index:4;left:16px;bottom:16px;max-width:calc(100vw - 112px);padding:8px 8px 8px 14px;border-radius:18px;display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.trip[hidden]{display:none}
+body:not(.open) .trip{bottom:calc(32px + var(--introH,0px))}
+body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
+.trip .lbl{font-size:12px;color:var(--mut);margin-right:6px;white-space:nowrap}
+.trip .lbl b{display:block;color:var(--ink);font-size:14px}
+.stop{height:34px;padding:0 4px 0 10px;border-radius:11px;background:var(--s2);display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;white-space:nowrap;flex:none}
+.stop i{font-style:normal;font-size:11px;font-weight:700;color:var(--lav-i)}
+.stop button{height:28px;min-width:24px;border-radius:8px;color:var(--mut)}
+
+/* passport */
+.modal{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:16px;background:light-dark(rgba(40,30,90,.18),rgba(0,0,0,.5));backdrop-filter:blur(4px)}
+.modal[hidden]{display:none}
+.pass{width:min(780px,100%);max-height:calc(100vh - 32px);overflow:auto;border-radius:28px;padding:26px;position:relative}
+.pass h2{margin:0;font-size:32px;font-weight:650;letter-spacing:-.04em}
+.pass .tiles{margin:14px 0 18px;max-width:420px}
+.stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.stamp{aspect-ratio:1;display:grid;place-items:center;border-radius:20px;background:var(--s2)}
+.stamp svg{width:86%;height:86%}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,10px);z-index:12;padding:11px 16px;border-radius:14px;background:var(--btn);color:var(--btn-i);font-size:14px;font-weight:500;opacity:0;transition:.3s;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.loader{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:var(--bg);font-size:15px;color:var(--mut);transition:opacity .6s}
+.loader.done{opacity:0;pointer-events:none}
+.loader div{display:flex;gap:10px;align-items:center}
+.loader i{width:18px;height:18px;border-radius:50%;border:2px solid var(--s3);border-top-color:#8b7cf6;animation:spin .8s linear infinite}
+
+@media(max-width:1180px){.where{bottom:auto;top:82px}body.open .where{left:calc((100vw - var(--pw) - 24px) / 2)}}
+@media(max-width:1100px){.seg.layers button{padding:0 10px}.topR .ibtn .t{display:none}}
+@media(max-width:860px){
+  .topR{top:76px;left:16px;right:16px}
+  .topR .layers{flex:1;overflow-x:auto;scrollbar-width:none}.topR .layers button{flex:1 0 auto}
+  body.open .topR{right:16px}
+  .where{top:136px}
+}
+@media(max-width:700px){
+  :root{--pw:100vw}
+  .topL{left:10px;top:10px;width:calc(100vw - 20px)}
+  .topR{top:70px;left:10px;right:10px;gap:6px}
+  .brand span{display:none}.brand{padding-right:8px}
+  .sugg{left:-50px}
+  body.open #globe{right:0;bottom:62vh}
+  body.open .topR,body.open .intro,.zoom,body.open .where{display:none}
+  .where{top:124px;height:40px;font-size:13px}
+  .panel{top:auto;left:0;right:0;bottom:0;width:100%;height:64vh;border-radius:26px 26px 0 0;transform:translateY(105%)}
+  .panel::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:var(--s3);margin:8px auto 0}
+  .intro{left:10px;bottom:10px;width:calc(100vw - 20px);padding:16px}
+  .intro h2{font-size:22px}.intro p{display:none}
+  .tiles b{font-size:18px}
+  .daily span{display:none}.daily{padding:10px 14px;margin-bottom:10px}
+  .intro .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+  body:not(.open) .trip{bottom:calc(20px + var(--introH,0px));left:10px;max-width:calc(100vw - 20px)}
+  body.open .trip{display:none}
+  .mini{height:210px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="globe" aria-label="3D dünya küresi"></div>
+<div class="loader" id="loader"><div><i></i><span id="loadT">Harita hazırlanıyor</span></div></div>
+
+<div class="topL card">
+  <a class="brand" href="#" id="home" aria-label="kâşif ana görünüm">
+    <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#d9d1ff"/><path d="M6 12.5c5 2 15 2 20 0M6 19.5c5-2 15-2 20 0" stroke="#8b7cf6" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="5.5" ry="13" stroke="#8b7cf6" stroke-width="1.6"/><circle cx="22.5" cy="9.5" r="3.5" fill="#ffb59a" stroke="#fff" stroke-width="1.5"/></svg>
+    <span>kâşif</span>
+  </a>
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Şehir, yemek, yer ya da adres ara" autocomplete="off" aria-label="Şehir, yemek ya da yer ara">
+    <div class="sugg card" id="sugg" hidden></div>
+  </div>
+</div>
+
+<div class="topR">
+  <div class="seg layers card" role="group" aria-label="Haritada göster">
+    <button data-layer="sehir" aria-pressed="true" style="--c:#8b7cf6"><i></i>Şehirler</button>
+    <button data-layer="tarih" aria-pressed="false" style="--c:#b3a5ff"><i></i>Tarih</button>
+    <button data-layer="lezzet" aria-pressed="false" style="--c:#ffa587"><i></i>Lezzet</button>
+    <button data-layer="gezi" aria-pressed="false" style="--c:#7fd9ad"><i></i>Gezi</button>
+  </div>
+  <button class="ibtn card" id="quizBtn" title="Şehri bul oyunu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg><span class="t">Oyna</span></button>
+  <button class="ibtn card" id="shuffle" title="Rastgele bir şehre git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg><span class="t">Şaşırt</span></button>
+  <button class="ibtn card" id="passBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="3"/><circle cx="12" cy="10" r="3.5"/><path d="M8.5 17h7"/></svg><span class="t">Pasaport</span><span class="badge" id="passN">0</span></button>
+</div>
+
+<div class="zoom card" role="group" aria-label="Yakınlaştırma">
+  <button id="zin" aria-label="Yakınlaş"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button id="zout" aria-label="Uzaklaş"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+  <button id="z3d" aria-label="3B görünüm" aria-pressed="false" title="3B görünüm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></button>
+  <button id="zloc" aria-label="Konumuma git" title="Konumuma git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+  <button id="zreset" aria-label="Tüm dünyayı göster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></button>
+</div>
+
+<section class="intro card" id="intro">
+  <h2>Dünyayı çevir, bir şehre dokun.</h2>
+  <p>Dünyadan sokak seviyesine kadar yakınlaş. Her şehrin tarihini, mutfağını ve gezilecek yerlerini aç; gittiklerine damga bas.</p>
+  <div class="tiles" id="tiles"></div>
+  <button class="daily" id="daily"></button>
+  <div class="chips" id="featured"></div>
+</section>
+
+<div class="where card" id="where" hidden></div>
+<section class="quizc card" id="quiz" hidden aria-live="polite"></section>
+<aside class="panel card" id="panel" aria-live="polite"></aside>
+<div class="trip card" id="trip" hidden></div>
+
+<div class="modal" id="passModal" hidden>
+  <div class="pass card" role="dialog" aria-modal="true" aria-labelledby="passT">
+    <button class="close" id="passClose" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <h2 id="passT">Gezgin pasaportu</h2>
+    <div class="tiles" id="passStats"></div>
+    <div class="stamps" id="stamps"></div>
+    <p class="note" style="margin:16px 0 0">Damgalar ve tattıkların bu tarayıcıda saklanır.</p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script type="module">
+import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.mjs';
+{
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isDark = () => { const t = document.documentElement.dataset.theme; return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches };
+const CONT = {EU:[258,100,87],AS:[22,100,86],AF:[44,100,80],NA:[152,52,79],SA:[340,100,89],OC:[196,72,81],AN:[228,40,97]};
+const CONT_TR = {EU:'Avrupa',AS:'Asya',AF:'Afrika',NA:'Kuzey Amerika',SA:'Güney Amerika',OC:'Okyanusya',AN:'Antarktika'};
+const KIND = {Tarih:'#cbbfff',Müze:'#bcd6ff',Çarşı:'#ffc7b0',Manzara:'#ffc2d6',Doğa:'#b8ebd2',Mahalle:'#ffe2a6',Meydan:'#ffe2a6'};
+const LAYER = {sehir:'#8b7cf6',tarih:'#a594ff',lezzet:'#ff9a78',gezi:'#5fcf9b'};
+const TABS = [['tarih','Tarih'],['lezzet','Mutfak'],['gezi','Gezilecek'],['rota','1 gün']];
+const store = {get(k,d){try{return JSON.parse(localStorage.getItem('kasif.'+k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem('kasif.'+k,JSON.stringify(v))}catch(e){}}};
+let stamps = store.get('stamps',{}), tasted = store.get('tasted',[]), trip = store.get('trip2', null), guides = store.get('guides',{});
+let curCC = null, selC = null, ctyMore = false, ctyShared = {}, planStart = store.get('planStart', null), sF = {type: 'all', cc: null};
+const isOpen = () => document.body.classList.contains('open');
+let cities = [], places = [], byId = {}, meta = {}, cur = null, tab = 'tarih', layer = 'sehir', era = 0, activePlace = -1, idle = 0, hoverC = null, genCtl = null;
+const dn = (type) => { try { return new Intl.DisplayNames(['tr'], {type}) } catch(e) { return {of: x => x} } };
+const RN = dn('region'), LN = dn('language'), CN = dn('currency');
+const of = (d, x) => { try { return d.of(x) || x } catch(e) { return x } };
+
+const km = (a,b) => {const R=6371,r=Math.PI/180,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r,h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.min(1,Math.sqrt(h)))};
+const fmtKm = d => d < 10 ? d.toFixed(1).replace('.',',') + ' km' : Math.round(d).toLocaleString('tr-TR') + ' km';
+const fmtPop = p => p >= 1e6 ? (p/1e6).toFixed(p >= 1e7 ? 0 : 1).replace('.',',') + ' milyon' : Math.round(p/1e3).toLocaleString('tr-TR') + ' bin';
+const norm = s => String(s).toLocaleLowerCase('tr').replace(/ı/g,'i').normalize('NFD').replace(/[̀-ͯ]/g,'');
+const toast = m => {const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2200)};
+const hsl = ([h,s,l], dl = 0, ds = 1) => `hsl(${h}, ${Math.round(s*ds)}%, ${Math.max(0,Math.min(100,l+dl))}%)`;
+const hash = s => { let h = 7; for (const c of String(s)) h = (h*31 + c.charCodeAt(0)) % 9973; return h };
+const wiki = q => 'https://tr.wikipedia.org/w/index.php?search=' + encodeURIComponent(q);
+const ICON = {
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  spark:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>'};
+
+function colors(){
+  const d = isDark();
+  return {d, lake: d ? '#2c3252' : '#cddcf7', prov: d ? '#c9c2f0' : '#6e64a8', river: d ? '#7f9be0' : '#7fa6e6', road: d ? '#e7b28f' : '#d9875a', ocean: d ? '#262b47' : '#d6e3fa', stroke: d ? 'rgba(18,17,25,.95)' : 'rgba(255,255,255,.98)', dot: d ? 'rgba(232,228,255,.55)' : 'rgba(70,62,120,.42)', atm: d ? '#8f80ff' : '#ffffff',
+    land: f => { const b = CONT[f.properties.ct] || CONT.AS, j = hash(f.properties.a2 || f.properties.n); const v = [b[0] + (j%9) - 4, b[1], b[2] + (j%7) - 3]; return d ? `hsl(${v[0]}, ${Math.round(b[1]*.42)}%, ${56 + (j%7) - 3}%)` : hsl(v) },
+    landHover: f => { const b = CONT[f.properties.ct] || CONT.AS; return d ? `hsl(${b[0]}, ${Math.round(b[1]*.45)}%, 60%)` : hsl(b, -9) }};
+}
+let C = colors();
+
+/* ---------- map (MapLibre GL + OpenFreeMap vector tiles) ---------- */
+const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
+const API_URL = '/api/guide';
+let countries = [], geoF = [], quiz = null;
+let map = null, mapReady = false, FONT = ['Noto Sans Regular'], FONTB = ['Noto Sans Bold'], quizHidden = [];
+const spin = {autoRotate: !RM};
+const zFromAlt = a => Math.max(0, Math.min(20, 1.5 + Math.log2(2.4 / a)));
+const altFromZ = z => 2.4 / Math.pow(2, z - 1.5);
+const fc = f => ({type: 'FeatureCollection', features: f});
+const pt = (c, p = {}) => ({type: 'Feature', properties: p, geometry: {type: 'Point', coordinates: c}});
+const ln = (c, p = {}) => ({type: 'Feature', properties: p, geometry: {type: 'LineString', coordinates: c}});
+const setSrc = (id, d) => { const s = map && map.getSource(id); if (s) s.setData(d) };
+function gc(a, b, n = 64){ // great-circle points between two {lat,lng}
+  const r = Math.PI / 180, la1 = a.lat * r, lo1 = a.lng * r, la2 = b.lat * r, lo2 = b.lng * r;
+  const d = 2 * Math.asin(Math.sqrt(Math.sin((la2 - la1) / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin((lo2 - lo1) / 2) ** 2));
+  if (!d) return [[a.lng, a.lat], [b.lng, b.lat]];
+  const out = []; let prev = null;
+  for (let i = 0; i <= n; i++) { const f = i / n, A = Math.sin((1 - f) * d) / Math.sin(d), B = Math.sin(f * d) / Math.sin(d);
+    const x = A * Math.cos(la1) * Math.cos(lo1) + B * Math.cos(la2) * Math.cos(lo2), y = A * Math.cos(la1) * Math.sin(lo1) + B * Math.cos(la2) * Math.sin(lo2), z = A * Math.sin(la1) + B * Math.sin(la2);
+    let lng = Math.atan2(y, x) / r; const lat = Math.atan2(z, Math.hypot(x, y)) / r;
+    if (prev !== null) { while (lng - prev > 180) lng -= 360; while (lng - prev < -180) lng += 360 } prev = lng; out.push([lng, lat]) }
+  return out;
+}
+const panelPad = () => { const m = innerWidth < 700; return {top: m ? 130 : 110, bottom: m ? 40 : 90, left: m ? 30 : 60, right: m ? 30 : 60} };
+function fitTo(pts, maxZoom = 12){
+  if (!pts.length) return;
+  const b = new maplibregl.LngLatBounds(pts[0], pts[0]); pts.forEach(p => b.extend(p));
+  map.fitBounds(b, {padding: panelPad(), maxZoom, duration: RM ? 0 : 1500, essential: true});
+}
+let pulse = null;
+const world = {  // small adapter so the rest of the app can speak in lat/lng/altitude
+  pointOfView(p, ms){
+    if (!p) { const c = map.getCenter(); return {lat: c.lat, lng: c.lng, altitude: altFromZ(map.getZoom())} }
+    const o = {zoom: p.altitude != null ? zFromAlt(p.altitude) : map.getZoom(), duration: RM ? 0 : (ms ?? 1200), essential: true, pitch: 0, bearing: 0};
+    if (p.lat != null) o.center = [p.lng, p.lat];
+    ms === 0 ? map.jumpTo(o) : map.flyTo(o); return world;
+  },
+  ringsData(arr){
+    if (pulse) { pulse.remove(); pulse = null }
+    if (arr && arr[0]) { const el = document.createElement('div'); el.className = 'pulse'; pulse = new maplibregl.Marker({element: el}).setLngLat([arr[0].lng, arr[0].lat]).addTo(map) }
+    return world;
+  },
+  arcsData(pairs){ setSrc('k-arcs', fc(pairs.map(([a, b]) => ln(gc(a, b))))); return world },
+  controls(){ return spin }
+};
+
+function palette(){
+  const d = isDark();
+  return d ? {land: '#17151f', water: '#232a46', water2: '#33406a', green: '#1c2a26', resid: '#1c1a27', landuse: '#1b1925', bldg: '#2b2739', bldg3: '#3a3450', casing: '#2a2738', motor: '#7a5440', primary: '#5e5236', road: '#37334a', border: '#8a7cd0', text: '#ece9f8', textMut: '#a9a3c4', halo: '#15131c', sky: '#121119', horizon: '#2c2758'}
+    : {land: '#f7f5fb', water: '#cfe0f8', water2: '#b5cdf2', green: '#d6f1e3', resid: '#f1edf8', landuse: '#f2eff7', bldg: '#e7e1f4', bldg3: '#ddd4f2', casing: '#e2dbf1', motor: '#ffcfb3', primary: '#ffe6ad', road: '#ffffff', border: '#a597d8', text: '#3a3456', textMut: '#7b7598', halo: '#ffffff', sky: '#eef0fb', horizon: '#ffffff'};
+}
+const TRNAME = ['coalesce', ['get', 'name:tr'], ['get', 'name:latin'], ['get', 'name']];
+function restyle(){
+  if (!mapReady) return;
+  const P = palette(), L = map.getStyle().layers;
+  const sp = (id, k, v) => { try { map.setPaintProperty(id, k, v) } catch(e) {} }, sl_ = (id, k, v) => { try { map.setLayoutProperty(id, k, v) } catch(e) {} };
+  for (const l of L) {
+    if (l.source && l.source.startsWith('k-')) continue;
+    const s = l['source-layer'], id = l.id, t = l.type;
+    if (t === 'background') sp(id, 'background-color', P.land);
+    else if (s === 'water' && t === 'fill') sp(id, 'fill-color', P.water);
+    else if (s === 'waterway' && t === 'line') sp(id, 'line-color', P.water2);
+    else if ((s === 'landcover' || s === 'park') && t === 'fill') sp(id, 'fill-color', P.green);
+    else if (s === 'landuse' && t === 'fill') sp(id, 'fill-color', ['match', ['get', 'class'], ['residential', 'suburb', 'neighbourhood'], P.resid, P.landuse]);
+    else if (s === 'building' && t === 'fill') sp(id, 'fill-color', P.bldg);
+    else if (s === 'transportation' && t === 'line') sp(id, 'line-color', /casing|outline/.test(id) ? P.casing : ['match', ['get', 'class'], ['motorway', 'trunk'], P.motor, ['primary', 'secondary'], P.primary, P.road]);
+    else if (s === 'boundary' && t === 'line') sp(id, 'line-color', P.border);
+    else if (t === 'symbol') {
+      sp(id, 'text-color', s === 'place' || s === 'water_name' ? (s === 'water_name' ? P.water2 : P.text) : P.textMut); sp(id, 'text-halo-color', P.halo);
+      if (s === 'place' || s === 'water_name' || s === 'poi') sl_(id, 'text-field', TRNAME);
+    }
+  }
+  sp('k-b3d', 'fill-extrusion-color', P.bldg3);
+  try { map.setSky({'sky-color': P.sky, 'horizon-color': P.horizon, 'fog-color': P.sky, 'sky-horizon-blend': .5, 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, .9, 5, .7, 8, 0]}) } catch(e) {}
+  sp('k-cfill', 'fill-color', ['get', isDark() ? 'cd' : 'cl']);
+  sp('k-cur-lab', 'text-color', P.text); sp('k-cur-lab', 'text-halo-color', P.halo);
+  sp('k-cp-lab', 'text-color', P.text); sp('k-cp-lab', 'text-halo-color', P.halo);
+  sp('k-q-lab', 'text-color', P.text); sp('k-q-lab', 'text-halo-color', P.halo);
+}
+
+async function boot(){
+  if (typeof topojson === 'undefined') { $('#loadT').textContent = 'Harita kütüphanesi yüklenemedi.'; return }
+  const [cj, topo, pj, mj] = await Promise.all(['data/cities.json','data/countries.topo.json','data/places.json','data/meta.json'].map(u => fetch(u).then(r => r.json())));
+  cities = cj; meta = mj;
+  cities.forEach(c => { c.cc = c.cc || ''; byId[c.id] = c });
+  places = pj.map(([gid,name,cc,lat,lng,pop]) => ({id:'g'+gid, gid, name, cc, lat, lng, pop, g:true}));
+  places.forEach(p => byId[p.id] = p);
+  const geo = geoF = topojson.feature(topo, topo.objects.c).features;
+  const FIX = {'N. Cyprus':'Kuzey Kıbrıs','Kosovo':'Kosova','Siachen Glacier':'Siachen Buzulu','Indian Ocean Ter.':'Hint Okyanusu Toprakları','Ashmore and Cartier Is.':'Ashmore ve Cartier Adaları'};
+  geo.forEach(f => { if (FIX[f.properties.n]) f.properties.n = FIX[f.properties.n] });
+  for (const f of geo) { f._pg = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates; const b = [180, 90, -180, -90]; for (const pg of f._pg) for (const [x, y] of pg[0]) { if (x < b[0]) b[0] = x; if (y < b[1]) b[1] = y; if (x > b[2]) b[2] = x; if (y > b[3]) b[3] = y } f._bb = b }
+  countries = geo.filter(f => f.properties.ct !== 'AN').map(f => {
+    let best = null, ba = 0, tot = 0;
+    for (const pg of f._pg) { const r = pg[0]; let A = 0, cx = 0, cy = 0; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const t = r[j][0]*r[i][1] - r[i][0]*r[j][1]; A += t; cx += (r[j][0]+r[i][0])*t; cy += (r[j][1]+r[i][1])*t } A /= 2; if (!A) continue;
+      const lat = cy / (6*A), ak = Math.abs(A) * 12364 * Math.cos(lat * Math.PI/180); tot += ak; if (ak > ba) { ba = ak; best = {lng: cx / (6*A), lat} } }
+    return best && {id: 'cc-' + (f.properties.a2 || f.properties.n), a2: f.properties.a2, name: f.properties.n, lat: best.lat, lng: best.lng, area: tot, cl: true};
+  }).filter(Boolean);
+  // pastel continent fill used at world zoom, fading out as tiles take over
+  const landFor = (f, d) => { const b = CONT[f.properties.ct] || CONT.AS, j = hash(f.properties.a2 || f.properties.n), v = [b[0] + (j%9) - 4, b[1], b[2] + (j%7) - 3]; return d ? `hsl(${v[0]}, ${Math.round(b[1]*.42)}%, ${40 + (j%7) - 3}%)` : hsl(v) };
+  const unwrap = ring => { const out = []; let off = 0, prev = null; for (const [x, y] of ring) { if (prev !== null) { const d = x + off - prev; if (d > 180) off -= 360; else if (d < -180) off += 360 } const nx = x + off; out.push([nx, y]); prev = nx } return out };
+  const cfill = fc(geo.filter(f => f.properties.ct !== 'AN').map(f => ({type: 'Feature', properties: {a2: f.properties.a2 || '', n: f.properties.n, cl: landFor(f, false), cd: landFor(f, true)},
+    geometry: {type: 'MultiPolygon', coordinates: f._pg.map(pg => pg.map(unwrap))}})));
+  map = new maplibregl.Map({container: 'globe', style: STYLE_URL, center: [24, 34], zoom: innerWidth < 700 ? .9 : 2, attributionControl: {compact: true}, maxPitch: 70, fadeDuration: 200});
+  map.on('style.load', () => onStyle(cfill));
+  map.on('error', e => console.warn('map', e && e.error && e.error.message));
+  ['mousedown', 'touchstart', 'wheel'].forEach(ev => map.getCanvas().addEventListener(ev, () => { spin.autoRotate = false; idle = Date.now() }, {passive: true}));
+  map.on('click', onMapClick);
+  let wt = 0; map.on('move', () => { if (!wt) wt = setTimeout(() => { wt = 0; updateWhere(world.pointOfView()) }, 250) });
+  new ResizeObserver(() => map.resize()).observe($('#globe'));
+  (function rot(){ if (spin.autoRotate && mapReady && !isOpen() && !quiz && map.getZoom() < 3 && !map.isMoving()) { const c = map.getCenter(); map.setCenter([c.lng + .04, c.lat]) } requestAnimationFrame(rot) })();
+  setInterval(() => { if (!isOpen() && !RM && Date.now() - idle > 15000 && map.getZoom() < 2.5) spin.autoRotate = true }, 2000);
+  const mo = () => { C = colors(); restyle(); if (cur) renderPanel() };
+  new MutationObserver(mo).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', mo);
+  if (!trip) { trip = store.get('trip', []).filter(id => byId[id]).map(id => ({id, days: defDays(id)})); store.set('trip2', trip) }
+  trip = trip.filter(t => byId[t.id]);
+  buildIntro(); updatePass();
+  addEventListener('hashchange', route);
+}
+function onStyle(cfill){
+  try { map.setProjection({type: 'globe'}) } catch(e) {}
+  const L = map.getStyle().layers, sym = L.find(l => l.type === 'symbol' && l.layout && Array.isArray(l.layout['text-font']));
+  if (sym) { FONT = sym.layout['text-font']; const bold = L.find(l => l.type === 'symbol' && l.layout && Array.isArray(l.layout['text-font']) && /Bold/.test(l.layout['text-font'][0])); FONTB = bold ? bold.layout['text-font'] : FONT }
+  const firstSym = (L.find(l => l.type === 'symbol') || {}).id;
+  const vec = Object.entries(map.getStyle().sources).find(([, s]) => s.type === 'vector');
+  map.addSource('k-ctry', {type: 'geojson', data: cfill});
+  map.addLayer({id: 'k-cfill', type: 'fill', source: 'k-ctry', paint: {'fill-color': ['get', isDark() ? 'cd' : 'cl'], 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, .9, 3, .75, 5, .25, 6.5, 0]}}, firstSym);
+  map.addLayer({id: 'k-hl', type: 'line', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'line-color': '#8b7cf6', 'line-width': 2.5, 'line-opacity': .9}}, firstSym);
+  map.addLayer({id: 'k-hlf', type: 'fill', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'fill-color': '#8b7cf6', 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, .18, 6, .06]}}, firstSym);
+  if (vec) map.addLayer({id: 'k-b3d', type: 'fill-extrusion', source: vec[0], 'source-layer': 'building', minzoom: 14.5, paint: {'fill-extrusion-color': '#ddd4f2', 'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 8], 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0], 'fill-extrusion-opacity': .85}}, firstSym);
+  map.addSource('k-arcs', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-arcs', type: 'line', source: 'k-arcs', layout: {'line-cap': 'round'}, paint: {'line-color': '#8b7cf6', 'line-width': 2.5, 'line-dasharray': [2, 2], 'line-opacity': .9}});
+  map.addSource('k-route', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-route', type: 'line', source: 'k-route', layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-color': '#8b7cf6', 'line-width': 4, 'line-dasharray': [.1, 2]}});
+  map.addSource('k-cp', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-cp-dot', type: 'circle', source: 'k-cp', paint: {'circle-radius': ['case', ['get', 'on'], 14, 11], 'circle-color': ['case', ['get', 'on'], '#8b7cf6', ['get', 'col']], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5}});
+  map.addLayer({id: 'k-cp-num', type: 'symbol', source: 'k-cp', layout: {'text-field': ['get', 'n'], 'text-font': FONTB, 'text-size': 12, 'text-allow-overlap': true}, paint: {'text-color': ['case', ['get', 'on'], '#ffffff', '#1e1b2e']}});
+  map.addLayer({id: 'k-cp-lab', type: 'symbol', source: 'k-cp', minzoom: 11, layout: {'text-field': ['get', 'name'], 'text-font': FONTB, 'text-size': 13, 'text-anchor': 'left', 'text-offset': [1.3, 0], 'text-optional': true}, paint: {'text-halo-width': 2}});
+  map.addSource('k-cur', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-cur-dot', type: 'circle', source: 'k-cur', paint: {'circle-radius': ['case', ['get', 'sel'], 8, 6], 'circle-color': ['case', ['get', 'sel'], '#8b7cf6', LAYER[layer]], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2.5}});
+  map.addLayer({id: 'k-cur-lab', type: 'symbol', source: 'k-cur', layout: {'text-field': ['get', 'label'], 'text-font': FONTB, 'text-size': 13.5, 'text-anchor': 'left', 'text-offset': [.9, 0], 'text-justify': 'left', 'text-allow-overlap': false, 'symbol-sort-key': ['case', ['get', 'sel'], 0, 1]}, paint: {'text-halo-width': 2.2}});
+  map.addSource('k-q', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-q-line', type: 'line', source: 'k-q', filter: ['==', ['geometry-type'], 'LineString'], paint: {'line-color': '#ff8fab', 'line-width': 3, 'line-dasharray': [2, 1.5]}});
+  map.addLayer({id: 'k-q-dot', type: 'circle', source: 'k-q', filter: ['==', ['geometry-type'], 'Point'], paint: {'circle-radius': 8, 'circle-color': ['get', 'col'], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5}});
+  map.addLayer({id: 'k-q-lab', type: 'symbol', source: 'k-q', filter: ['==', ['geometry-type'], 'Point'], layout: {'text-field': ['get', 'name'], 'text-font': FONTB, 'text-size': 14, 'text-anchor': 'left', 'text-offset': [1, 0], 'text-allow-overlap': true}, paint: {'text-halo-width': 2.2}});
+  ['k-cur-dot', 'k-cur-lab', 'k-cp-dot', 'k-cp-num'].forEach(id => { map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', id, () => map.getCanvas().style.cursor = '') });
+  mapReady = true;
+  restyle(); repaint(); renderTrip();
+  map.once('idle', () => $('#loader').classList.add('done'));
+  setTimeout(() => $('#loader').classList.add('done'), 6000);
+  route(); updateWhere(world.pointOfView());
+}
+function setSelC(f){ selC = f; if (mapReady) { const a2 = f ? f.properties.a2 : '__'; map.setFilter('k-hl', ['==', ['get', 'a2'], a2]); map.setFilter('k-hlf', ['==', ['get', 'a2'], a2]) } }
+function repaint(){
+  if (!mapReady) return;
+  const feats = cities.map(c => pt([c.lng, c.lat], {id: c.id, sel: !!cur && cur.id === c.id, label: c.name + (layer === 'sehir' ? '' : '\n' + (c.sig[layer] || ''))}));
+  if (cur && cur.g) { const v = view(cur); feats.push(pt([cur.lng, cur.lat], {id: cur.id, sel: true, label: cur.name + (layer !== 'sehir' && v.sig ? '\n' + (v.sig[layer] || '') : '')})) }
+  setSrc('k-cur', fc(feats));
+  try { map.setPaintProperty('k-cur-dot', 'circle-color', ['case', ['get', 'sel'], '#8b7cf6', LAYER[layer]]) } catch(e) {}
+}
+const inRing = (r, x, y) => { let c = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const xi = r[i][0], yi = r[i][1], xj = r[j][0], yj = r[j][1]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c };
+function countryAt(lat, lng){
+  for (const f of geoF) { const b = f._bb; if (lng < b[0] || lng > b[2] || lat < b[1] || lat > b[3]) continue; for (const pg of f._pg) if (inRing(pg[0], lng, lat)) return f }
+  return null;
+}
+let lastWhere = '';
+function updateWhere(p){
+  const w = $('#where');
+  if (quiz || p.altitude > 2.2) { w.hidden = true; lastWhere = ''; return }
+  let lng = ((p.lng + 540) % 360) - 180;
+  const k = p.lat.toFixed(2) + ',' + lng.toFixed(2); if (k === lastWhere) return; lastWhere = k;
+  const f = countryAt(p.lat, lng), q0 = {lat: p.lat, lng};
+  let best = null, bd = Infinity;
+  for (const c of cities) { const d = km(q0, c); if (d < bd) { bd = d; best = c } }
+  for (const c of places) { if (Math.abs(c.lat - p.lat) > 3) continue; const d = km(q0, c); if (d < bd) { bd = d; best = c } }
+  w.hidden = false;
+  w.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>${f && f.properties.a2 ? `<button class="wb" data-go="ulke-${f.properties.a2}">${esc(f.properties.n)}</button>` : `<b>${f ? esc(f.properties.n) : 'Açık deniz'}</b>`}${best && bd < 300 ? `<button data-go="${best.id}">${bd < 8 ? esc(best.name) : esc(best.name) + ' · ' + fmtKm(bd)}</button>` : ''}`;
+  w.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+}
+let popup = null;
+function onMapClick(e){
+  const {lng, lat} = e.lngLat, z = map.getZoom();
+  if (quiz) { if (quiz.phase === 'ask') quizGuess(lat, ((lng + 540) % 360) - 180); return }
+  const box = [[e.point.x - 8, e.point.y - 8], [e.point.x + 8, e.point.y + 8]];
+  const mine = map.queryRenderedFeatures(box, {layers: ['k-cp-dot', 'k-cp-num', 'k-cur-dot', 'k-cur-lab']});
+  if (mine.length) { const p = mine[0].properties;
+    if (p.i != null && cur) { activePlace = +p.i; if (tab !== 'gezi' && tab !== 'rota') { tab = 'gezi'; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === 'gezi')) } renderTab(); drawMini(); return }
+    if (p.id) return go(p.id) }
+  const feats = map.queryRenderedFeatures(box).filter(f => f.sourceLayer);
+  const plc = feats.find(f => f.sourceLayer === 'place' && f.geometry.type === 'Point');
+  if (plc) { const [x, y] = plc.geometry.coordinates, nm = norm(plc.properties['name:tr'] || plc.properties['name:latin'] || plc.properties.name || '');
+    let best = null, bs = Infinity; for (const c of [...cities, ...places]) { const d = km({lat: y, lng: x}, c); if (d < 30) { const s = d - (norm(c.name) === nm ? 100 : 0); if (s < bs) { bs = s; best = c } } }
+    if (best) return go(best.id) }
+  const poi = feats.find(f => f.sourceLayer === 'poi' && (f.properties.name || f.properties['name:tr']));
+  if (poi) { if (popup) popup.remove(); const nm = poi.properties['name:tr'] || poi.properties.name, cls = String(poi.properties.subclass || poi.properties.class || '').replace(/_/g, ' ');
+    popup = new maplibregl.Popup({offset: 12, closeButton: false, className: 'kpop'}).setLngLat(e.lngLat).setHTML(`<b>${esc(nm)}</b>${cls ? `<small>${esc(cls)}</small>` : ''}<a href="${wiki(nm)}" target="_blank" rel="noopener">Wikipedia'da ara</a>`).addTo(map); return }
+  const la = lat, lo = ((lng + 540) % 360) - 180;
+  if (z < 3.6) { const f = countryAt(la, lo); if (f && f.properties.a2) return go('ulke-' + f.properties.a2); return }
+  if (z < 9) { const maxKm = Math.max(15, 1600 / Math.pow(2, z - 2)); let best = null, bs = Infinity;
+    const test = (c, pop) => { const d = km({lat: la, lng: lo}, c); if (d > maxKm) return; const s = d / (1 + .45 * Math.log10(pop / 5e4)); if (s < bs) { bs = s; best = c } };
+    cities.forEach(c => test(c, 6e6)); for (const c of places) test(c, c.pop);
+    if (best) go(best.id) }
+}
+function cityZoom(c){ return c.g ? (c.pop > 2e6 ? 10 : c.pop > 4e5 ? 11 : 12) : 11.5 }
+
+function go(id){ if (location.hash.slice(1) === id) select(id); else location.hash = id }
+function route(){
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (byId[id]) select(id);
+  else if (id === 'plan') openPlan();
+  else if (/^ulke-[A-Z]{2}$/.test(id) && meta[id.slice(5)]) openCountry(id.slice(5));
+  else if (isOpen()) closePanel(false);
+}
+function openShell(mode){
+  if (quiz) endQuiz();
+  if (genCtl) { genCtl.abort(); genCtl = null }
+  document.body.classList.add('open'); document.body.classList.toggle('plan', mode === 'plan');
+  spin.autoRotate = false; $('#panel').scrollTop = 0;
+}
+
+function view(c){
+  if (!c.g) return c;
+  const g = guides[c.id], m = meta[c.cc] || {};
+  const base = {...c, country: of(RN, c.cc), cont: CONT_TR[m.ct] || '', ct: m.ct};
+  return g ? {...base, ...g, guide: true} : base;
+}
+async function select(id, opt = {}){
+  const c = byId[id]; if (!c) return;
+  openShell('city'); curCC = null; setSelC(null);
+  cur = c; tab = opt.tab || 'tarih'; era = 0; activePlace = opt.place ?? -1;
+  world.ringsData([c]);
+  map.flyTo({center: [c.lng, c.lat], zoom: cityZoom(c), pitch: 0, bearing: 0, duration: RM ? 0 : 2200, essential: true});
+  renderPanel(); repaint(); $('#panel').scrollTop = 0;
+  if (c.g && !guides[c.id]) { const g = await loadShared(c); if (g && cur === c) { guides[c.id] = g; store.set('guides', guides); IDX = null; renderPanel(); repaint() } }
+}
+function closePanel(push = true){
+  if (genCtl) { genCtl.abort(); genCtl = null }
+  cur = null; curCC = null; setSelC(null); document.body.classList.remove('open', 'plan'); world.ringsData([]); repaint(); drawMini();
+  if (push) history.replaceState(null, '', location.pathname + location.search);
+  world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 1400); idle = Date.now();
+}
+function clock(tz){ try { return new Intl.DateTimeFormat('tr-TR', {timeZone: tz, hour: '2-digit', minute: '2-digit'}).format(new Date()) } catch(e) { return '' } }
+setInterval(() => { const c = $('#clk'); if (c && cur) { const v = view(cur); if (v.tz) c.textContent = clock(v.tz) } }, 20000);
+const coverBg = v => { const b = CONT[v.ct || (meta[v.cc] || {}).ct || ctOf(v)] || CONT.EU; return isDark() ? `hsl(${b[0]}, 40%, 22%)` : hsl(b, 6) };
+const ctOf = v => ({Avrupa:'EU','Avrupa / Asya':'EU',Asya:'AS',Afrika:'AF','Kuzey Amerika':'NA','Güney Amerika':'SA'})[v.cont] || 'EU';
+
+function renderPanel(){
+  const v = view(cur), full = !!v.history, inTrip = trip.some(t => t.id === v.id), st = stamps[v.id];
+  const near = [...cities, ...(v.g ? [] : [])].filter(x => x.id !== v.id).map(x => [x, km(v, x)]).sort((a,b) => a[1]-b[1]).slice(0, 3);
+  const nearG = places.filter(x => x.id !== v.id && Math.abs(x.lat - v.lat) < 4 && Math.abs(x.lng - v.lng) < 6).map(x => [x, km(v, x)]).filter(x => x[1] < 400).sort((a,b) => b[0].pop - a[0].pop).slice(0, 4);
+  const tm = v.tz ? clock(v.tz) : '';
+  const m = meta[v.cc] || {};
+  $('#panel').innerHTML = `
+  <div class="cover" style="--cv:${coverBg(v)}">
+    <button class="close" id="closeP" aria-label="Kapat">${ICON.x}</button>
+    <div class="crumb"><button class="pill" data-go="ulke-${esc(v.cc)}">${esc(v.country)}</button>${v.cont ? `<span>${esc(v.cont)}</span>` : ''}${tm ? `<span class="pill">Yerel saat <span id="clk">${tm}</span></span>` : ''}</div>
+    <h1>${esc(v.name)}</h1>
+    ${v.tag ? `<p class="tag">${esc(v.tag)}</p>` : `<p class="tag">${v.pop ? fmtPop(v.pop) + ' nüfuslu şehir' : ''}</p>`}
+    ${v.guide ? `<span class="ai">${ICON.spark} Claude ile hazırlandı · doğrulanmadı</span>` : ''}
+  </div>
+  <div class="sec">
+    <div class="acts">
+      <button class="btn pri" id="stampB" aria-pressed="${!!st}">${st ? ICON.check + ' Damgalandı · ' + new Date(st).toLocaleDateString('tr-TR', {day:'numeric', month:'short'}) : 'Pasaporta damga bas'}</button>
+      <button class="btn" id="tripB" aria-pressed="${inTrip}">${inTrip ? ICON.check + ' Planda' : ICON.plus + ' Plana ekle'}</button>
+      <button class="btn" id="shareB" aria-label="Bağlantıyı kopyala" title="Bağlantıyı kopyala">${ICON.link}</button>
+    </div>
+    <dl class="facts">${full ? `
+      <div><dt>En iyi zaman</dt><dd>${esc(v.season)}</dd></div><div><dt>Önerilen süre</dt><dd>${esc(v.days)}</dd></div>
+      <div><dt>Dil</dt><dd>${esc(v.lang)}</dd></div><div><dt>Para birimi</dt><dd>${esc(v.cur)}</dd></div>` : `
+      <div><dt>Nüfus</dt><dd>${v.pop ? fmtPop(v.pop) : '—'}</dd></div><div><dt>Başkent</dt><dd>${esc(m.cap || '—')}</dd></div>
+      <div><dt>Diller</dt><dd>${esc((m.lang || []).slice(0,3).map(x => of(LN, x)).join(', ') || '—')}</dd></div><div><dt>Para birimi</dt><dd>${esc((m.cur || []).slice(0,2).map(x => of(CN, x)).join(', ') || '—')}</dd></div>`}
+    </dl>
+    ${full ? '' : genBlock(v)}
+  </div>
+  ${full ? `<div class="tabs" role="tablist"><div>${TABS.map(([k,l]) => `<button role="tab" data-tab="${k}" aria-selected="${k===tab}">${l}</button>`).join('')}</div></div>
+  <div class="tb" id="tb"></div>
+  <div class="tip"><b>Yerel ipucu</b>${esc(v.tip)}</div>` : ''}
+  <div class="near"><h5>${v.g && nearG.length ? 'Yakınındaki şehirler' : 'Buradan sonra'}</h5><div class="chips">${(v.g && nearG.length ? nearG : near).map(([x,d]) => `<button class="chip" data-go="${x.id}">${esc(x.name)} · ${fmtKm(d)}</button>`).join('')}</div></div>
+  <p class="note">${v.guide ? 'Bu rehber Claude tarafından yazıldı; konumlar yaklaşık. Gitmeden önce doğrula.' : v.g ? 'Şehir verisi: GeoNames. Ülke bilgisi: açık veri.' : 'Elle hazırlanmış örnek içerik; konumlar yaklaşık.'} <a href="${wiki(v.name)}" target="_blank" rel="noopener">Wikipedia'da oku</a></p>`;
+  $('#closeP').onclick = () => closePanel();
+  $('#stampB').onclick = () => { if (stamps[v.id]) delete stamps[v.id]; else { stamps[v.id] = Date.now(); toast(v.name + ' pasaportuna damgalandı') } store.set('stamps', stamps); updatePass(); repaint(); renderPanel() };
+  $('#tripB').onclick = () => { toggleTrip(v.id); renderPanel() };
+  $('#shareB').onclick = async () => { try { await navigator.clipboard.writeText(location.href); toast('Bağlantı kopyalandı') } catch(e) { toast(location.href) } };
+  $$('#panel [data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+  if (full) {
+    $$('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; activePlace = -1; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b)); renderTab(); drawMini() });
+    renderTab();
+  } else bindGen(v);
+  drawMini();
+}
+
+/* live guide via Claude */
+function genBlock(v){
+  return `<div class="gen" id="gen"><h3>Bu şehrin rehberi henüz yok</h3>
+    <p>${esc(v.name)} için tarih, mutfak kültürü, gezilecek yerler ve bir günlük rotayı Claude hazırlasın. Hazırlanan rehber bu tarayıcıda saklanır.</p>
+    <button class="btn pri" id="genB">${ICON.spark} Rehberi hazırla</button>
+    <small>Yaklaşık 30–60 saniye sürer. Bilgiler otomatik üretilir, doğrulanmamıştır.</small></div>`;
+}
+const STEPS = [['history','Tarih çizelgesi'],['foods','Mutfak kültürü'],['places','Gezilecek yerler'],['route','Bir günlük rota']];
+function bindGen(v){
+  const b = $('#genB'); if (!b) return;
+  b.onclick = async () => {
+    const box = $('#gen');
+    box.innerHTML = `<h3>${esc(v.name)} rehberi hazırlanıyor</h3><ul class="steps" id="steps">${STEPS.map(([k,l],i) => `<li data-k="${k}" class="${i?'':'on'}"><i></i>${l}</li>`).join('')}</ul><button class="btn" id="stopB" style="width:100%">Durdur</button>`;
+    const ctl = genCtl = new AbortController(); $('#stopB').onclick = () => ctl.abort();
+    try {
+      let k = 0; const tick = setInterval(() => { k = Math.min(3, k + 1); $$('#steps li').forEach((li, i) => li.className = i < k ? 'ok' : i === k ? 'on' : '') }, 9000);
+      let res; try { res = await fetch(API_URL, {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({name: v.name, country: v.country, lat: v.lat, lng: v.lng, pop: v.pop}), signal: ctl.signal}) } finally { clearInterval(tick) }
+      if ([404, 405, 501, 503].includes(res.status)) throw {code: 'no_api'};
+      if (!res.ok) throw {code: res.status === 429 ? 'rate_limited' : 'upstream_error'};
+      const raw = await res.json();
+      const g = clean(raw, v); if (!g) throw {code: 'invalid_json'};
+      guides[v.id] = g; store.set('guides', guides); IDX = null; saveShared(v, g);
+      if (cur && cur.id === v.id) { renderPanel(); repaint(); toast(v.name + ' rehberi hazır') }
+    } catch(e) {
+      if (!cur || cur.id !== v.id) return;
+      const msg = {cancelled: 'Durduruldu.', no_api: 'Canlı rehber için sitenin Vercel’de API anahtarıyla kurulu olması gerekiyor.', rate_limited: 'Şu an çok fazla istek var, biraz sonra tekrar dene.', invalid_json: 'Rehber okunamadı, tekrar dene.', refused: 'Bu şehir için rehber hazırlanamadı.'}[e && (e.code || (e.name === 'AbortError' ? 'cancelled' : ''))] || 'Bağlantı sorunu oldu, tekrar dene.';
+      box.innerHTML = genBlock(v).replace(/^<div class="gen" id="gen">|<\/div>$/g, ''); bindGen(v); toast(msg);
+    } finally { if (genCtl === ctl) genCtl = null }
+  };
+}
+function clean(r, v){
+  if (!r || typeof r !== 'object') return null;
+  const s = x => String(x ?? '').slice(0, 400), arr = (a, n) => Array.isArray(a) ? a.slice(0, n) : [];
+  const history = arr(r.history, 7).map(h => ({y: s(h.y).slice(0, 24), t: s(h.t).slice(0, 80), d: s(h.d)})).filter(h => h.y && h.t);
+  const foods = arr(r.foods, 5).map(f => ({n: s(f.n).slice(0, 60), k: s(f.k).slice(0, 30), d: s(f.d), w: s(f.w).slice(0, 80)})).filter(f => f.n);
+  const places = arr(r.places, 6).map(p => { let lat = +p.lat, lng = +p.lng; if (!isFinite(lat) || !isFinite(lng) || km(v, {lat, lng}) > 150) { lat = v.lat; lng = v.lng }
+    return {n: s(p.n).slice(0, 70), k: KIND[p.k] ? p.k : 'Tarih', lat, lng, d: s(p.d), t: s(p.t).slice(0, 30)} }).filter(p => p.n);
+  if (history.length < 2 || foods.length < 2 || places.length < 2) return null;
+  const route = arr(r.route, 5).map(x => ({s: s(x.s).slice(0, 20) || 'Gün', p: Number.isInteger(x.p) && x.p >= 0 && x.p < places.length ? x.p : null, d: s(x.d)}));
+  const sig = r.sig || {};
+  let tz = s(r.tz); try { new Intl.DateTimeFormat('tr', {timeZone: tz}) } catch(e) { tz = '' }
+  return {tag: s(r.tag), season: s(r.season).slice(0, 60) || '—', days: s(r.days).slice(0, 30) || '—', lang: s(r.lang).slice(0, 60) || '—', cur: s(r.cur).slice(0, 40) || '—', tz,
+    sig: {tarih: s(sig.tarih).slice(0, 30), lezzet: s(sig.lezzet).slice(0, 30), gezi: s(sig.gezi).slice(0, 30)}, history, foods, places, route, tip: s(r.tip) || '—'};
+}
+async function loadShared(c){ return null }
+function saveShared(){}
+
+function renderTab(){
+  const c = view(cur), tb = $('#tb');
+  if (tab === 'tarih') {
+    const h = c.history[era], n = c.history.length;
+    tb.innerHTML = `<div class="era"><div class="y">${esc(h.y)}</div><h3>${esc(h.t)}</h3><p>${esc(h.d)}</p></div>
+      <div class="rail"><span class="track"></span><span class="fill" style="width:calc((100% - 16px) * ${n > 1 ? era/(n-1) : 0})"></span>
+      <div class="ticks" role="tablist" aria-label="Zaman çizelgesi">${c.history.map((x,i) => `<button data-era="${i}" class="${i===era?'on':i<era?'done':''}" aria-label="${esc(x.y)}"><i></i>${esc(x.y.length > 8 ? x.y.split(/[ –-]/)[0] : x.y)}</button>`).join('')}</div></div>
+      <div class="row"><button class="btn" id="playB">Zamanda yolculuk</button><span class="src"><a href="${wiki(c.name + ' tarihi')}" target="_blank" rel="noopener">Kaynakta oku</a></span></div>`;
+    tb.querySelectorAll('[data-era]').forEach(b => b.onclick = () => { era = +b.dataset.era; renderTab() });
+    $('#playB').onclick = () => { era = 0; renderTab(); let i = 0; const me = cur; clearInterval(window._play); window._play = setInterval(() => { if (tab !== 'tarih' || cur !== me || ++i >= n) return clearInterval(window._play); era = i; renderTab() }, 2200) };
+  } else if (tab === 'lezzet') {
+    tb.innerHTML = `<div class="foods">${c.foods.map((f,i) => { const key = c.id+':'+i, on = tasted.includes(key);
+      return `<article class="food"><span class="ini">${esc([...f.n][0] || '')}</span><span class="k">${esc(f.k)}</span><button class="taste" data-key="${key}" aria-pressed="${on}">${on ? 'Tattım' : 'Tadacağım'}</button><h4>${esc(f.n)}</h4><p>${esc(f.d)}</p><small>Nerede: ${esc(f.w)} · <a href="${wiki(f.n)}" target="_blank" rel="noopener">Wikipedia</a></small></article>` }).join('')}</div>`;
+    tb.querySelectorAll('.taste').forEach(b => b.onclick = () => { const k = b.dataset.key; tasted = tasted.includes(k) ? tasted.filter(x => x !== k) : [...tasted, k]; store.set('tasted', tasted); updatePass(); renderTab() });
+  } else if (tab === 'gezi') {
+    tb.innerHTML = `<ol class="places">${c.places.map((p,i) => `<li><button data-pl="${i}" class="${i===activePlace?'on':''}" style="--c:${KIND[p.k]||'#ddd'}">
+      <span class="num">${i+1}</span><strong>${esc(p.n)}</strong><small>${esc(p.k)} · ${esc(p.t)}</small><p>${esc(p.d)}</p></button></li>`).join('')}</ol>`;
+    tb.querySelectorAll('[data-pl]').forEach(b => b.onclick = () => { activePlace = +b.dataset.pl; renderTab(); drawMini() });
+  } else {
+    const pts = c.route.filter(r => r.p !== null).map(r => c.places[r.p]);
+    let dist = 0; for (let i = 1; i < pts.length; i++) dist += km(pts[i-1], pts[i]);
+    tb.innerHTML = `<p class="sumline">${c.route.length} durak · duraklar arası ≈ ${fmtKm(dist)} kuş uçuşu</p>
+      <ol class="sched">${c.route.map(r => `<li data-rp="${r.p ?? ''}"><span class="t">${esc(r.s)}</span><div><b>${r.p !== null ? esc(c.places[r.p].n) : 'Serbest zaman'}</b><p>${esc(r.d)}</p></div></li>`).join('')}</ol>`;
+    tb.querySelectorAll('[data-rp]').forEach(li => li.onclick = () => { if (li.dataset.rp !== '') { activePlace = +li.dataset.rp; drawMini() } });
+  }
+}
+
+function drawMini(){
+  if (!mapReady) return;
+  const v = cur ? view(cur) : null;
+  if (!v || !v.places) { setSrc('k-cp', fc([])); setSrc('k-route', fc([])); return }
+  setSrc('k-cp', fc(v.places.map((p, i) => pt([p.lng, p.lat], {i, n: String(i + 1), name: p.n, on: i === activePlace, col: KIND[p.k] || '#ddd'}))));
+  const seq = tab === 'rota' ? v.route.map(r => r.p).filter(p => p !== null).map(i => [v.places[i].lng, v.places[i].lat]) : [];
+  setSrc('k-route', fc(seq.length > 1 ? [ln(seq)] : []));
+  if (activePlace >= 0) { const p = v.places[activePlace]; map.flyTo({center: [p.lng, p.lat], zoom: 16.2, pitch: 55, bearing: -15, duration: RM ? 0 : 1800, essential: true}) }
+  else if (tab === 'rota' && seq.length) fitTo(seq, 14);
+}
+
+const defDays = id => { const v = view(byId[id]), n = parseInt(String(v.days || '').match(/\d+/)?.[0]); return Math.max(1, Math.min(7, n || 2)) };
+function toggleTrip(id){
+  const had = trip.some(t => t.id === id);
+  trip = had ? trip.filter(t => t.id !== id) : [...trip, {id, days: defDays(id)}];
+  saveTrip(); if (!had) toast(byId[id].name + ' plana eklendi');
+}
+function saveTrip(){ store.set('trip2', trip); renderTrip(); if (document.body.classList.contains('plan')) renderPlan() }
+function renderTrip(){
+  const t = $('#trip'), list = trip.map(x => byId[x.id]);
+  const pairs = []; let dist = 0;
+  for (let i = 1; i < list.length; i++) { pairs.push([list[i-1], list[i]]); dist += km(list[i-1], list[i]) }
+  mapReady && !quiz && world.arcsData(pairs);
+  t.hidden = !list.length;
+  const days = trip.reduce((a, x) => a + x.days, 0);
+  t.innerHTML = list.length ? `<div class="lbl"><b>Gezi planın</b>${list.length} şehir · ${days} gün${dist ? ' · ' + fmtKm(dist) : ''}</div>
+    ${list.map((c,i) => `<span class="stop"><i>${i+1}</i><button data-go="${c.id}">${esc(c.name)}</button><button data-rm="${c.id}" aria-label="${esc(c.name)} plandan çıkar">${ICON.x.replace('<svg','<svg width="14" height="14"')}</button></span>`).join('')}
+    <button class="btn pri" data-go="plan">Planı aç</button>` : '';
+  t.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+  t.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { toggleTrip(b.dataset.rm); if (cur) renderPanel() });
+  document.documentElement.style.setProperty('--introH', $('#intro').offsetHeight + 'px');
+}
+const legOf = d => d < 180 ? {m: 'car', t: 'arabayla', h: d / 70 + .2} : d < 650 ? {m: 'train', t: 'tren ya da otobüsle', h: d / 85 + .5} : {m: 'plane', t: 'uçakla', h: d / 780 + 3};
+const fmtH = h => h < 1 ? Math.round(h * 60) + ' dk' : '~' + (Math.round(h * 2) / 2).toLocaleString('tr-TR') + ' sa';
+const LEGI = {car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16V11l2-5h10l2 5v5M3 16h18M7 19v-3M17 19v-3M5 11h14"/></svg>',
+  train: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M8 20l2-4M16 20l-2-4"/></svg>',
+  plane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13 3 11l1-2 7 1 4-6h2l-2 6 5 1 1-2h1l-1 4-1 4h-1l-1-2-5 1 2 6h-2l-4-6Z"/></svg>'};
+const iso = d => { const z = new Date(d); z.setMinutes(z.getMinutes() - z.getTimezoneOffset()); return z.toISOString().slice(0, 10) };
+const addDays = (s, n) => { const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return d };
+const fmtD = (d, o = {day: 'numeric', month: 'short', weekday: 'short'}) => d.toLocaleDateString('tr-TR', o);
+function openPlan(){
+  openShell('plan'); cur = null; curCC = null; setSelC(null); world.ringsData([]); repaint();
+  fitStops(); renderPlan();
+}
+function fitStops(){
+  const list = trip.map(x => byId[x.id]); if (!list.length || !mapReady) return;
+  fitTo(list.map(c => [c.lng, c.lat]), 6);
+}
+function itinerary(){
+  if (!planStart) planStart = iso(new Date(Date.now() + 14 * 864e5));
+  const out = []; let day = 0;
+  trip.forEach((t, si) => {
+    const c = byId[t.id], v = view(c), g = !!v.history, prev = si ? byId[trip[si-1].id] : null;
+    const rIdx = g ? v.route.map(r => r.p).filter(p => p !== null) : [], rest = g ? v.places.map((p, i) => i).filter(i => !rIdx.includes(i)) : [];
+    for (let k = 0; k < t.days; k++) {
+      const items = [];
+      if (k === 0 && prev) { const d = km(prev, c), L = legOf(d); items.push({c: '#7fb4ff', tx: `${prev.name} → ${c.name}: ${fmtKm(d)}, ${L.t} ${fmtH(L.h)}`}) }
+      if (!g) { if (k === 0) items.push({c: '#b9a8ff', tx: 'Bu şehrin rehberi yok.', act: c.id}); else items.push({c: '#b9a8ff', tx: 'Serbest gün: şehri kendi temponda keşfet.'}) }
+      else if (k === 0) v.route.forEach(r => items.push({c: '#b9a8ff', tx: `${r.s}: ${r.p !== null ? v.places[r.p].n : 'Serbest zaman'}`}));
+      else { const ps = rest.splice(0, 2); if (ps.length) ps.forEach(i => items.push({c: '#b9a8ff', tx: `${v.places[i].n} · ${v.places[i].t}`})); else items.push({c: '#b9a8ff', tx: 'Serbest gün: yakın çevreyi keşfet.'}) }
+      if (g && v.foods.length) items.push({c: '#ffa587', tx: 'Bugün dene: ' + v.foods[k % v.foods.length].n});
+      out.push({n: day + 1, date: addDays(planStart, day), c, items}); day++;
+    }
+  });
+  return out;
+}
+function renderPlan(){
+  const list = trip.map(x => byId[x.id]), days = trip.reduce((a, x) => a + x.days, 0);
+  let dist = 0; for (let i = 1; i < list.length; i++) dist += km(list[i-1], list[i]);
+  const it = itinerary(), end = addDays(planStart, Math.max(0, days - 1));
+  const UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>';
+  $('#panel').innerHTML = `
+  <div class="cover" style="--cv:var(--sky)">
+    <button class="close" id="closeP" aria-label="Kapat">${ICON.x}</button>
+    <div class="crumb"><span class="pill">Gezi planı</span>${days ? `<span>${fmtD(addDays(planStart, 0), {day:'numeric', month:'long'})} – ${fmtD(end, {day:'numeric', month:'long'})}</span>` : ''}</div>
+    <h1>${list.length ? days + ' günlük gezi' : 'Yeni gezi'}</h1>
+    <p class="tag">${list.length ? esc(list.map(c => c.name).join(' → ')) + `<br>${list.length} şehir${dist ? ' · ' + fmtKm(dist) + ' yol' : ''}` : 'Şehir ekleyerek planını kur.'}</p>
+  </div>
+  <div class="sec">
+    <div class="pdates"><label>Başlangıç<input type="date" id="pStart" value="${planStart}"></label><div>Dönüş<b>${days ? fmtD(end, {day:'numeric', month:'short', year:'numeric'}) : '—'}</b></div></div>
+    <h4 class="sh">Duraklar <small>sürükleme yerine oklarla sırala</small></h4>
+    ${list.length ? `<ol class="stops">${trip.map((t, i) => { const c = byId[t.id], v = view(c), leg = i ? (() => { const d = km(list[i-1], c), L = legOf(d); return `<li class="leg">${LEGI[L.m]}${fmtKm(d)} · ${L.t} ${fmtH(L.h)}</li>` })() : '';
+      return leg + `<li class="stopc"><span class="n">${i+1}</span><button class="t" data-go="${c.id}">${esc(c.name)}<small>${esc(v.country)}${v.history ? '' : ' · rehber yok'}</small></button><span></span>
+        <div class="ctl"><span class="step"><button data-d="${i}" data-v="-1" aria-label="Bir gün azalt">−</button><span>${t.days} gün</span><button data-d="${i}" data-v="1" aria-label="Bir gün artır">+</button></span>
+        <span class="mv"><button data-mv="${i}" data-v="-1" ${i ? '' : 'disabled'} aria-label="Yukarı taşı">${UP}</button><button data-mv="${i}" data-v="1" ${i < trip.length - 1 ? '' : 'disabled'} aria-label="Aşağı taşı">${UP.replace('m6 15 6-6 6 6', 'm6 9 6 6 6-6')}</button><button data-rm="${c.id}" aria-label="Çıkar">${ICON.x.replace('<svg', '<svg width="16" height="16"')}</button></span></div></li>` }).join('')}</ol>`
+      : `<p class="empty2">Henüz durak yok. Aşağıdan bir şehir ara ya da bir şehir sayfasında "Plana ekle"ye bas.</p>`}
+    <div class="padd"><input id="pAdd" type="search" placeholder="Şehir ekle" autocomplete="off" aria-label="Plana şehir ekle"><div class="sugg card" id="pSug" hidden></div></div>
+    ${it.length ? `<h4 class="sh">Gün gün <small>${days} gün</small></h4><div class="days">${it.map(d => `<article class="dayc"><header><b>${d.n}. gün · ${esc(d.c.name)}</b><span>${fmtD(d.date)}</span></header><ul>${d.items.map(x => `<li style="--c:${x.c}"><i></i><span>${esc(x.tx)}${x.act ? ` <button data-go="${x.act}">Rehberi hazırla</button>` : ''}</span></li>`).join('')}</ul></article>`).join('')}</div>
+    <div class="pact"><button class="btn pri" id="pCopy">Planı kopyala</button><button class="btn" id="pFit">Kürede göster</button><button class="btn" id="pClear">Temizle</button></div>` : ''}
+  </div>
+  <p class="note">Yol süreleri kuş uçuşu mesafeden kabaca hesaplanır; bilet ve saatleri ayrıca kontrol et.</p>`;
+  $('#closeP').onclick = () => closePanel();
+  $$('#panel [data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+  $$('#panel [data-d]').forEach(b => b.onclick = () => { const t = trip[+b.dataset.d]; t.days = Math.max(1, Math.min(14, t.days + +b.dataset.v)); saveTrip() });
+  $$('#panel [data-mv]').forEach(b => b.onclick = () => { const i = +b.dataset.mv, j = i + +b.dataset.v; [trip[i], trip[j]] = [trip[j], trip[i]]; saveTrip() });
+  $$('#panel [data-rm]').forEach(b => b.onclick = () => toggleTrip(b.dataset.rm));
+  $('#pStart').onchange = e => { if (e.target.value) { planStart = e.target.value; store.set('planStart', planStart); renderPlan() } };
+  const pc = $('#pCopy'); if (pc) pc.onclick = async () => { const txt = 'Gezi planı\n' + itinerary().map(d => `${d.n}. gün (${fmtD(d.date)}) · ${d.c.name}\n` + d.items.map(x => '  - ' + x.tx).join('\n')).join('\n'); try { await navigator.clipboard.writeText(txt); toast('Plan kopyalandı') } catch(e) { toast('Kopyalanamadı') } };
+  const pf = $('#pFit'); if (pf) pf.onclick = fitStops;
+  const pl = $('#pClear'); if (pl) pl.onclick = () => { trip = []; saveTrip() };
+  const pa = $('#pAdd'), ps = $('#pSug'); let ph = [];
+  pa.oninput = () => { const v = norm(pa.value.trim()); if (!v) { ps.hidden = true; return }
+    ph = index().filter(h => (h.t === 'city' || h.t === 'g') && h.n.startsWith(v) && !trip.some(t => t.id === h.id)).sort((a, b) => b.w - a.w || (b.pop || 0) - (a.pop || 0)).slice(0, 6);
+    ps.hidden = false; ps.innerHTML = ph.length ? ph.map((h, i) => `<button data-i="${i}"><span class="ic" style="background:var(--lav);color:var(--lav-i)">${ICON.plus.replace('<svg', '<svg width="14" height="14"')}</span><span><b>${esc(h.l)}</b><small>${esc(h.s)}</small></span><span class="meta">${h.pop ? fmtPop(h.pop) : 'rehber'}</span></button>`).join('') : '<div class="empty">Eşleşme yok.</div>';
+    ps.querySelectorAll('[data-i]').forEach(b => b.onmousedown = e => { e.preventDefault(); toggleTrip(ph[+b.dataset.i].id); setTimeout(() => { fitStops(); const n = $('#pAdd'); n && n.focus() }, 30) }) };
+  pa.onblur = () => setTimeout(() => ps.hidden = true, 150);
+}
+
+/* country pages */
+async function openCountry(cc){
+  openShell('country'); cur = null; curCC = cc; ctyMore = false; world.ringsData([]);
+  const f = geoF.find(x => x.properties.a2 === cc), c = countries.find(x => x.a2 === cc);
+  setSelC(f || null);
+  if (f && c) { const b = f._bb; if (b[2] - b[0] > 300) world.pointOfView({lat: c.lat, lng: c.lng, altitude: 1.6}); else fitTo([[b[0], b[1]], [b[2], b[3]]], 6.5) }
+  renderCountry(); repaint();
+}
+function renderCountry(){
+  const cc = curCC, m = meta[cc] || {}, name = of(RN, cc), ct = m.ct;
+  const hand = cities.filter(c => c.cc === cc), ps = places.filter(p => p.cc === cc);
+  const gen = ps.filter(p => guides[p.id]);
+  const top = ps.slice(0, ctyMore ? 60 : 12);
+  const stampedN = Object.keys(stamps).filter(id => byId[id] && byId[id].cc === cc).length;
+  const card = (c, sub) => { const v = view(c); return `<button class="gcard" data-go="${c.id}"><b>${esc(c.name)}</b><span>${esc(v.tag || '')}</span><small>${sub}</small></button>` };
+  $('#panel').innerHTML = `
+  <div class="cover" style="--cv:${coverBg({ct})}">
+    <button class="close" id="closeP" aria-label="Kapat">${ICON.x}</button>
+    <div class="crumb"><span class="pill">Ülke</span><span>${esc(CONT_TR[ct] || '')}</span></div>
+    <h1>${esc(name)}</h1>
+    <p class="tag">Haritada ${(ps.length + hand.length).toLocaleString('tr-TR')} şehir · ${hand.length + gen.length} rehber</p>
+  </div>
+  <div class="sec">
+    <div class="acts"><button class="btn pri" id="ctySearch">Bu ülkede ara</button><button class="btn" id="ctyRand">Rastgele şehir</button></div>
+    <dl class="facts">
+      <div><dt>Başkent</dt><dd>${esc(m.cap || '—')}</dd></div><div><dt>Diller</dt><dd>${esc((m.lang || []).slice(0, 3).map(x => of(LN, x)).join(', ') || '—')}</dd></div>
+      <div><dt>Para birimi</dt><dd>${esc((m.cur || []).slice(0, 2).map(x => of(CN, x)).join(', ') || '—')}</dd></div><div><dt>Damgaladıkların</dt><dd>${stampedN} şehir</dd></div>
+    </dl>
+    ${hand.length ? `<h4 class="sh">Hazır rehberler <small>${hand.length}</small></h4><div class="glist">${hand.map(c => card(c, 'Elle hazırlandı')).join('')}</div>` : ''}
+    <h4 class="sh">Claude rehberleri <small>${gen.length}</small></h4>
+    ${gen.length ? `<div class="glist">${gen.map(c => card(c, 'Claude ile hazırlandı')).join('')}</div>` : `<p class="empty2">Bu ülke için henüz Claude rehberi yok. Aşağıdan bir şehir seçip rehberini hazırlayabilirsin.</p>`}
+    <h4 class="sh">En kalabalık şehirler <small>${ps.length.toLocaleString('tr-TR')} şehir</small></h4>
+    <ol class="clist">${top.map((p, i) => `<li><button data-go="${p.id}"><span class="rk">${i + 1}</span><span class="nm">${esc(p.name)}</span><span class="pp">${fmtPop(p.pop)}</span>${guides[p.id] ? '<span class="bd">Rehber</span>' : '<span></span>'}</button></li>`).join('')}</ol>
+    ${ps.length > 12 && !ctyMore ? `<button class="btn" id="ctyMore" style="width:100%;margin-top:8px">${Math.min(60, ps.length)} şehri göster</button>` : ''}
+  </div>
+  <p class="note">Ülke sınırları: Natural Earth · Şehirler: GeoNames · <a href="${wiki(name)}" target="_blank" rel="noopener">Wikipedia'da oku</a></p>`;
+  $('#closeP').onclick = () => closePanel();
+  $$('#panel [data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+  $('#ctySearch').onclick = () => { sF.cc = cc; q.focus(); runSearch() };
+  $('#ctyRand').onclick = () => { const pool = [...hand, ...ps.slice(0, 80)]; if (pool.length) go(pool[Math.floor(Math.random() * pool.length)].id) };
+  const mb = $('#ctyMore'); if (mb) mb.onclick = () => { ctyMore = true; renderCountry() };
+}
+
+const STAMPC = ['#8b7cf6','#ff8a65','#3fbf86','#5b8def','#e86a9a','#e3a21a'];
+function stampSvg(c, i){
+  const v = view(c), on = !!stamps[c.id], col = on ? STAMPC[hash(c.id) % STAMPC.length] : 'var(--s3)', rot = on ? (hash(c.id) % 22) - 11 : 0;
+  const date = on ? new Date(stamps[c.id]).toLocaleDateString('tr-TR', {day:'2-digit', month:'short', year:'numeric'}) : 'henüz değil';
+  const top = (v.country || '').toLocaleUpperCase('tr').slice(0, 22);
+  return `<svg viewBox="0 0 120 120" style="transform:rotate(${rot}deg)"><defs><path id="ar${i}" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+    <circle cx="60" cy="60" r="55" fill="none" stroke="${col}" stroke-width="3" ${on ? '' : 'stroke-dasharray="4 5"'}/><circle cx="60" cy="60" r="36" fill="${on ? col : 'none'}" fill-opacity=".12" stroke="${col}" stroke-width="1.5"/>
+    <text font-size="10" font-weight="700" fill="${col}" letter-spacing="1.2"><textPath href="#ar${i}" startOffset="25%" text-anchor="middle">${esc(top)}</textPath></text>
+    <text x="60" y="62" text-anchor="middle" font-size="${c.name.length > 9 ? 12 : 15}" font-weight="650" fill="${on ? 'var(--ink)' : 'var(--mut)'}">${esc(c.name)}</text>
+    <text x="60" y="77" text-anchor="middle" font-size="9" font-weight="600" fill="${on ? col : 'var(--mut)'}">${esc(date)}</text></svg>`;
+}
+function updatePass(){
+  const ids = Object.keys(stamps).filter(id => byId[id]), conts = new Set(ids.map(id => view(byId[id]).cont).filter(Boolean).flatMap(x => x.split(' / ')));
+  $('#passN').textContent = ids.length;
+  $('#passStats').innerHTML = `<div style="background:var(--lav)"><b>${ids.length}</b>şehir</div><div style="background:var(--pch)"><b>${tasted.length}</b>tadılan lezzet</div><div style="background:var(--mnt)"><b>${conts.size}</b>kıta</div>`;
+  const list = [...cities, ...ids.filter(id => byId[id].g).map(id => byId[id])];
+  $('#stamps').innerHTML = list.map((c,i) => `<button class="stamp" data-go="${c.id}" aria-label="${esc(c.name)}">${stampSvg(c,i)}</button>`).join('');
+  $('#stamps').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { $('#passModal').hidden = true; go(b.dataset.go) });
+}
+function buildIntro(){
+  const nP = cities.reduce((a,c) => a + c.places.length, 0);
+  $('#tiles').innerHTML = `<div style="background:var(--lav)"><b>${(places.length + cities.length).toLocaleString('tr-TR')}</b>şehir haritada</div><div style="background:var(--pch)"><b>${cities.length}</b>hazır rehber</div><div style="background:var(--mnt)"><b>${nP}</b>gezilecek yer</div>`;
+  const dc = cities[Math.floor(Date.now() / 864e5) % cities.length];
+  $('#daily').innerHTML = `<small>Günün şehri</small><b>${esc(dc.name)}</b><span>${esc(dc.tag)}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+  $('#daily').onclick = () => go(dc.id);
+  $('#featured').innerHTML = cities.map(c => `<button class="chip" data-go="${c.id}">${esc(c.name)}</button>`).join('');
+  $('#featured').querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+}
+
+/* search */
+const q = $('#q'), sg = $('#sugg'); let hits = [], hi = 0, IDX = null;
+const index = () => IDX || (IDX = [
+  ...Object.keys(meta).map(cc => ({l: of(RN, cc), s: CONT_TR[meta[cc].ct] || 'Ülke', t: 'country', id: 'ulke-' + cc, cc, w: 3.5})).filter(h => h.l && h.l !== h.cc),
+  ...cities.flatMap(c => [{l: c.name, s: c.country, t: 'city', id: c.id, cc: c.cc, w: 3},
+    ...c.foods.map(f => ({l: f.n, s: c.name + ' mutfağı', t: 'lezzet', id: c.id, cc: c.cc, w: 2})),
+    ...c.places.map((p,i) => ({l: p.n, s: c.name + ' · ' + p.k, t: 'gezi', id: c.id, pl: i, cc: c.cc, w: 2}))]),
+  ...Object.keys(guides).filter(id => byId[id]).flatMap(id => { const g = guides[id], c = byId[id];
+    return [...g.foods.map(f => ({l: f.n, s: c.name + ' mutfağı', t: 'lezzet', id, cc: c.cc, w: 1.8})), ...g.places.map((p,i) => ({l: p.n, s: c.name + ' · ' + p.k, t: 'gezi', id, pl: i, cc: c.cc, w: 1.8}))] }),
+  ...places.map(p => ({l: p.name, s: of(RN, p.cc), t: 'g', id: p.id, cc: p.cc, w: guides[p.id] ? 2.5 : 1, pop: p.pop}))].map(h => (h.n = norm(h.l), h)));
+const IC = {country: ['Ü','var(--sky)','var(--sky-i)'], city: ['Ş','var(--lav)','var(--lav-i)'], lezzet: ['L','var(--pch)','var(--pch-i)'], gezi: ['Y','var(--mnt)','var(--mnt-i)'], g: ['Ş','var(--s2)','var(--mut)']};
+const STYPES = [['all','Tümü'],['city','Şehir'],['lezzet','Lezzet'],['gezi','Yer'],['country','Ülke']];
+const okType = h => sF.type === 'all' || h.t === sF.type || (sF.type === 'city' && h.t === 'g');
+function pick(h){
+  sg.hidden = true; q.value = ''; q.blur();
+  if (h.t === 'country') return go(h.id);
+  if (location.hash.slice(1) !== h.id) history.replaceState(null, '', '#' + h.id);
+  select(h.id, {tab: h.t === 'lezzet' || h.t === 'gezi' ? h.t : 'tarih', place: h.pl});
+}
+function runSearch(){
+  const v = norm(q.value.trim());
+  if (!v && !sF.cc) { sg.hidden = true; return }
+  const res = [];
+  for (const h of index()) {
+    if (sF.cc && h.cc !== sF.cc) continue; if (!okType(h)) continue;
+    if (!v) { if (h.t === 'city' || h.t === 'g') res.push([h, -h.w - (h.pop ? Math.log10(h.pop) / 3 : 3)]); continue }
+    const i = h.n.indexOf(v); if (i >= 0) res.push([h, (i === 0 ? 0 : 2) - h.w + (h.pop ? -Math.log10(h.pop)/3 : -3)]);
+  }
+  hits = res.sort((a,b) => a[1]-b[1]).slice(0, 8).map(x => x[0]); hi = 0;
+  sg.hidden = false;
+  const fil = `<div class="sfil">${sF.cc ? `<button class="cc" data-clr="1" aria-label="Ülke filtresini kaldır">${esc(of(RN, sF.cc))} ${ICON.x.replace('<svg', '<svg width="12" height="12"')}</button>` : ''}${STYPES.map(([k, l]) => `<button data-ty="${k}" aria-pressed="${sF.type === k}">${l}</button>`).join('')}</div>`;
+  sg.innerHTML = fil + (hits.length ? hits.map((h,i) => { const [l,bg,fg] = IC[h.t]; return `<button data-i="${i}" class="${i===hi?'on':''}"><span class="ic" style="background:${bg};color:${fg}">${l}</span><span><b>${esc(h.l)}</b><small>${esc(h.s)}</small></span><span class="meta">${h.pop ? fmtPop(h.pop) : h.t === 'city' ? 'rehber' : h.t === 'country' ? 'ülke' : ''}</span></button>` }).join('') : `<div class="empty">${sF.cc ? 'Bu ülkede eşleşme yok.' : 'Eşleşme yok. Farklı yazmayı dene.'}</div>`);
+  if (v.length >= 3) sg.insertAdjacentHTML('beforeend', `<button data-geo="1"><span class="ic" style="background:var(--sky);color:var(--sky-i)">A</span><span><b>“${esc(q.value.trim())}” için haritada ara</b><small>Adres, mahalle, sokak · OpenStreetMap</small></span><span class="meta"></span></button>`);
+  const gb = sg.querySelector('[data-geo]'); if (gb) gb.onmousedown = e => { e.preventDefault(); geoSearch(q.value.trim()) };
+  sg.querySelectorAll('[data-i]').forEach(b => b.onmousedown = e => { e.preventDefault(); pick(hits[+b.dataset.i]) });
+  sg.querySelectorAll('[data-ty]').forEach(b => b.onmousedown = e => { e.preventDefault(); sF.type = b.dataset.ty; runSearch() });
+  const cl = sg.querySelector('[data-clr]'); if (cl) cl.onmousedown = e => { e.preventDefault(); sF.cc = null; runSearch() };
+}
+q.addEventListener('input', runSearch);
+q.addEventListener('focus', () => { if (q.value.trim() || sF.cc) runSearch() });
+q.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { sg.hidden = true; q.blur(); return }
+  if (e.key === 'Enter' && !hits.length && q.value.trim().length >= 3) { geoSearch(q.value.trim()); return }
+  if (sg.hidden || !hits.length) return;
+  const rows = sg.querySelectorAll('[data-i]');
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); hi = (hi + (e.key === 'ArrowDown' ? 1 : hits.length - 1)) % hits.length; rows.forEach((b,i) => b.classList.toggle('on', i === hi)) }
+  if (e.key === 'Enter') pick(hits[hi]);
+});
+q.addEventListener('blur', () => setTimeout(() => sg.hidden = true, 150));
+async function geoSearch(text){
+  sg.hidden = false; sg.innerHTML = '<div class="empty">OpenStreetMap’te aranıyor…</div>';
+  try {
+    const r = await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=tr&q=' + encodeURIComponent(text)); const a = await r.json();
+    sg.innerHTML = a.length ? a.map((x, i) => `<button data-gi="${i}"><span class="ic" style="background:var(--sky);color:var(--sky-i)">A</span><span><b>${esc(x.name || x.display_name.split(',')[0])}</b><small>${esc(x.display_name)}</small></span><span class="meta">${esc(String(x.type || '').replace(/_/g, ' '))}</span></button>`).join('') : '<div class="empty">Sonuç bulunamadı.</div>';
+    sg.querySelectorAll('[data-gi]').forEach(b => b.onmousedown = e => { e.preventDefault(); const x = a[+b.dataset.gi]; sg.hidden = true; q.value = ''; q.blur(); spin.autoRotate = false;
+      const bb = x.boundingbox.map(Number); map.fitBounds([[bb[2], bb[0]], [bb[3], bb[1]]], {padding: panelPad(), maxZoom: 17, duration: RM ? 0 : 2200}); dropPin([+x.lon, +x.lat], x.name || x.display_name.split(',')[0]) });
+  } catch(e) { sg.innerHTML = '<div class="empty">Arama yapılamadı, bağlantını kontrol et.</div>' }
+}
+
+$$('[data-layer]').forEach(b => b.onclick = () => { layer = b.dataset.layer; $$('[data-layer]').forEach(x => x.setAttribute('aria-pressed', x === b)); repaint() });
+$('#shuffle').onclick = () => { const pool = cities.filter(c => c !== cur); go(pool[Math.floor(Math.random()*pool.length)].id) };
+$('#passBtn').onclick = () => { updatePass(); $('#passModal').hidden = false; $('#passClose').focus() };
+$('#passClose').onclick = () => $('#passModal').hidden = true;
+$('#passModal').onclick = e => { if (e.target.id === 'passModal') e.target.hidden = true };
+$('#home').onclick = e => { e.preventDefault(); if (isOpen()) closePanel(); else world.pointOfView({altitude: 2.4}, 900) };
+$('#zin').onclick = () => { spin.autoRotate = false; map.zoomIn() }; $('#zout').onclick = () => { spin.autoRotate = false; map.zoomOut() };
+$('#z3d').onclick = () => { const up = map.getPitch() < 10; map.easeTo({pitch: up ? 60 : 0, bearing: up ? -20 : 0, duration: RM ? 0 : 900}); $('#z3d').setAttribute('aria-pressed', up) };
+$('#zloc').onclick = () => { if (!navigator.geolocation) return toast('Tarayıcın konum desteklemiyor.'); toast('Konumun alınıyor…');
+  navigator.geolocation.getCurrentPosition(p => { const c = [p.coords.longitude, p.coords.latitude]; map.flyTo({center: c, zoom: 14, duration: RM ? 0 : 2000}); dropPin(c, 'Buradasın') }, () => toast('Konum izni verilmedi.'), {enableHighAccuracy: true, timeout: 10000}) };
+let pin = null;
+function dropPin(c, name){ if (pin) pin.remove(); const el = document.createElement('div'); el.className = 'drop'; pin = new maplibregl.Marker({element: el, anchor: 'bottom'}).setLngLat(c).setPopup(new maplibregl.Popup({offset: 28, closeButton: false, className: 'kpop'}).setHTML(`<b>${esc(name)}</b>`)).addTo(map); pin.togglePopup() }
+$('#zreset').onclick = () => { if (isOpen()) closePanel(); else world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 1400) };
+addEventListener('keydown', e => { if (e.key === 'Escape' && document.activeElement !== q) { if (!$('#passModal').hidden) $('#passModal').hidden = true; else if (quiz) endQuiz(); else if (isOpen()) closePanel() } });
+
+/* game: find the city */
+const midLng = (a, b) => { let d = b - a; if (d > 180) d -= 360; if (d < -180) d += 360; return a + d / 2 };
+function startQuiz(){
+  if (isOpen()) closePanel();
+  const pool = [...cities, ...places.filter(p => p.pop >= 2.5e6)], picks = [];
+  while (picks.length < 5) { const c = pool[Math.floor(Math.random() * pool.length)]; if (!picks.includes(c)) picks.push(c) }
+  quiz = {picks, i: 0, total: 0, phase: 'ask', res: []};
+  document.body.classList.add('quiz'); spin.autoRotate = false; idle = Date.now();
+  world.ringsData([]).arcsData([]); world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 900);
+  setQuizMode(true); renderQuiz();
+}
+function quizGuess(lat, lng){
+  const t = quiz.picks[quiz.i], d = km({lat, lng}, t), pts = Math.round(5000 * Math.exp(-d / 1500));
+  quiz.total += pts; quiz.res.push({t, d, pts}); quiz.phase = 'result';
+  setSrc('k-q', fc([ln(gc({lat, lng}, t)), pt([t.lng, t.lat], {name: t.name, col: '#8b7cf6'}), pt([lng, lat], {name: 'Tahminin', col: '#ff8fab'})]));
+  const g = gc({lat, lng}, t); fitTo([g[0], g[g.length >> 1], g[g.length - 1]], 5);
+  renderQuiz();
+}
+function nextQuiz(){
+  quiz.i++; setSrc('k-q', fc([]));
+  if (quiz.i >= quiz.picks.length) { quiz.phase = 'end'; quiz.best = Math.max(store.get('best', 0), quiz.total); store.set('best', quiz.best) }
+  else { quiz.phase = 'ask'; world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 900) }
+  renderQuiz();
+}
+function endQuiz(){ quiz = null; document.body.classList.remove('quiz'); $('#quiz').hidden = true; setSrc('k-q', fc([])); setQuizMode(false); renderTrip() }
+function setQuizMode(on){
+  if (!mapReady) return;
+  for (const l of map.getStyle().layers) if (l.type === 'symbol' && ((l['source-layer'] === 'place' && !/country|continent/.test(l.id)) || l['source-layer'] === 'poi' || l.id === 'k-cur-lab')) try { map.setLayoutProperty(l.id, 'visibility', on ? 'none' : 'visible') } catch(e) {}
+  try { map.setLayoutProperty('k-cur-dot', 'visibility', on ? 'none' : 'visible') } catch(e) {}
+}
+function renderQuiz(){
+  const z = $('#quiz'), t = quiz.picks[quiz.i], tot = quiz.total.toLocaleString('tr-TR'), cn = c => c.g ? of(RN, c.cc) : c.country;
+  z.hidden = false;
+  const head = `<div class="qh"><span>Şehri bul · ${Math.min(quiz.i + 1, 5)} / 5</span><span>${tot} puan</span></div>`;
+  if (quiz.phase === 'ask') z.innerHTML = head + `<p class="qa">Küre üzerinde bu şehre dokun</p><h3>${esc(t.name)}</h3><p class="qs">${esc(cn(t))}</p><div class="qb"><button class="btn" id="qEnd">Oyunu bitir</button></div>`;
+  else if (quiz.phase === 'result') { const r = quiz.res[quiz.res.length - 1];
+    z.innerHTML = head + `<p class="qa">${esc(t.name)}, ${esc(cn(t))}</p><h3>${fmtKm(r.d)} uzaktaydın</h3><p class="qs">+${r.pts.toLocaleString('tr-TR')} puan</p><div class="qb"><button class="btn" id="qEnd">Bitir</button><button class="btn pri" id="qNext">${quiz.i === 4 ? 'Sonucu gör' : 'Sonraki şehir'}</button></div>` }
+  else z.innerHTML = `<button class="close" id="qEnd" aria-label="Kapat">${ICON.x}</button><p class="qa" style="margin:0">Oyun bitti</p><h3>${tot} <span style="color:var(--mut);font-size:18px;letter-spacing:0">/ 25.000</span></h3><p class="qs">En iyi skorun: ${quiz.best.toLocaleString('tr-TR')}</p>
+    <ol class="qr">${quiz.res.map(r => `<li><span>${esc(r.t.name)}</span><span>${fmtKm(r.d)}</span><b>+${r.pts.toLocaleString('tr-TR')}</b></li>`).join('')}</ol>
+    <div class="qb"><button class="btn" id="qCopy">Sonucu kopyala</button><button class="btn pri" id="qAgain">Tekrar oyna</button></div>`;
+  const on = (id, f) => { const b = $('#' + id); if (b) b.onclick = f };
+  on('qEnd', endQuiz); on('qNext', nextQuiz); on('qAgain', startQuiz);
+  on('qCopy', async () => { const txt = `kâşif · şehri bul: ${tot} / 25.000 puan\n` + quiz.res.map(r => `${r.t.name}: ${fmtKm(r.d)}`).join('\n'); try { await navigator.clipboard.writeText(txt); toast('Sonuç kopyalandı') } catch(e) { toast('Kopyalanamadı') } });
+}
+$('#quizBtn').onclick = () => quiz ? endQuiz() : startQuiz();
+addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== q && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); q.focus() } });
+
+boot().catch(err => { $('#loadT').textContent = 'Bir şeyler ters gitti: ' + err.message; console.error(err) });
+}
+</script>
+</body>
+</html>
