@@ -1810,7 +1810,7 @@ function drawOverlay(t = performance.now()){
   if (cv.width !== Math.round(w * ov.r.getPixelRatio()) || cv.height !== Math.round(h * ov.r.getPixelRatio())) ov.r.setSize(w, h, false);
   Object.assign(ov.cam, {left: 0, right: w, top: 0, bottom: -h}); ov.cam.updateProjectionMatrix();
   const c = map.getCenter(), pitch = map.getPitch() * Math.PI / 180, bear = map.getBearing() * Math.PI / 180;
-  const size = Math.max(30, Math.min(120, 26 + (z - 1.5) * 9.5)) * (innerWidth < 700 ? .8 : 1), lim = z < 4 ? 1.25 : 1.4;
+  const size = Math.max(36, Math.min(140, 34 + (z - 1.5) * 12)) * (innerWidth < 700 ? .8 : 1), lim = z < 4 ? 1.25 : 1.4;
   const sel = cur ? cur.id : null;
   const list = ov.items.map(it => ({it, d: km(c, it) / 6371})).sort((a, b) => (b.it.cid === sel) - (a.it.cid === sel) || a.d - b.d);
   for (const {it, d} of list) {
