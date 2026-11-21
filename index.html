@@ -183,6 +183,69 @@ body.plan .trip{display:none}
 body:has(.trip:not([hidden])) .where{bottom:86px}
 .maplibregl-ctrl-bottom-right{right:72px}body.open .maplibregl-ctrl-bottom-right{right:0}
 #z3d[aria-pressed=true]{background:var(--lav);color:var(--lav-i)}
+.tabs div{overflow-x:auto;scrollbar-width:none}.tabs button{flex:1 0 auto;padding:0 12px}
+.sk{border-radius:16px;background:linear-gradient(90deg,var(--s2),var(--s3),var(--s2));background-size:200% 100%;animation:skl 1.2s infinite linear;margin-bottom:8px}
+@keyframes skl{to{background-position:-200% 0}}
+.wx{border-radius:20px;background:var(--sky);padding:16px}
+.wxnow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center}
+.wxnow>div b{display:block;font-size:40px;font-weight:650;letter-spacing:-.04em;line-height:1}
+.wxnow>div span{font-size:14px;color:var(--sky-i);font-weight:500}
+.wxnow dl{grid-column:1/3;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:12px 0 0}
+.wxnow dl div{background:var(--surface);border-radius:12px;padding:7px 9px}
+.wxnow dt{font-size:11.5px;color:var(--mut)}.wxnow dd{margin:0;font-size:13px;font-weight:600;white-space:nowrap}
+.wxdays{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin-top:12px;text-align:center}
+.wxdays div{display:grid;justify-items:center;gap:1px;font-size:12px}.wxdays small{color:var(--mut)}.wxdays b{font-size:13.5px}.wxdays span{color:var(--mut)}
+.adv{margin-top:10px;padding:14px 16px;border-radius:18px;background:var(--s2)}
+.adv h5{margin:0 0 6px;font-size:13px;font-weight:650;color:var(--lav-i)}
+.adv ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:4px}.adv p{margin:0;font-size:14px}
+.adv ul.todo{list-style:none;padding:0;gap:6px}.todo li{display:grid;padding:8px 10px;border-radius:12px;background:var(--surface)}.todo li[data-pl]{cursor:pointer}.todo li[data-pl]:hover{outline:1.5px solid #8b7cf6}
+.todo b{font-size:14px}.todo span{font-size:12.5px;color:var(--mut)}
+.wiki{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:12px;border-radius:18px;background:var(--s2)}
+.wiki:not(:has(img)){grid-template-columns:minmax(0,1fr)}
+.wiki img{width:96px;height:96px;object-fit:cover;border-radius:12px;background:var(--s3)}
+.wiki p{margin:0 0 6px;font-size:13.5px;line-height:1.5}.wiki a{font-size:12.5px;color:var(--lav-i);font-weight:600}
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:8px}
+.cats button{flex:none;height:36px;padding:0 12px;border-radius:12px;background:var(--s2);font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:7px}
+.cats button i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.cats button[aria-pressed=true]{background:var(--btn);color:var(--btn-i)}
+.pois{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pois li,.places li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:stretch}
+.pois li>button:first-child{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 10px;text-align:left;padding:10px 12px;border-radius:14px;background:var(--s2)}
+.pois li>button:first-child:hover{background:var(--s3)}
+.pois b{font-size:14.5px;font-weight:600}.pois small{grid-row:2;font-size:12.5px;color:var(--mut)}.pois span{grid-row:1/3;grid-column:2;align-self:center;font-size:12.5px;color:var(--mut);white-space:nowrap}
+.go{width:44px;border-radius:14px;background:var(--lav);color:var(--lav-i);display:grid;place-items:center}
+.go:hover{background:var(--btn);color:var(--btn-i)}
+.bars{display:grid;gap:6px}.bars div{display:grid;grid-template-columns:108px minmax(0,1fr) 30px;gap:8px;align-items:center;font-size:13.5px}
+.bars i{height:10px;border-radius:5px;background:linear-gradient(90deg,#ffb59a,#ff8f6e)}.bars b{text-align:right;font-size:12.5px;color:var(--mut)}
+.dform{position:relative;display:grid;gap:8px;margin-top:14px}
+.dfield{display:flex;align-items:center;gap:8px;height:48px;padding:0 6px 0 14px;border-radius:14px;background:var(--s2)}
+.dfield i{width:10px;height:10px;border-radius:50%;flex:none}.dA{background:#5fcf9b}.dB{background:#ff6f91}
+.dfield input{flex:1;border:0;background:transparent;font-size:16px;outline:0;height:100%}
+.dfield .btn{height:36px;padding:0 10px;font-size:13px;background:var(--surface)}
+.dswap{position:absolute;right:14px;top:36px;z-index:2;width:32px;height:32px;border-radius:10px;background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center}
+.dform .sugg{left:0;right:0}
+.modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
+.modes button{display:grid;justify-items:center;gap:2px;padding:10px 4px;border-radius:14px;background:var(--s2)}
+.modes button svg{width:20px;height:20px}.modes b{font-size:13.5px}.modes small{font-size:11.5px;color:var(--mut)}
+.modes button[aria-selected=true]{background:var(--btn);color:var(--btn-i)}.modes button[aria-selected=true] small{color:inherit;opacity:.75}
+.dsum{margin-top:12px;padding:14px 16px;border-radius:18px;background:var(--lav)}
+.dsum div{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.dsum b{font-size:28px;font-weight:650;letter-spacing:-.03em}.dsum span{font-size:13.5px;color:var(--lav-i)}
+.dsum p{margin:6px 0 0;font-size:14px}
+.dsteps{list-style:none;margin:12px 0 0;padding:0;counter-reset:s}
+.dsteps li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;counter-increment:s}
+.dsteps li::before{content:counter(s);font-size:11.5px;font-weight:700;color:var(--lav-i);background:var(--lav);border-radius:8px;text-align:center;padding:2px 0}
+.dsteps small{color:var(--mut);white-space:nowrap}
+.laypop{position:fixed;z-index:6;right:72px;bottom:16px;width:240px;padding:6px;border-radius:18px;display:grid;gap:4px;transition:right .5s cubic-bezier(.2,.8,.2,1)}
+body.open .laypop{right:calc(var(--pw) + 96px)}
+.laypop[hidden]{display:none}
+.laypop button{display:grid;text-align:left;padding:10px 12px 10px 40px;border-radius:12px;position:relative}
+.laypop button::before{content:"";position:absolute;left:12px;top:13px;width:16px;height:16px;border-radius:5px;border:2px solid var(--s3)}
+.laypop button[aria-pressed=true]::before{background:#8b7cf6;border-color:#8b7cf6}
+.laypop button:hover{background:var(--s2)}.laypop span{font-size:14px;font-weight:600}.laypop small{font-size:12px;color:var(--mut)}
+.kpop .pw img{width:100%;max-height:120px;object-fit:cover;border-radius:10px;margin:6px 0 4px}.kpop .pw p{margin:0;font-size:12.5px}
+.kpop .pb{margin-top:8px}.kpop .pb .btn{height:36px;width:100%;font-size:13px}
+.kpop .maplibregl-popup-close-button{font-size:18px;width:28px;height:28px;color:var(--mut)}
+@media(max-width:700px){.laypop{right:10px;bottom:auto;top:120px}.wxnow dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .scene-tooltip{font:500 13px Geist,sans-serif!important;color:var(--ink)!important;background:var(--surface)!important;border:1px solid var(--line);border-radius:10px;padding:5px 9px!important;box-shadow:var(--shadow)}
 
 /* intro */
@@ -368,6 +431,7 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
     <button data-layer="lezzet" aria-pressed="false" style="--c:#ffa587"><i></i>Lezzet</button>
     <button data-layer="gezi" aria-pressed="false" style="--c:#7fd9ad"><i></i>Gezi</button>
   </div>
+  <button class="ibtn card" id="dirBtn" title="Yol tarifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 22 12 12 22 2 12Z"/><path d="M9 14v-2a2 2 0 0 1 2-2h4M13 8l2 2-2 2"/></svg><span class="t">Yol tarifi</span></button>
   <button class="ibtn card" id="quizBtn" title="Şehri bul oyunu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg><span class="t">Oyna</span></button>
   <button class="ibtn card" id="shuffle" title="Rastgele bir şehre git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg><span class="t">Şaşırt</span></button>
   <button class="ibtn card" id="passBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="3"/><circle cx="12" cy="10" r="3.5"/><path d="M8.5 17h7"/></svg><span class="t">Pasaport</span><span class="badge" id="passN">0</span></button>
@@ -378,6 +442,7 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
   <button id="zout" aria-label="Uzaklaş"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
   <button id="z3d" aria-label="3B görünüm" aria-pressed="false" title="3B görünüm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></button>
   <button id="zloc" aria-label="Konumuma git" title="Konumuma git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+  <button id="zlay" aria-label="Harita katmanları" aria-expanded="false" title="Katmanlar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></button>
   <button id="zreset" aria-label="Tüm dünyayı göster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></button>
 </div>
 
@@ -391,6 +456,11 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
 
 <div class="where card" id="where" hidden></div>
 <section class="quizc card" id="quiz" hidden aria-live="polite"></section>
+<div class="laypop card" id="layPop" hidden>
+  <button data-lay="sat" aria-pressed="false"><span>Uydu görüntüsü</span><small>Sentinel-2, 10 m çözünürlük</small></button>
+  <button data-lay="ter" aria-pressed="false"><span>3B arazi</span><small>Dağlar ve vadiler kabartmalı</small></button>
+  <button data-lay="b3d" aria-pressed="true"><span>3B binalar</span><small>Yakınlaşınca görünür</small></button>
+</div>
 <aside class="panel card" id="panel" aria-live="polite"></aside>
 <div class="trip card" id="trip" hidden></div>
 
@@ -453,7 +523,8 @@ let C = colors();
 /* ---------- map (MapLibre GL + OpenFreeMap vector tiles) ---------- */
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
 const API_URL = '/api/guide';
-let countries = [], geoF = [], quiz = null;
+let countries = [], geoF = [], quiz = null, apiOk = false;
+fetch('/api/guide', {method: 'GET'}).then(r => { apiOk = r.status !== 404 && r.status !== 501 }).catch(() => {});
 let map = null, mapReady = false, FONT = ['Noto Sans Regular'], FONTB = ['Noto Sans Bold'], quizHidden = [];
 const spin = {autoRotate: !RM};
 const zFromAlt = a => Math.max(0, Math.min(20, 1.5 + Math.log2(2.4 / a)));
@@ -580,6 +651,18 @@ function onStyle(cfill){
   map.addLayer({id: 'k-hl', type: 'line', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'line-color': '#8b7cf6', 'line-width': 2.5, 'line-opacity': .9}}, firstSym);
   map.addLayer({id: 'k-hlf', type: 'fill', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'fill-color': '#8b7cf6', 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, .18, 6, .06]}}, firstSym);
   if (vec) map.addLayer({id: 'k-b3d', type: 'fill-extrusion', source: vec[0], 'source-layer': 'building', minzoom: 14.5, paint: {'fill-extrusion-color': '#ddd4f2', 'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 8], 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0], 'fill-extrusion-opacity': .85}}, firstSym);
+  map.addSource('k-sat', {type: 'raster', tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg'], tileSize: 256, maxzoom: 15, attribution: '<a href="https://s2maps.eu" target="_blank">Sentinel-2 cloudless</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2020)'});
+  map.addLayer({id: 'k-sat', type: 'raster', source: 'k-sat', layout: {visibility: 'none'}, paint: {'raster-fade-duration': 200}}, firstSym);
+  map.addSource('k-dem', {type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], tileSize: 256, maxzoom: 14, encoding: 'terrarium', attribution: 'Arazi: Mapzen / AWS Terrain Tiles'});
+  map.addLayer({id: 'k-hs', type: 'hillshade', source: 'k-dem', layout: {visibility: 'none'}, paint: {'hillshade-exaggeration': .35, 'hillshade-shadow-color': '#6b5fa8', 'hillshade-highlight-color': '#ffffff'}}, firstSym);
+  map.addSource('k-dir', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-dir-case', type: 'line', source: 'k-dir', layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-color': '#ffffff', 'line-width': 9, 'line-opacity': .9}});
+  map.addLayer({id: 'k-dir', type: 'line', source: 'k-dir', layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-color': '#6b5ce7', 'line-width': 5.5}});
+  map.addSource('k-dir-pts', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-dir-pts', type: 'circle', source: 'k-dir-pts', paint: {'circle-radius': 8, 'circle-color': ['match', ['get', 'k'], 'a', '#5fcf9b', '#ff6f91'], 'circle-stroke-color': '#fff', 'circle-stroke-width': 3}});
+  map.addSource('k-poi', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-poi', type: 'circle', source: 'k-poi', paint: {'circle-radius': 7, 'circle-color': ['get', 'col'], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2}});
+  map.addLayer({id: 'k-poi-lab', type: 'symbol', source: 'k-poi', minzoom: 12.5, layout: {'text-field': ['get', 'name'], 'text-font': FONTB, 'text-size': 12, 'text-anchor': 'left', 'text-offset': [.9, 0], 'text-optional': true}, paint: {'text-halo-width': 2, 'text-halo-color': '#ffffff', 'text-color': '#3a3456'}});
   map.addSource('k-arcs', {type: 'geojson', data: fc([])});
   map.addLayer({id: 'k-arcs', type: 'line', source: 'k-arcs', layout: {'line-cap': 'round'}, paint: {'line-color': '#8b7cf6', 'line-width': 2.5, 'line-dasharray': [2, 2], 'line-opacity': .9}});
   map.addSource('k-route', {type: 'geojson', data: fc([])});
@@ -597,7 +680,8 @@ function onStyle(cfill){
   map.addLayer({id: 'k-q-lab', type: 'symbol', source: 'k-q', filter: ['==', ['geometry-type'], 'Point'], layout: {'text-field': ['get', 'name'], 'text-font': FONTB, 'text-size': 14, 'text-anchor': 'left', 'text-offset': [1, 0], 'text-allow-overlap': true}, paint: {'text-halo-width': 2.2}});
   ['k-cur-dot', 'k-cur-lab', 'k-cp-dot', 'k-cp-num'].forEach(id => { map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', id, () => map.getCanvas().style.cursor = '') });
   mapReady = true;
-  restyle(); repaint(); renderTrip();
+  restyle(); repaint(); renderTrip(); applyLayers();
+  ['k-poi'].forEach(id => { map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', id, () => map.getCanvas().style.cursor = '') });
   map.once('idle', () => $('#loader').classList.add('done'));
   setTimeout(() => $('#loader').classList.add('done'), 6000);
   route(); updateWhere(world.pointOfView());
@@ -634,6 +718,7 @@ function onMapClick(e){
   const {lng, lat} = e.lngLat, z = map.getZoom();
   if (quiz) { if (quiz.phase === 'ask') quizGuess(lat, ((lng + 540) % 360) - 180); return }
   const box = [[e.point.x - 8, e.point.y - 8], [e.point.x + 8, e.point.y + 8]];
+  const pq = map.queryRenderedFeatures(box, {layers: ['k-poi']}); if (pq.length) { const p = poiList[pq[0].properties.i]; if (p) return poiPopup(p) }
   const mine = map.queryRenderedFeatures(box, {layers: ['k-cp-dot', 'k-cp-num', 'k-cur-dot', 'k-cur-lab']});
   if (mine.length) { const p = mine[0].properties;
     if (p.i != null && cur) { activePlace = +p.i; if (tab !== 'gezi' && tab !== 'rota') { tab = 'gezi'; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === 'gezi')) } renderTab(); drawMini(); return }
@@ -644,8 +729,8 @@ function onMapClick(e){
     let best = null, bs = Infinity; for (const c of [...cities, ...places]) { const d = km({lat: y, lng: x}, c); if (d < 30) { const s = d - (norm(c.name) === nm ? 100 : 0); if (s < bs) { bs = s; best = c } } }
     if (best) return go(best.id) }
   const poi = feats.find(f => f.sourceLayer === 'poi' && (f.properties.name || f.properties['name:tr']));
-  if (poi) { if (popup) popup.remove(); const nm = poi.properties['name:tr'] || poi.properties.name, cls = String(poi.properties.subclass || poi.properties.class || '').replace(/_/g, ' ');
-    popup = new maplibregl.Popup({offset: 12, closeButton: false, className: 'kpop'}).setLngLat(e.lngLat).setHTML(`<b>${esc(nm)}</b>${cls ? `<small>${esc(cls)}</small>` : ''}<a href="${wiki(nm)}" target="_blank" rel="noopener">Wikipedia'da ara</a>`).addTo(map); return }
+  if (poi) { const nm = poi.properties['name:tr'] || poi.properties.name, cls = String(poi.properties.subclass || poi.properties.class || ''); const [x, y] = poi.geometry.type === 'Point' ? poi.geometry.coordinates : [lng, lat];
+    return poiPopup({name: nm, label: TAGTR[cls] || cls.replace(/_/g, ' '), lat: y, lng: x, d: null, wiki: null}) }
   const la = lat, lo = ((lng + 540) % 360) - 180;
   if (z < 3.6) { const f = countryAt(la, lo); if (f && f.properties.a2) return go('ulke-' + f.properties.a2); return }
   if (z < 9) { const maxKm = Math.max(15, 1600 / Math.pow(2, z - 2)); let best = null, bs = Infinity;
@@ -660,6 +745,7 @@ function route(){
   const id = decodeURIComponent(location.hash.slice(1));
   if (byId[id]) select(id);
   else if (id === 'plan') openPlan();
+  else if (id === 'yol') openDir();
   else if (/^ulke-[A-Z]{2}$/.test(id) && meta[id.slice(5)]) openCountry(id.slice(5));
   else if (isOpen()) closePanel(false);
 }
@@ -667,6 +753,8 @@ function openShell(mode){
   if (quiz) endQuiz();
   if (genCtl) { genCtl.abort(); genCtl = null }
   document.body.classList.add('open'); document.body.classList.toggle('plan', mode === 'plan');
+  if (mode !== 'dir') clearDir(); if (mode !== 'city') showPois([]);
+  if (popup) { popup.remove(); popup = null }
   spin.autoRotate = false; $('#panel').scrollTop = 0;
 }
 
@@ -679,7 +767,7 @@ function view(c){
 async function select(id, opt = {}){
   const c = byId[id]; if (!c) return;
   openShell('city'); curCC = null; setSelC(null);
-  cur = c; tab = opt.tab || 'tarih'; era = 0; activePlace = opt.place ?? -1;
+  cur = c; tab = opt.tab || 'genel'; era = 0; activePlace = opt.place ?? -1; poiCenter = null; showPois([]);
   world.ringsData([c]);
   map.flyTo({center: [c.lng, c.lat], zoom: cityZoom(c), pitch: 0, bearing: 0, duration: RM ? 0 : 2200, essential: true});
   renderPanel(); repaint(); $('#panel').scrollTop = 0;
@@ -687,7 +775,7 @@ async function select(id, opt = {}){
 }
 function closePanel(push = true){
   if (genCtl) { genCtl.abort(); genCtl = null }
-  cur = null; curCC = null; setSelC(null); document.body.classList.remove('open', 'plan'); world.ringsData([]); repaint(); drawMini();
+  cur = null; curCC = null; setSelC(null); document.body.classList.remove('open', 'plan'); world.ringsData([]); repaint(); drawMini(); clearDir(); showPois([]);
   if (push) history.replaceState(null, '', location.pathname + location.search);
   world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 1400); idle = Date.now();
 }
@@ -702,6 +790,8 @@ function renderPanel(){
   const nearG = places.filter(x => x.id !== v.id && Math.abs(x.lat - v.lat) < 4 && Math.abs(x.lng - v.lng) < 6).map(x => [x, km(v, x)]).filter(x => x[1] < 400).sort((a,b) => b[0].pop - a[0].pop).slice(0, 4);
   const tm = v.tz ? clock(v.tz) : '';
   const m = meta[v.cc] || {};
+  const TB = full ? [['genel','Bugün'],['tarih','Tarih'],['lezzet','Mutfak'],['gezi','Gezilecek'],['rota','1 gün'],['yakin','Keşfet']] : [['genel','Bugün'],['yakin','Keşfet'],['lezzet','Mutfak']];
+  if (!TB.some(t => t[0] === tab)) tab = 'genel';
   $('#panel').innerHTML = `
   <div class="cover" style="--cv:${coverBg(v)}">
     <button class="close" id="closeP" aria-label="Kapat">${ICON.x}</button>
@@ -722,11 +812,11 @@ function renderPanel(){
       <div><dt>Nüfus</dt><dd>${v.pop ? fmtPop(v.pop) : '—'}</dd></div><div><dt>Başkent</dt><dd>${esc(m.cap || '—')}</dd></div>
       <div><dt>Diller</dt><dd>${esc((m.lang || []).slice(0,3).map(x => of(LN, x)).join(', ') || '—')}</dd></div><div><dt>Para birimi</dt><dd>${esc((m.cur || []).slice(0,2).map(x => of(CN, x)).join(', ') || '—')}</dd></div>`}
     </dl>
-    ${full ? '' : genBlock(v)}
+    ${full || !apiOk ? '' : genBlock(v)}
   </div>
-  ${full ? `<div class="tabs" role="tablist"><div>${TABS.map(([k,l]) => `<button role="tab" data-tab="${k}" aria-selected="${k===tab}">${l}</button>`).join('')}</div></div>
+  <div class="tabs" role="tablist"><div>${TB.map(([k,l]) => `<button role="tab" data-tab="${k}" aria-selected="${k===tab}">${l}</button>`).join('')}</div></div>
   <div class="tb" id="tb"></div>
-  <div class="tip"><b>Yerel ipucu</b>${esc(v.tip)}</div>` : ''}
+  ${full ? `<div class="tip"><b>Yerel ipucu</b>${esc(v.tip)}</div>` : ''}
   <div class="near"><h5>${v.g && nearG.length ? 'Yakınındaki şehirler' : 'Buradan sonra'}</h5><div class="chips">${(v.g && nearG.length ? nearG : near).map(([x,d]) => `<button class="chip" data-go="${x.id}">${esc(x.name)} · ${fmtKm(d)}</button>`).join('')}</div></div>
   <p class="note">${v.guide ? 'Bu rehber Claude tarafından yazıldı; konumlar yaklaşık. Gitmeden önce doğrula.' : v.g ? 'Şehir verisi: GeoNames. Ülke bilgisi: açık veri.' : 'Elle hazırlanmış örnek içerik; konumlar yaklaşık.'} <a href="${wiki(v.name)}" target="_blank" rel="noopener">Wikipedia'da oku</a></p>`;
   $('#closeP').onclick = () => closePanel();
@@ -734,10 +824,9 @@ function renderPanel(){
   $('#tripB').onclick = () => { toggleTrip(v.id); renderPanel() };
   $('#shareB').onclick = async () => { try { await navigator.clipboard.writeText(location.href); toast('Bağlantı kopyalandı') } catch(e) { toast(location.href) } };
   $$('#panel [data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
-  if (full) {
-    $$('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; activePlace = -1; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b)); renderTab(); drawMini() });
-    renderTab();
-  } else bindGen(v);
+  $$('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; activePlace = -1; if (tab !== 'yakin' && tab !== 'lezzet') showPois([]); $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b)); b.scrollIntoView({block: 'nearest', inline: 'nearest'}); renderTab(); drawMini() });
+  renderTab();
+  if (!full && apiOk) bindGen(v);
   drawMini();
 }
 
@@ -790,6 +879,9 @@ function saveShared(){}
 
 function renderTab(){
   const c = view(cur), tb = $('#tb');
+  if (tab === 'genel') return renderToday(c, tb);
+  if (tab === 'yakin') return renderNearby(c, tb);
+  if (tab === 'lezzet' && !c.foods) return renderCuisine(c, tb);
   if (tab === 'tarih') {
     const h = c.history[era], n = c.history.length;
     tb.innerHTML = `<div class="era"><div class="y">${esc(h.y)}</div><h3>${esc(h.t)}</h3><p>${esc(h.d)}</p></div>
@@ -801,11 +893,14 @@ function renderTab(){
   } else if (tab === 'lezzet') {
     tb.innerHTML = `<div class="foods">${c.foods.map((f,i) => { const key = c.id+':'+i, on = tasted.includes(key);
       return `<article class="food"><span class="ini">${esc([...f.n][0] || '')}</span><span class="k">${esc(f.k)}</span><button class="taste" data-key="${key}" aria-pressed="${on}">${on ? 'Tattım' : 'Tadacağım'}</button><h4>${esc(f.n)}</h4><p>${esc(f.d)}</p><small>Nerede: ${esc(f.w)} · <a href="${wiki(f.n)}" target="_blank" rel="noopener">Wikipedia</a></small></article>` }).join('')}</div>`;
+    tb.insertAdjacentHTML('beforeend', `<button class="btn" id="eatB" style="width:100%;margin-top:10px">Şehirdeki yeme-içme mekanlarını göster</button>`);
+    $('#eatB').onclick = () => { poiCat = 'yemek'; tab = 'yakin'; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === 'yakin')); renderTab() };
     tb.querySelectorAll('.taste').forEach(b => b.onclick = () => { const k = b.dataset.key; tasted = tasted.includes(k) ? tasted.filter(x => x !== k) : [...tasted, k]; store.set('tasted', tasted); updatePass(); renderTab() });
   } else if (tab === 'gezi') {
     tb.innerHTML = `<ol class="places">${c.places.map((p,i) => `<li><button data-pl="${i}" class="${i===activePlace?'on':''}" style="--c:${KIND[p.k]||'#ddd'}">
-      <span class="num">${i+1}</span><strong>${esc(p.n)}</strong><small>${esc(p.k)} · ${esc(p.t)}</small><p>${esc(p.d)}</p></button></li>`).join('')}</ol>`;
+      <span class="num">${i+1}</span><strong>${esc(p.n)}</strong><small>${esc(p.k)} · ${esc(p.t)}</small><p>${esc(p.d)}</p></button><button class="go" data-pgo="${i}" aria-label="${esc(p.n)} için yol tarifi">${MI.foot.replace('<svg', '<svg width="16" height="16"')}</button></li>`).join('')}</ol>`;
     tb.querySelectorAll('[data-pl]').forEach(b => b.onclick = () => { activePlace = +b.dataset.pl; renderTab(); drawMini() });
+    tb.querySelectorAll('[data-pgo]').forEach(b => b.onclick = () => { const p = c.places[+b.dataset.pgo]; startDir({name: p.n, lat: p.lat, lng: p.lng}) });
   } else {
     const pts = c.route.filter(r => r.p !== null).map(r => c.places[r.p]);
     let dist = 0; for (let i = 1; i < pts.length; i++) dist += km(pts[i-1], pts[i]);
@@ -1060,12 +1155,15 @@ $('#passBtn').onclick = () => { updatePass(); $('#passModal').hidden = false; $(
 $('#passClose').onclick = () => $('#passModal').hidden = true;
 $('#passModal').onclick = e => { if (e.target.id === 'passModal') e.target.hidden = true };
 $('#home').onclick = e => { e.preventDefault(); if (isOpen()) closePanel(); else world.pointOfView({altitude: 2.4}, 900) };
+$('#zlay').onclick = () => { const p = $('#layPop'); p.hidden = !p.hidden; $('#zlay').setAttribute('aria-expanded', !p.hidden) };
+$$('#layPop [data-lay]').forEach(b => b.onclick = () => { const k = b.dataset.lay; lay[k] = !lay[k]; store.set('lay', lay); applyLayers(); if (k === 'ter' && lay.ter && map.getPitch() < 20) map.easeTo({pitch: 55, duration: RM ? 0 : 900}) });
+$('#dirBtn').onclick = () => { if (location.hash.slice(1) === 'yol') openDir(); else location.hash = 'yol' };
 $('#zin').onclick = () => { spin.autoRotate = false; map.zoomIn() }; $('#zout').onclick = () => { spin.autoRotate = false; map.zoomOut() };
 $('#z3d').onclick = () => { const up = map.getPitch() < 10; map.easeTo({pitch: up ? 60 : 0, bearing: up ? -20 : 0, duration: RM ? 0 : 900}); $('#z3d').setAttribute('aria-pressed', up) };
 $('#zloc').onclick = () => { if (!navigator.geolocation) return toast('Tarayıcın konum desteklemiyor.'); toast('Konumun alınıyor…');
-  navigator.geolocation.getCurrentPosition(p => { const c = [p.coords.longitude, p.coords.latitude]; map.flyTo({center: c, zoom: 14, duration: RM ? 0 : 2000}); dropPin(c, 'Buradasın') }, () => toast('Konum izni verilmedi.'), {enableHighAccuracy: true, timeout: 10000}) };
+  navigator.geolocation.getCurrentPosition(p => { const c = [p.coords.longitude, p.coords.latitude]; store.set('me', {lat: c[1], lng: c[0], t: Date.now()}); map.flyTo({center: c, zoom: 14, duration: RM ? 0 : 2000}); dropPin(c, 'Buradasın') }, () => toast('Konum izni verilmedi.'), {enableHighAccuracy: true, timeout: 10000}) };
 let pin = null;
-function dropPin(c, name){ if (pin) pin.remove(); const el = document.createElement('div'); el.className = 'drop'; pin = new maplibregl.Marker({element: el, anchor: 'bottom'}).setLngLat(c).setPopup(new maplibregl.Popup({offset: 28, closeButton: false, className: 'kpop'}).setHTML(`<b>${esc(name)}</b>`)).addTo(map); pin.togglePopup() }
+function dropPin(c, name){ if (pin) pin.remove(); const el = document.createElement('div'); el.className = 'drop'; const box = document.createElement('div'); box.innerHTML = `<b>${esc(name)}</b><div class="pb"><button class="btn pri">Buraya yol tarifi</button></div>`; box.querySelector('button').onclick = () => startDir({name, lat: c[1], lng: c[0]}); pin = new maplibregl.Marker({element: el, anchor: 'bottom'}).setLngLat(c).setPopup(new maplibregl.Popup({offset: 28, closeButton: true, className: 'kpop'}).setDOMContent(box)).addTo(map); pin.togglePopup() }
 $('#zreset').onclick = () => { if (isOpen()) closePanel(); else world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 1400) };
 addEventListener('keydown', e => { if (e.key === 'Escape' && document.activeElement !== q) { if (!$('#passModal').hidden) $('#passModal').hidden = true; else if (quiz) endQuiz(); else if (isOpen()) closePanel() } });
 
@@ -1115,6 +1213,326 @@ function renderQuiz(){
 }
 $('#quizBtn').onclick = () => quiz ? endQuiz() : startQuiz();
 addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== q && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); q.focus() } });
+
+/* ================= live data: weather · wikipedia · nearby (OSM) · directions ================= */
+const memo = new Map();
+const cached = (k, f) => { if (!memo.has(k)) memo.set(k, f().catch(e => { memo.delete(k); throw e })); return memo.get(k) };
+const getJSON = async (u, o) => { const r = await fetch(u, o); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json() };
+const fmtDur = s => { const m = Math.round(s / 60); if (m < 60) return m + ' dk'; const h = Math.floor(m / 60), r = m % 60; return h + ' sa' + (r ? ' ' + r + ' dk' : '') };
+const fmtM = m => m < 950 ? Math.round(m / 10) * 10 + ' m' : fmtKm(m / 1000);
+const hhmm = iso => iso ? iso.slice(11, 16) : '';
+
+/* ---------- weather: Open-Meteo, no key ---------- */
+const WMO = {0:['Açık','sun'],1:['Çoğunlukla açık','sun'],2:['Parçalı bulutlu','pcloud'],3:['Kapalı','cloud'],45:['Sisli','fog'],48:['Kırağılı sis','fog'],51:['Hafif çisenti','rain'],53:['Çisenti','rain'],55:['Yoğun çisenti','rain'],56:['Donan çisenti','rain'],57:['Donan çisenti','rain'],61:['Hafif yağmur','rain'],63:['Yağmurlu','rain'],65:['Kuvvetli yağmur','rain'],66:['Donan yağmur','rain'],67:['Donan yağmur','rain'],71:['Hafif kar','snow'],73:['Karlı','snow'],75:['Yoğun kar','snow'],77:['Kar taneleri','snow'],80:['Hafif sağanak','rain'],81:['Sağanak','rain'],82:['Şiddetli sağanak','rain'],85:['Kar sağanağı','snow'],86:['Yoğun kar sağanağı','snow'],95:['Gök gürültülü fırtına','storm'],96:['Dolulu fırtına','storm'],99:['Dolulu fırtına','storm']};
+const CLOUD = '<path d="M7 19.5h10.5a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6 1.5A3.3 3.3 0 0 0 7 19.5Z" fill="#c4d1ea"/>';
+const WXI = {
+  sun: '<circle cx="12" cy="12" r="4.6" fill="#ffc35c"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7" stroke="#ffad33" stroke-width="1.8" stroke-linecap="round"/>',
+  moon: '<path d="M15.5 3.5a8.5 8.5 0 1 0 5 13.4A7 7 0 0 1 15.5 3.5Z" fill="#c9bfff"/>',
+  pcloud: '<circle cx="9" cy="8.5" r="3.8" fill="#ffc35c"/>' + CLOUD,
+  cloud: CLOUD,
+  fog: '<path d="M4 8.5h16M6 12.5h12M4 16.5h16" stroke="#aab7d0" stroke-width="2.2" stroke-linecap="round"/>',
+  rain: '<path d="M7 15.5h10.5a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6 1.5A3.3 3.3 0 0 0 7 15.5Z" fill="#b5c3e0"/><path d="M8.5 18l-1 2.5M12.5 18l-1 2.5M16.5 18l-1 2.5" stroke="#6f9be8" stroke-width="1.8" stroke-linecap="round"/>',
+  snow: '<path d="M7 15.5h10.5a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6 1.5A3.3 3.3 0 0 0 7 15.5Z" fill="#c4d1ea"/><circle cx="8.5" cy="19" r="1.1" fill="#9fb3d9"/><circle cx="12.5" cy="20" r="1.1" fill="#9fb3d9"/><circle cx="16.5" cy="19" r="1.1" fill="#9fb3d9"/>',
+  storm: '<path d="M7 15h10.5a4 4 0 0 0 .3-8 5.5 5.5 0 0 0-10.6 1.5A3.3 3.3 0 0 0 7 15Z" fill="#a9b6d3"/><path d="m12.5 14.5-2.5 4h3l-1.5 3.5" stroke="#ffad33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'};
+const wxIcon = (k, s = 40) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" aria-hidden="true">${WXI[k] || WXI.cloud}</svg>`;
+const wxKind = (code, day = 1) => { const k = (WMO[code] || ['', 'cloud'])[1]; return k === 'sun' && !day ? 'moon' : k };
+function getWeather(lat, lng){
+  const h = Math.floor(Date.now() / 9e5);
+  return cached(`wx:${lat.toFixed(2)},${lng.toFixed(2)}:${h}`, () => getJSON(`https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(3)}&longitude=${lng.toFixed(3)}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max&forecast_days=6&timezone=auto`));
+}
+const isWet = code => (code >= 51 && code <= 67) || (code >= 80 && code <= 82) || code >= 95;
+const isSnow = code => (code >= 71 && code <= 77) || code === 85 || code === 86;
+function advice(w, v){
+  const c = w.current, d = w.daily, t = c.apparent_temperature, rain = d.precipitation_probability_max ? d.precipitation_probability_max[0] ?? 0 : 0;
+  const wind = c.wind_speed_10m, uv = d.uv_index_max ? d.uv_index_max[0] ?? 0 : 0, code = c.weather_code, wet = isWet(code) || rain >= 55, snow = isSnow(code);
+  const wear = [];
+  if (t < 0) wear.push('Kalın mont, bere, eldiven ve atkı şart; kat kat giyin.');
+  else if (t < 8) wear.push('Mont ve kalın bir kazak giy; bere iyi olur.');
+  else if (t < 15) wear.push('Ceket ya da kalın hırka, uzun kollu üst ve kapalı ayakkabı.');
+  else if (t < 22) wear.push('İnce bir ceket veya sweatshirt yeterli; akşam serinleyebilir.');
+  else if (t < 28) wear.push('Tişört ve hafif pantolon ya da şort; akşam için ince bir üst al.');
+  else wear.push('Açık renkli, ince ve bol kıyafetler; şapka ve bol su.');
+  if (snow) wear.push('Kaymayan, su geçirmez bot giy.');
+  else if (wet) wear.push(`Yağış ihtimali %${rain}: şemsiye ya da yağmurluk al.`);
+  if (wind >= 30) wear.push(`Rüzgar ${Math.round(wind)} km/sa: rüzgarlık işe yarar.`);
+  if (uv >= 6) wear.push(`UV indeksi ${Math.round(uv)}: güneş kremi ve güneş gözlüğü kullan.`);
+  if (v.places && v.places.some(p => /cami|kilise|tapınak|dera|wat|bazilika|katedral|ayasofya|vatikan/i.test(p.n))) wear.push('Dini mekanlar için omuzları ve dizleri kapatan bir kıyafet ya da şal bulundur.');
+  const span = v.places && v.places.length ? Math.max(...v.places.filter(p => km(v, p) < 25).map(p => km(v, p)), 1) : (v.pop > 2e6 ? 9 : v.pop > 4e5 ? 5 : 2.5);
+  let move;
+  if (snow || t < 2) move = {m: 'Toplu taşıma veya taksi', w: 'Hava çok soğuk ya da karlı; uzun yürüyüşleri kısa tut.'};
+  else if (wet) move = {m: 'Toplu taşıma, yakın yerler arası yürüyüş', w: 'Yağış bekleniyor; motor ve bisiklet için uygun değil.'};
+  else if (t > 33) move = {m: 'Klimalı ulaşım, kısa yürüyüşler', w: 'Öğle sıcağında açık havada uzun kalma.'};
+  else if (span <= 3) move = {m: 'Yürüyerek', w: `Önemli yerler birbirine yakın (≈${fmtKm(span)} içinde); şehir en iyi yürüyerek keşfedilir.`};
+  else if (span <= 8) move = {m: wind < 25 ? 'Bisiklet, scooter ya da yürüyüş + tramvay' : 'Yürüyüş + toplu taşıma', w: `Yerler ${fmtKm(span)} kadar yayılıyor.`};
+  else move = {m: 'Araba, motosiklet ya da toplu taşıma', w: `Yerler ${fmtKm(span)} kadar dağınık; yürüyerek gezmek yorucu olur.`};
+  const indoor = snow || wet || t < 4 || t > 34;
+  let todo = [];
+  if (v.places) {
+    const pick = v.places.filter(p => indoor ? /Müze|Çarşı|Tarih/.test(p.k) : /Manzara|Doğa|Mahalle|Meydan|Tarih/.test(p.k)).slice(0, 3);
+    todo = pick.map(p => ({t: p.n, s: p.k + ' · ' + p.t, i: v.places.indexOf(p)}));
+    const view_ = v.places.find(p => p.k === 'Manzara');
+    if (view_ && !indoor && d.sunset) todo.push({t: 'Gün batımı ' + hhmm(d.sunset[0]), s: view_.n + ' güzel bir seyir noktası', i: v.places.indexOf(view_)});
+  } else todo = indoor ? [{t: 'Müzeler ve kapalı çarşılar', s: '"Keşfet" sekmesinde yakındaki müzelere bak'}, {t: 'Yerel bir lokantada uzun bir öğle yemeği', s: 'Mutfak sekmesinde bölgenin mutfaklarını gör'}]
+    : [{t: 'Tarihi merkezde yürüyüş', s: '"Keşfet → Sokaklar" yaya caddelerini gösterir'}, {t: 'Park ve seyir noktaları', s: '"Keşfet → Aktivite" sekmesine bak'}, ...(d.sunset ? [{t: 'Gün batımı ' + hhmm(d.sunset[0]), s: 'Yüksek bir noktadan izle'}] : [])];
+  return {wear, move, todo, indoor};
+}
+
+/* ---------- wikipedia ---------- */
+function getWiki(q, lang){
+  return cached(`wk:${lang}:${q}`, async () => {
+    const s = await getJSON(`https://${lang}.wikipedia.org/w/rest.php/v1/search/page?q=${encodeURIComponent(q)}&limit=1`);
+    const p = s.pages && s.pages[0]; if (!p) return null;
+    const m = await getJSON(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(p.key)}`);
+    if (!m || !m.extract || m.type === 'disambiguation') return null;
+    return {title: m.title, text: m.extract, img: m.thumbnail && m.thumbnail.source, url: m.content_urls && m.content_urls.desktop && m.content_urls.desktop.page, lang};
+  });
+}
+async function wikiFor(q, en){ try { return (await getWiki(q, 'tr')) || (en ? await getWiki(en, 'en') : null) } catch(e) { return null } }
+async function wikiTag(tag){ // OSM "wikipedia" tag like "tr:Ayasofya"
+  const m = /^([a-z-]+):(.+)$/.exec(tag || ''); if (!m) return null;
+  try { const r = await getJSON(`https://${m[1]}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(m[2].replace(/ /g, '_'))}`); return r && r.extract ? {title: r.title, text: r.extract, img: r.thumbnail && r.thumbnail.source, url: r.content_urls && r.content_urls.desktop.page, lang: m[1]} : null } catch(e) { return null }
+}
+const wikiCard = w => w ? `<article class="wiki">${w.img ? `<img src="${esc(w.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ''}<div><p>${esc(w.text.length > 420 ? w.text.slice(0, 420).replace(/\s\S*$/, '') + '…' : w.text)}</p><a href="${esc(w.url)}" target="_blank" rel="noopener">Wikipedia${w.lang !== 'tr' ? ' (' + w.lang + ')' : ''} · devamını oku</a></div></article>` : '';
+
+/* ---------- nearby places: OpenStreetMap via Overpass ---------- */
+const OVERPASS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
+const TAGTR = {museum:'Müze',attraction:'Turistik yer',viewpoint:'Seyir noktası',gallery:'Galeri',zoo:'Hayvanat bahçesi',aquarium:'Akvaryum',theme_park:'Tema parkı',monument:'Anıt',castle:'Kale',ruins:'Kalıntı',archaeological_site:'Ören yeri',memorial:'Anıt',fort:'Kale',city_gate:'Kent kapısı',palace:'Saray',restaurant:'Restoran',fast_food:'Hızlı yemek',cafe:'Kafe',ice_cream:'Dondurmacı',bar:'Bar',pub:'Pub',park:'Park',garden:'Bahçe',water_park:'Su parkı',nature_reserve:'Doğa alanı',beach_resort:'Plaj',theatre:'Tiyatro',cinema:'Sinema',arts_centre:'Sanat merkezi',pedestrian:'Yaya caddesi',living_street:'Sokak',muslim:'Cami',christian:'Kilise',jewish:'Sinagog',buddhist:'Tapınak',hindu:'Tapınak',shinto:'Tapınak'};
+const CUI = {turkish:'Türk',kebab:'Kebap',regional:'Yöresel',local:'Yerel',pizza:'Pizza',burger:'Burger',coffee_shop:'Kahve',seafood:'Deniz ürünleri',fish:'Balık',italian:'İtalyan',chinese:'Çin',japanese:'Japon',sushi:'Suşi',indian:'Hint',mexican:'Meksika',thai:'Tay',french:'Fransız',greek:'Yunan',spanish:'İspanyol',american:'Amerikan',chicken:'Tavuk',sandwich:'Sandviç',ice_cream:'Dondurma',cake:'Pasta',bakery:'Fırın',breakfast:'Kahvaltı',vegetarian:'Vejetaryen',vegan:'Vegan',steak_house:'Et / steak',asian:'Asya',korean:'Kore',vietnamese:'Vietnam',middle_eastern:'Orta Doğu',lebanese:'Lübnan',arab:'Arap',moroccan:'Fas',noodle:'Erişte',ramen:'Ramen',tapas:'Tapas',dessert:'Tatlı',pastry:'Pastane',doner:'Döner',pide:'Pide',meze:'Meze',balkan:'Balkan',international:'Uluslararası',bubble_tea:'Bubble tea',tea:'Çay',donut:'Donut',german:'Alman',british:'İngiliz',russian:'Rus',georgian:'Gürcü',persian:'İran',syrian:'Suriye',egyptian:'Mısır',peruvian:'Peru',brazilian:'Brezilya',portuguese:'Portekiz',mediterranean:'Akdeniz',barbecue:'Izgara',grill:'Izgara',falafel:'Falafel',shawarma:'Şavurma',crepe:'Krep',bagel:'Bagel',hot_dog:'Sosisli',wine:'Şarap',beer:'Bira',fish_and_chips:'Fish & chips',tacos:'Taco',dim_sum:'Dim sum',curry:'Köri',bistro:'Bistro'};
+const CATS = [['gezi','Gezilecek','#b9a8ff'],['yemek','Yemek','#ff9a78'],['kafe','Kafe','#e3a65c'],['aktivite','Aktivite','#5fcf9b'],['sokak','Sokaklar','#6aa6ff']];
+function getNearby(lat, lng, r){
+  return cached(`ov:${lat.toFixed(3)},${lng.toFixed(3)},${r}`, async () => {
+    const A = (x = r) => `(around:${x},${lat.toFixed(5)},${lng.toFixed(5)})`, rf = Math.min(r, 2500);
+    const q = `[out:json][timeout:30];(
+nwr["tourism"~"^(attraction|museum|viewpoint|gallery|zoo|aquarium|theme_park)$"]["name"]${A()};
+nwr["historic"~"^(monument|castle|ruins|archaeological_site|memorial|fort|city_gate|palace)$"]["name"]${A()};
+nwr["amenity"="place_of_worship"]["name"]["wikidata"]${A()};
+nwr["amenity"~"^(restaurant|fast_food|cafe|ice_cream|bar|pub)$"]["name"]${A(rf)};
+nwr["leisure"~"^(park|garden|water_park|nature_reserve|beach_resort)$"]["name"]${A()};
+nwr["amenity"~"^(theatre|cinema|arts_centre)$"]["name"]${A()};
+way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};
+);out center tags 600;`;
+    let j = null, err;
+    for (const u of OVERPASS) { try { j = await getJSON(u, {method: 'POST', headers: {'content-type': 'application/x-www-form-urlencoded'}, body: 'data=' + encodeURIComponent(q)}); break } catch(e) { err = e } }
+    if (!j) throw err;
+    const seen = new Set(), out = [];
+    for (const e of j.elements) {
+      const t = e.tags || {}, name = t['name:tr'] || t.name; if (!name) continue;
+      const la = e.lat ?? (e.center && e.center.lat), lo = e.lon ?? (e.center && e.center.lon); if (la == null) continue;
+      let cat, kind;
+      if (t.highway) { cat = 'sokak'; kind = t.highway }
+      else if (/^(restaurant|fast_food)$/.test(t.amenity)) { cat = 'yemek'; kind = t.amenity }
+      else if (/^(cafe|ice_cream|bar|pub)$/.test(t.amenity)) { cat = 'kafe'; kind = t.amenity }
+      else if (t.leisure || /^(theatre|cinema|arts_centre)$/.test(t.amenity) || /^(zoo|aquarium|theme_park)$/.test(t.tourism)) { cat = 'aktivite'; kind = t.leisure || t.amenity || t.tourism }
+      else { cat = 'gezi'; kind = t.amenity === 'place_of_worship' ? (t.religion || 'place_of_worship') : (t.tourism || t.historic) }
+      const key = cat + norm(name); if (seen.has(key)) continue; seen.add(key);
+      out.push({id: e.type[0] + e.id, name, cat, kind, label: TAGTR[kind] || (kind || '').replace(/_/g, ' '), lat: la, lng: lo, wiki: t.wikipedia, wd: t.wikidata,
+        cuisine: t.cuisine, d: km({lat, lng}, {lat: la, lng: lo}), score: (t.wikidata ? 3 : 0) + (t.wikipedia ? 2 : 0) + (t['name:en'] ? .5 : 0) + (t.website ? .3 : 0) + (t.opening_hours ? .2 : 0)});
+    }
+    return out;
+  });
+}
+const nearR = v => v.pop > 3e6 ? 6000 : v.pop > 8e5 ? 4500 : v.pop > 2e5 ? 3500 : v.g ? 2500 : 4500;
+let poiList = [], poiCat = 'gezi', poiCenter = null;
+function showPois(list){ poiList = list; setSrc('k-poi', fc(list.map((p, i) => pt([p.lng, p.lat], {i, name: p.name, col: (CATS.find(c => c[0] === p.cat) || CATS[0])[2]})))) }
+
+/* ---------- directions: OSRM on routing.openstreetmap.de, no key ---------- */
+const MODES = [['foot', 'Yürüyüş', 'routed-foot', 1], ['bike', 'Bisiklet', 'routed-bike', 1], ['moto', 'Motosiklet', 'routed-car', .9], ['car', 'Araba', 'routed-car', 1]];
+const MI = {
+  foot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m9 21 2-6 3 3v3M7 12l3-4 4 1 2 3 3 1M11 15l-1-4"/></svg>',
+  bike: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M10 8l2 8h-2M14 5h3"/></svg>',
+  moto: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 11h6l3.5 5.5M13 7h3l2 4M9 11l-2-3H4"/></svg>',
+  car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V12l2-5h10l2 5v5M3 17h18M7 20v-3M17 20v-3M5 12h14"/><circle cx="8" cy="14.5" r=".6" fill="currentColor"/><circle cx="16" cy="14.5" r=".6" fill="currentColor"/></svg>'};
+let dir = {from: null, to: null, mode: 'foot', res: {}, busy: false, n: 0};
+const DIRW = {left: 'sola', right: 'sağa', 'slight left': 'hafif sola', 'slight right': 'hafif sağa', 'sharp left': 'keskin sola', 'sharp right': 'keskin sağa', straight: 'düz', uturn: 'geri'};
+function stepText(s){
+  const m = s.maneuver || {}, w = DIRW[m.modifier] || '', on = s.name ? ` · ${s.name}` : '';
+  switch (m.type) {
+    case 'depart': return `Yola çık${s.name ? ': ' + s.name : ''}`;
+    case 'arrive': return 'Varış noktasına ulaştın';
+    case 'roundabout': case 'rotary': case 'roundabout turn': return `Göbekte ${m.exit ? m.exit + '. çıkıştan' : ''} çık${on}`;
+    case 'exit roundabout': case 'exit rotary': return `Göbekten çık${on}`;
+    case 'fork': return `Çatalda ${w || 'devam'} yönüne geç${on}`;
+    case 'end of road': return `Yolun sonunda ${w} dön${on}`;
+    case 'merge': return `Yola katıl${on}`;
+    case 'on ramp': return `Bağlantı yoluna gir${on}`;
+    case 'off ramp': return `Yoldan ${w ? w + ' ' : ''}çık${on}`;
+    case 'new name': case 'continue': return m.modifier && m.modifier !== 'straight' ? `${w[0].toUpperCase() + w.slice(1)} devam et${on}` : `Düz devam et${on}`;
+    default: return m.modifier === 'uturn' ? `U dönüşü yap${on}` : m.modifier === 'straight' ? `Düz devam et${on}` : `${w ? w[0].toUpperCase() + w.slice(1) : 'İleri'} dön${on}`;
+  }
+}
+async function computeDir(){
+  if (!dir.from || !dir.to) return;
+  const n = ++dir.n, a = dir.from, b = dir.to; dir.res = {}; dir.busy = true; renderDir();
+  const prof = {}; for (const [k, , p] of MODES) prof[p] = prof[p] || getJSON(`https://routing.openstreetmap.de/${p}/route/v1/driving/${a.lng.toFixed(6)},${a.lat.toFixed(6)};${b.lng.toFixed(6)},${b.lat.toFixed(6)}?overview=full&geometries=geojson&steps=true`).then(j => j.routes && j.routes[0]);
+  const keys = Object.keys(prof), vals = await Promise.allSettled(keys.map(k => prof[k]));
+  if (n !== dir.n) return;
+  const byP = {}; keys.forEach((k, i) => byP[k] = vals[i].status === 'fulfilled' ? vals[i].value : null);
+  for (const [k, , p, f] of MODES) { const r = byP[p]; dir.res[k] = r ? {dist: r.distance, dur: r.duration * f, geo: r.geometry.coordinates, steps: (r.legs[0] || {}).steps || []} : null }
+  const fd = dir.res.foot ? dir.res.foot.dist : km(a, b) * 1000;
+  if (!dir.picked) dir.mode = fd < 2200 ? 'foot' : fd < 7000 && dir.res.bike ? 'bike' : 'car';
+  dir.busy = false; dir.wx = null; renderDir(); drawDir(true);
+  try { const w = await getWeather(b.lat, b.lng); if (n === dir.n) { dir.wx = w; renderDir() } } catch(e) {}
+}
+function drawDir(fit){
+  if (!mapReady) return;
+  const r = dir.res[dir.mode], pts = [];
+  if (dir.from) pts.push(pt([dir.from.lng, dir.from.lat], {k: 'a'})); if (dir.to) pts.push(pt([dir.to.lng, dir.to.lat], {k: 'b'}));
+  setSrc('k-dir', fc(r ? [ln(r.geo)] : [])); setSrc('k-dir-pts', fc(pts));
+  try { map.setPaintProperty('k-dir', 'line-dasharray', dir.mode === 'foot' ? [.2, 1.6] : [1, 0]) } catch(e) {}
+  if (fit && r) fitTo(r.geo.filter((_, i) => i % Math.ceil(r.geo.length / 60) === 0).concat([r.geo[r.geo.length - 1]]), 16);
+}
+function clearDir(){ setSrc('k-dir', fc([])); setSrc('k-dir-pts', fc([])) }
+function startDir(to, from){
+  dir.to = to; if (from) dir.from = from; dir.picked = false;
+  if (!dir.from) { const last = store.get('me', null); if (last && Date.now() - last.t < 864e5) dir.from = {name: 'Konumun', lat: last.lat, lng: last.lng} }
+  if (location.hash.slice(1) === 'yol') openDir(); else location.hash = 'yol';
+}
+function openDir(){ openShell('dir'); cur = null; curCC = null; setSelC(null); world.ringsData([]); repaint(); drawMini(); renderDir(); if (dir.from && dir.to && !Object.keys(dir.res).length) computeDir(); else drawDir(true) }
+function locate(cb){
+  if (!navigator.geolocation) return toast('Tarayıcın konum desteklemiyor.');
+  toast('Konumun alınıyor…');
+  navigator.geolocation.getCurrentPosition(p => { const me = {name: 'Konumun', lat: p.coords.latitude, lng: p.coords.longitude}; store.set('me', {lat: me.lat, lng: me.lng, t: Date.now()}); cb(me) }, () => toast('Konum izni verilmedi.'), {enableHighAccuracy: true, timeout: 12000});
+}
+function pointFromHit(h){
+  if (h.t === 'gezi' && byId[h.id] && byId[h.id].places) { const p = byId[h.id].places[h.pl]; return {name: p.n, lat: p.lat, lng: p.lng} }
+  const c = byId[h.id]; return c ? {name: c.name, lat: c.lat, lng: c.lng} : null;
+}
+function renderDir(){
+  const a = dir.from, b = dir.to, r = dir.res[dir.mode];
+  const gm = b ? `https://www.google.com/maps/dir/?api=1${a ? `&origin=${a.lat},${a.lng}` : ''}&destination=${b.lat},${b.lng}&travelmode=transit` : '';
+  let rec = '';
+  if (r && dir.res.foot) {
+    const fd = dir.res.foot.dist, w = dir.wx, bad = w && (isWet(w.current.weather_code) || isSnow(w.current.weather_code) || w.current.apparent_temperature < 2 || w.current.apparent_temperature > 34);
+    rec = fd < 1500 ? 'Yürüme mesafesinde; en keyiflisi yürümek.' : fd < 4000 ? 'Yürüyerek de gidilir; bisiklet ya da scooter daha hızlı.' : fd < 12000 ? 'Bisiklet, motosiklet ya da toplu taşıma mantıklı.' : 'Uzun bir yol; araba, motosiklet ya da toplu taşıma kullan.';
+    if (bad) rec += ` Varışta hava: ${(WMO[w.current.weather_code] || ['?'])[0].toLowerCase()}, ${Math.round(w.current.temperature_2m)}°; açık havada uzun yol için uygun değil.`;
+    else if (w) rec += ` Varışta hava ${(WMO[w.current.weather_code] || ['?'])[0].toLowerCase()}, ${Math.round(w.current.temperature_2m)}°.`;
+  }
+  $('#panel').innerHTML = `
+  <div class="cover" style="--cv:var(--sky)">
+    <button class="close" id="closeP" aria-label="Kapat">${ICON.x}</button>
+    <div class="crumb"><span class="pill">Yol tarifi</span></div>
+    <h1>${b ? esc(b.name) : 'Nereye gidiyoruz?'}</h1>
+    <p class="tag">${a && b ? `${esc(a.name)} → ${esc(b.name)} · kuş uçuşu ${fmtKm(km(a, b))}` : 'Başlangıç ve varış noktasını seç.'}</p>
+  </div>
+  <div class="sec">
+    <div class="dform">
+      <label class="dfield"><i class="dA"></i><input id="dFrom" placeholder="Nereden? Bir yer ara" value="${a ? esc(a.name) : ''}" autocomplete="off"><button class="btn" id="dMe" type="button">Konumum</button></label>
+      <button class="dswap" id="dSwap" aria-label="Yönleri değiştir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg></button>
+      <label class="dfield"><i class="dB"></i><input id="dTo" placeholder="Nereye? Şehir, yer ya da adres" value="${b ? esc(b.name) : ''}" autocomplete="off"></label>
+      <div class="sugg card" id="dSug" hidden></div>
+    </div>
+    ${a && b ? `<div class="modes" role="tablist">${MODES.map(([k, l]) => { const x = dir.res[k]; return `<button role="tab" data-mode="${k}" aria-selected="${k === dir.mode}">${MI[k]}<b>${dir.busy ? '…' : x ? fmtDur(x.dur) : '—'}</b><small>${l}</small></button>` }).join('')}</div>` : ''}
+    ${dir.busy ? '<p class="empty2">Rotalar hesaplanıyor…</p>' : r ? `<div class="dsum"><div><b>${fmtDur(r.dur)}</b><span>${fmtM(r.dist)}${dir.mode === 'moto' ? ' · motosiklet süresi arabaya göre tahmini' : ''}</span></div><p>${esc(rec)}</p></div>
+      <ol class="dsteps">${r.steps.filter(s => s.maneuver).map(s => `<li><span>${esc(stepText(s))}</span><small>${s.distance > 0 ? fmtM(s.distance) : ''}</small></li>`).join('')}</ol>`
+      : a && b ? '<p class="empty2">Bu ulaşım türüyle rota bulunamadı.</p>' : ''}
+    ${b ? `<div class="pact"><a class="btn pri" href="${gm}" target="_blank" rel="noopener">Toplu taşıma: Google Haritalar</a><a class="btn" href="https://maps.apple.com/?daddr=${b.lat},${b.lng}${a ? `&saddr=${a.lat},${a.lng}` : ''}" target="_blank" rel="noopener">Apple Haritalar</a></div>` : ''}
+  </div>
+  <p class="note">Rotalar: OpenStreetMap verisiyle OSRM (routing.openstreetmap.de). Toplu taşıma için Google Haritalar açılır. Süreler tahminidir.</p>`;
+  $('#closeP').onclick = () => closePanel();
+  $('#dMe').onclick = () => locate(me => { dir.from = me; dir.res = {}; computeDir() });
+  $('#dSwap').onclick = () => { [dir.from, dir.to] = [dir.to, dir.from]; dir.res = {}; computeDir(); if (!dir.from || !dir.to) renderDir() };
+  $$('[data-mode]').forEach(x => x.onclick = () => { dir.mode = x.dataset.mode; dir.picked = true; renderDir(); drawDir(true) });
+  const sug = $('#dSug');
+  for (const [id, key] of [['dFrom', 'from'], ['dTo', 'to']]) {
+    const inp = $('#' + id); let hs = [];
+    const pickPt = p => { dir[key] = p; dir.res = {}; sug.hidden = true; if (dir.from && dir.to) computeDir(); else renderDir() };
+    inp.oninput = () => { const v = norm(inp.value.trim()); if (v.length < 2) { sug.hidden = true; return }
+      hs = index().filter(h => h.t !== 'country' && h.t !== 'lezzet' && h.n.includes(v)).sort((x, y) => (y.n.startsWith(v) - x.n.startsWith(v)) || y.w - x.w || (y.pop || 0) - (x.pop || 0)).slice(0, 6);
+      sug.hidden = false; sug.style.top = (inp.closest('.dfield').offsetTop + 50) + 'px';
+      sug.innerHTML = hs.map((h, i) => `<button data-i="${i}"><span class="ic" style="background:var(--lav);color:var(--lav-i)">${h.t === 'gezi' ? 'Y' : 'Ş'}</span><span><b>${esc(h.l)}</b><small>${esc(h.s)}</small></span><span class="meta"></span></button>`).join('') + (v.length >= 3 ? `<button data-g="1"><span class="ic" style="background:var(--sky);color:var(--sky-i)">A</span><span><b>“${esc(inp.value.trim())}” adresini ara</b><small>OpenStreetMap</small></span><span class="meta"></span></button>` : '');
+      sug.querySelectorAll('[data-i]').forEach(x => x.onmousedown = e => { e.preventDefault(); const p = pointFromHit(hs[+x.dataset.i]); if (p) pickPt(p) });
+      const g = sug.querySelector('[data-g]'); if (g) g.onmousedown = e => { e.preventDefault(); geoPick(inp.value.trim(), pickPt) } };
+    inp.onkeydown = e => { if (e.key === 'Enter' && inp.value.trim().length >= 3) { e.preventDefault(); if (hs.length) { const p = pointFromHit(hs[0]); if (p) pickPt(p) } else geoPick(inp.value.trim(), pickPt) } };
+    inp.onblur = () => setTimeout(() => sug.hidden = true, 160);
+  }
+}
+async function geoPick(text, cb){
+  const sug = $('#dSug'); sug.hidden = false; sug.innerHTML = '<div class="empty">Aranıyor…</div>';
+  try { const a = await getJSON('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=tr&q=' + encodeURIComponent(text));
+    sug.innerHTML = a.length ? a.map((x, i) => `<button data-i="${i}"><span class="ic" style="background:var(--sky);color:var(--sky-i)">A</span><span><b>${esc(x.name || x.display_name.split(',')[0])}</b><small>${esc(x.display_name)}</small></span><span class="meta"></span></button>`).join('') : '<div class="empty">Sonuç yok.</div>';
+    sug.querySelectorAll('[data-i]').forEach(b => b.onmousedown = e => { e.preventDefault(); const x = a[+b.dataset.i]; cb({name: x.name || x.display_name.split(',')[0], lat: +x.lat, lng: +x.lon}) });
+  } catch(e) { sug.innerHTML = '<div class="empty">Arama yapılamadı.</div>' }
+}
+
+/* ---------- panel tabs fed by live data ---------- */
+function renderToday(c, tb){
+  const me = cur;
+  tb.innerHTML = `<div class="wx" id="wxBox"><div class="sk" style="height:118px"></div></div><div id="advBox"></div>
+    <div class="pact" style="margin-top:12px"><button class="btn pri" id="goCity">${MI.car.replace('<svg', '<svg width="17" height="17"')} Buraya yol tarifi</button><a class="btn" href="https://www.google.com/maps/search/?api=1&query=${c.lat},${c.lng}" target="_blank" rel="noopener">Google Haritalar</a></div>
+    <h4 class="sh">Hakkında</h4><div id="wikiBox"><div class="sk" style="height:96px"></div></div>`;
+  $('#goCity').onclick = () => startDir({name: c.name, lat: c.lat, lng: c.lng});
+  getWeather(c.lat, c.lng).then(w => {
+    if (cur !== me || tab !== 'genel') return;
+    const k = w.current, d = w.daily, a = advice(w, c);
+    $('#wxBox').innerHTML = `<div class="wxnow">${wxIcon(wxKind(k.weather_code, k.is_day), 56)}<div><b>${Math.round(k.temperature_2m)}°</b><span>${(WMO[k.weather_code] || ['—'])[0]} · hissedilen ${Math.round(k.apparent_temperature)}°</span></div>
+      <dl><div><dt>Rüzgar</dt><dd>${Math.round(k.wind_speed_10m)} km/sa</dd></div><div><dt>Nem</dt><dd>%${k.relative_humidity_2m}</dd></div><div><dt>Yağış</dt><dd>%${d.precipitation_probability_max[0] ?? 0}</dd></div><div><dt>Güneş</dt><dd>${hhmm(d.sunrise[0])}–${hhmm(d.sunset[0])}</dd></div></dl></div>
+      <div class="wxdays">${d.time.map((t, i) => `<div><small>${i ? new Date(t + 'T12:00').toLocaleDateString('tr-TR', {weekday: 'short'}) : 'Bugün'}</small>${wxIcon(wxKind(d.weather_code[i]), 28)}<b>${Math.round(d.temperature_2m_max[i])}°</b><span>${Math.round(d.temperature_2m_min[i])}°</span></div>`).join('')}</div>`;
+    $('#advBox').innerHTML = `<div class="adv"><h5>Ne giymeli?</h5><ul>${a.wear.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div class="adv"><h5>Nasıl gezilir?</h5><p><b>${esc(a.move.m)}</b> · ${esc(a.move.w)}</p></div>
+      <div class="adv"><h5>${a.indoor ? 'Bugün kapalı mekanlar' : 'Bugün için öneriler'}</h5><ul class="todo">${a.todo.map(x => `<li${x.i != null ? ` data-pl="${x.i}"` : ''}><b>${esc(x.t)}</b><span>${esc(x.s)}</span></li>`).join('')}</ul></div>`;
+    $$('#advBox [data-pl]').forEach(li => li.onclick = () => { activePlace = +li.dataset.pl; tab = 'gezi'; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === 'gezi')); renderTab(); drawMini() });
+  }).catch(() => { if (cur === me && $('#wxBox')) $('#wxBox').innerHTML = '<p class="empty2">Hava durumu alınamadı.</p>' });
+  const en = c.g ? c.name : ({istanbul: 'Istanbul', goreme: 'Göreme', roma: 'Rome', paris: 'Paris', barselona: 'Barcelona', atina: 'Athens', kahire: 'Cairo', marakes: 'Marrakesh', kyoto: 'Kyoto', bangkok: 'Bangkok', newyork: 'New York City', meksiko: 'Mexico City', cusco: 'Cusco', safranbolu: 'Safranbolu'})[c.id] || c.name;
+  wikiFor(c.name + (c.g ? ' ' + c.country : ''), en).then(w => { if (cur === me && $('#wikiBox')) $('#wikiBox').innerHTML = wikiCard(w) || '<p class="empty2">Wikipedia özeti bulunamadı.</p>' });
+}
+function renderNearby(c, tb){
+  const me = cur, center = poiCenter || {lat: c.lat, lng: c.lng}, r = poiCenter ? 2500 : nearR(c);
+  tb.innerHTML = `<div class="cats">${CATS.map(([k, l, col]) => `<button data-cat="${k}" aria-pressed="${k === poiCat}" style="--c:${col}"><i></i>${l}</button>`).join('')}</div>
+    <div class="row" style="margin:2px 0 10px"><span class="src">${poiCenter ? 'Haritanın ortasına göre' : esc(c.name) + ' merkezine göre'} · ${fmtKm(r / 1000)} çevre</span><button class="btn" id="hereB" style="height:34px">Haritadaki alanda ara</button></div>
+    <div id="poiBox"><div class="sk" style="height:60px"></div><div class="sk" style="height:60px"></div><div class="sk" style="height:60px"></div></div>`;
+  tb.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { poiCat = b.dataset.cat; renderNearby(c, tb) });
+  $('#hereB').onclick = () => { const m = map.getCenter(); poiCenter = {lat: m.lat, lng: m.lng}; renderNearby(c, tb) };
+  getNearby(center.lat, center.lng, r).then(all => {
+    if (cur !== me || tab !== 'yakin') return;
+    const list = all.filter(p => p.cat === poiCat).sort((x, y) => (y.score - x.score) || (x.d - y.d)).slice(0, 40);
+    showPois(list);
+    $('#poiBox').innerHTML = list.length ? `<ol class="pois">${list.map((p, i) => `<li><button data-poi="${i}"><b>${esc(p.name)}</b><small>${esc(p.label)}${p.cuisine ? ' · ' + esc(p.cuisine.split(';').map(x => CUI[x.trim()] || x.trim().replace(/_/g, ' ')).slice(0, 2).join(', ')) : ''}</small><span>${fmtKm(p.d)}</span></button><button class="go" data-pgo="${i}" aria-label="${esc(p.name)} için yol tarifi">${MI.foot.replace('<svg', '<svg width="16" height="16"')}</button></li>`).join('')}</ol>` : '<p class="empty2">Bu kategoride kayıtlı yer bulunamadı. Haritayı kaydırıp "Haritadaki alanda ara"yı dene.</p>';
+    $$('#poiBox [data-poi]').forEach(b => b.onclick = () => focusPoi(+b.dataset.poi));
+    $$('#poiBox [data-pgo]').forEach(b => b.onclick = () => { const p = poiList[+b.dataset.pgo]; startDir({name: p.name, lat: p.lat, lng: p.lng}) });
+  }).catch(() => { if (cur === me && $('#poiBox')) $('#poiBox').innerHTML = '<p class="empty2">OpenStreetMap verisine şu an ulaşılamadı. Biraz sonra tekrar dene.</p>' });
+}
+function focusPoi(i){
+  const p = poiList[i]; if (!p) return;
+  map.flyTo({center: [p.lng, p.lat], zoom: 17, pitch: 55, duration: RM ? 0 : 1600, essential: true});
+  poiPopup(p);
+}
+function poiPopup(p){
+  if (popup) popup.remove();
+  const el = document.createElement('div');
+  el.innerHTML = `<b>${esc(p.name)}</b><small>${esc(p.label)}${p.d != null ? ' · ' + fmtKm(p.d) : ''}</small><div class="pw"></div><div class="pb"><button class="btn pri">Yol tarifi</button></div>`;
+  el.querySelector('button').onclick = () => startDir({name: p.name, lat: p.lat, lng: p.lng});
+  popup = new maplibregl.Popup({offset: 14, closeButton: true, className: 'kpop', maxWidth: '280px'}).setLngLat([p.lng, p.lat]).setDOMContent(el).addTo(map);
+  (p.wiki ? wikiTag(p.wiki) : wikiFor(p.name, null)).then(w => { if (w && el.isConnected) el.querySelector('.pw').innerHTML = `${w.img ? `<img src="${esc(w.img)}" alt="" referrerpolicy="no-referrer">` : ''}<p>${esc(w.text.slice(0, 220).replace(/\s\S*$/, ''))}…</p><a href="${esc(w.url)}" target="_blank" rel="noopener">Wikipedia</a>` });
+}
+function renderCuisine(c, tb){
+  const me = cur;
+  tb.innerHTML = `<div id="cuiBox"><div class="sk" style="height:140px"></div></div><h4 class="sh">Ülke mutfağı</h4><div id="cwBox"><div class="sk" style="height:90px"></div></div>`;
+  getNearby(c.lat, c.lng, nearR(c)).then(all => {
+    if (cur !== me || tab !== 'lezzet') return;
+    const food = all.filter(p => p.cat === 'yemek' || p.cat === 'kafe'), cnt = {};
+    food.forEach(p => (p.cuisine || '').split(';').map(x => x.trim()).filter(Boolean).forEach(x => cnt[x] = (cnt[x] || 0) + 1));
+    const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 8), mx = top.length ? top[0][1] : 1;
+    const best = food.filter(p => p.score > 0).sort((a, b) => b.score - a.score || a.d - b.d).slice(0, 6);
+    showPois(best);
+    $('#cuiBox').innerHTML = top.length ? `<h4 class="sh" style="margin-top:4px">Şehirde en yaygın mutfaklar <small>${food.length} mekan</small></h4><div class="bars">${top.map(([k, n]) => `<div><span>${esc(CUI[k] || k.replace(/_/g, ' '))}</span><i style="width:${Math.max(6, n / mx * 100)}%"></i><b>${n}</b></div>`).join('')}</div>`
+      + (best.length ? `<h4 class="sh">Öne çıkan mekanlar</h4><ol class="pois">${best.map((p, i) => `<li><button data-poi="${i}"><b>${esc(p.name)}</b><small>${esc(p.label)}${p.cuisine ? ' · ' + esc(CUI[p.cuisine.split(';')[0]] || p.cuisine.split(';')[0]) : ''}</small><span>${fmtKm(p.d)}</span></button><button class="go" data-pgo="${i}" aria-label="Yol tarifi">${MI.foot.replace('<svg', '<svg width="16" height="16"')}</button></li>`).join('')}</ol>` : '')
+      : '<p class="empty2">Bu şehir için OpenStreetMap\'te mutfak bilgisi az.</p>';
+    $$('#cuiBox [data-poi]').forEach(b => b.onclick = () => focusPoi(+b.dataset.poi));
+    $$('#cuiBox [data-pgo]').forEach(b => b.onclick = () => { const p = poiList[+b.dataset.pgo]; startDir({name: p.name, lat: p.lat, lng: p.lng}) });
+  }).catch(() => { if (cur === me && $('#cuiBox')) $('#cuiBox').innerHTML = '<p class="empty2">Mekan verisine ulaşılamadı.</p>' });
+  const cn = c.country || of(RN, c.cc);
+  wikiFor(cn + ' mutfağı', null).then(w => { if (cur === me && $('#cwBox')) $('#cwBox').innerHTML = wikiCard(w) || '<p class="empty2">Bulunamadı.</p>' });
+}
+
+/* ---------- map layers: satellite · 3D terrain · 3D buildings ---------- */
+const lay = store.get('lay', {sat: false, ter: false, b3d: true});
+function applyLayers(){
+  if (!mapReady) return;
+  const v = (id, on) => { try { map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none') } catch(e) {} };
+  v('k-sat', lay.sat); v('k-cfill', !lay.sat); v('k-hs', lay.ter && !lay.sat); v('k-b3d', lay.b3d);
+  try { map.setTerrain(lay.ter ? {source: 'k-dem', exaggeration: 1.35} : null) } catch(e) {}
+  $$('#layPop [data-lay]').forEach(b => b.setAttribute('aria-pressed', !!lay[b.dataset.lay]));
+}
 
 boot().catch(err => { $('#loadT').textContent = 'Bir şeyler ters gitti: ' + err.message; console.error(err) });
 }
