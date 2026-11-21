@@ -2029,8 +2029,9 @@ function getStories(lat, lng){
   });
 }
 function renderStories(center, me){
-  getStories(center.lat, center.lng).then(list => {
+  getStories(center.lat, center.lng).then(all => {
     if (cur !== me || tab !== 'yakin' || poiCat !== 'hikaye') return;
+    const skip = new Set([norm(me.name), norm(view(me).country || '')]), list = all.filter(s => !skip.has(norm(s.title)));
     showPois(list.map(s => ({name: s.title, lat: s.lat, lng: s.lng, cat: 'hikaye', label: 'Hikâye', d: s.d, wiki: s.lang + ':' + s.title})));
     $('#poiBox').innerHTML = list.length ? `<p class="mut" style="margin:0 0 8px">Bu çevrede yaşanmış olaylar, yapılar ve kişiler. Haritada pembe noktalar.</p><ol class="stories">${list.map((s, i) => `<li><button data-poi="${i}">${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<span class="ph"></span>'}<div><b>${esc(s.title)}</b><p>${esc(s.text)}</p><small>${fmtKm(s.d)} · <a href="${esc(s.url)}" target="_blank" rel="noopener">Wikipedia${s.lang === 'en' ? ' (EN)' : ''}</a></small></div></button></li>`).join('')}</ol>`
       : '<p class="empty2">Bu çevrede konumlu Wikipedia maddesi bulunamadı.</p>';

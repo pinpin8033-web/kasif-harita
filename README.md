@@ -60,3 +60,17 @@ GitHub Pages sunucu kodu çalıştıramadığı için "Rehberi hazırla" butonu 
 - OpenFreeMap ve OpenStreetMap atıfları sağ altta otomatik görünür, kaldırma.
 - Adres araması OpenStreetMap Nominatim'i kullanır. Bu ücretsiz servis yoğun kullanım için değil; site büyürse kendi arama servisini kullan.
 - Claude'un yazdığı rehberler doğrulanmamıştır ve kullanıcının tarayıcısında saklanır.
+
+## 3B simgeler (Blender)
+
+`models/` klasöründeki 23 simge yapı Blender ile, koddan üretildi: `tools/landmarks.py`.
+Yeniden üretmek ya da yeni simge eklemek için:
+
+```bash
+pip install bpy                      # Blender'ı Python modülü olarak kurar
+python3 tools/landmarks.py out       # out/*.glb dosyalarını üretir
+npx @gltf-transform/cli optimize out/x.glb models/x.glb --compress meshopt
+python3 tools/render.py out prev     # isteğe bağlı: önizleme görselleri
+```
+
+Yeni bir simgeyi bir şehre bağlamak için `index.html` içindeki `LMS` tablosuna ekle.
