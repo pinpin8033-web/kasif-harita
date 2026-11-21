@@ -1754,7 +1754,8 @@ function makeStage(el, items, {start = 0, onPick, big = false} = {}){
     };
     fit(); st.ro = new ResizeObserver(fit); st.ro.observe(el);
     st.io = new IntersectionObserver(es => st.vis = es[0].isIntersecting); st.io.observe(el);
-    r.setAnimationLoop(() => { if (!st.vis || document.hidden) return; ctl.update(); r.render(scene, cam) });
+    st.draw = () => { ctl.update(); r.render(scene, cam) };
+    r.setAnimationLoop(() => { if (!st.vis || document.hidden) return; st.draw() });
     st.set(start);
   });
   st.dispose = () => { st.alive = false; if (st.r) { st.r.setAnimationLoop(null); st.r.dispose(); st.r.domElement.remove() } st.ro && st.ro.disconnect(); st.io && st.io.disconnect() };
@@ -2109,7 +2110,7 @@ $('#lmBtn').onclick = () => openGallery(cur ? Math.max(0, LM_ALL.findIndex(x => 
 $('#lmClose').onclick = closeGallery; $('#cardClose').onclick = () => $('#cardModal').hidden = true;
 for (const id of ['lmModal', 'cardModal']) $('#' + id).addEventListener('click', e => { if (e.target.id === id) id === 'lmModal' ? closeGallery() : ($('#' + id).hidden = true) });
 addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!$('#lmModal').hidden) closeGallery(); if (!$('#cardModal').hidden) $('#cardModal').hidden = true; if (tourOn) tourOn.stop = true });
-window.kasifDebug = {drawOverlay, ov, lmHit, nightGeo, wxFx, startTour, storyCard: () => cur && storyCard(view(cur))};
+window.kasifDebug = {drawOverlay, ov, lmHit, nightGeo, wxFx, startTour, storyCard: () => cur && storyCard(view(cur)), get map(){ return map }, get hero(){ return hero }, get gal(){ return gal }};
 
 boot().catch(err => { $('#loadT').textContent = 'Bir şeyler ters gitti: ' + err.message; console.error(err) });
 }
