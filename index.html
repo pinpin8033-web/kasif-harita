@@ -1288,6 +1288,24 @@ function getWiki(q, lang){
   });
 }
 async function wikiFor(q, en){ try { return (await getWiki(q, 'tr')) || (en ? await getWiki(en, 'en') : null) } catch(e) { return null } }
+const EN = (() => { try { return new Intl.DisplayNames(['en'], {type: 'region'}) } catch(e) { return {of: x => x} } })();
+async function trFromEn(title){ // follow the English article's link to its Turkish version when there is one
+  try { const j = await getJSON(`https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=langlinks&lllang=tr&format=json&origin=*`);
+    const pg = Object.values(j.query.pages)[0], tr = pg.langlinks && pg.langlinks[0] && pg.langlinks[0]['*'];
+    if (tr) { const m = await getJSON(`https://tr.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(tr.replace(/ /g, '_'))}`); if (m && m.extract) return {title: m.title, text: m.extract, img: m.thumbnail && m.thumbnail.source, url: m.content_urls.desktop.page, lang: 'tr'} } } catch(e) {}
+  return null;
+}
+async function wikiCity(c, enName){
+  const nm = norm(c.name), ok = w => w && norm(w.title).includes(nm.split(' ')[0]);
+  try { const w = await getWiki(c.name, 'tr'); if (ok(w)) return w } catch(e) {}
+  try { const ecn = c.cc ? of(EN, c.cc) : ''; const w = await getWiki((enName || c.name) + (c.g ? ' ' + ecn : ''), 'en');
+    if (w && norm(w.title).includes(norm(enName || c.name).split(' ')[0])) return (await trFromEn(w.title)) || w } catch(e) {}
+  return null;
+}
+async function wikiCuisine(cc){
+  try { const w = await getWiki('cuisine of ' + of(EN, cc), 'en'); if (w && /cuisine/i.test(w.title)) return (await trFromEn(w.title)) || w } catch(e) {}
+  return null;
+}
 async function wikiTag(tag){ // OSM "wikipedia" tag like "tr:Ayasofya"
   const m = /^([a-z-]+):(.+)$/.exec(tag || ''); if (!m) return null;
   try { const r = await getJSON(`https://${m[1]}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(m[2].replace(/ /g, '_'))}`); return r && r.extract ? {title: r.title, text: r.extract, img: r.thumbnail && r.thumbnail.source, url: r.content_urls && r.content_urls.desktop.page, lang: m[1]} : null } catch(e) { return null }
@@ -1310,11 +1328,11 @@ nwr["amenity"~"^(restaurant|fast_food)$"]["name"]${A(rf)};out center tags 220;
 nwr["amenity"~"^(cafe|ice_cream|bar|pub)$"]["name"]${A(rf)};out center tags 160;
 (nwr${L}["name"]${A()};nwr["amenity"~"^(theatre|cinema|arts_centre)$"]["name"]${A()};);out center tags 160;
 way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};out center tags 120;`;
-    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 13000);
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 9000);
     let j = null;
     try { j = await Promise.any(OVERPASS.map(u => getJSON(u, {method: 'POST', signal: ctl.signal, headers: {'content-type': 'application/x-www-form-urlencoded'}, body: 'data=' + encodeURIComponent(q)}))) } catch(e) {}
     clearTimeout(to); ctl.abort();
-    if (!j || !j.elements) return tilePois(lat, lng);
+    if (!j || !j.elements) return tilePois(lat, lng, r);
     const seen = new Set(), out = [];
     for (const e of j.elements) {
       const t = e.tags || {}, name = t['name:tr'] || t.name; if (!name) continue;
@@ -1336,27 +1354,39 @@ way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};out
 const POICAT = {restaurant: 'yemek', fast_food: 'yemek', food_court: 'yemek', cafe: 'kafe', ice_cream: 'kafe', bar: 'kafe', pub: 'kafe', beer: 'kafe', bakery: 'kafe',
   museum: 'gezi', attraction: 'gezi', monument: 'gezi', castle: 'gezi', art_gallery: 'gezi', place_of_worship: 'gezi', viewpoint: 'gezi', memorial: 'gezi', ruins: 'gezi', archaeological_site: 'gezi', palace: 'gezi', fort: 'gezi', city_gate: 'gezi', gallery: 'gezi', mosque: 'gezi', church: 'gezi',
   park: 'aktivite', garden: 'aktivite', zoo: 'aktivite', theatre: 'aktivite', cinema: 'aktivite', stadium: 'aktivite', aquarium: 'aktivite', theme_park: 'aktivite', water_park: 'aktivite', arts_centre: 'aktivite', playground: 'aktivite'};
-async function tilePois(lat, lng){
-  if (!mapReady || !VEC) throw new Error('no tiles');
-  if (map.getZoom() < 14.2 || km(map.getCenter(), {lat, lng}) > 1.5) { map.jumpTo({center: [lng, lat], zoom: 14.6, pitch: 0}); await new Promise(r => { const t = setTimeout(r, 6000); map.once('idle', () => { clearTimeout(t); r() }) }) }
-  const seen = new Set(), out = [];
-  for (const f of map.querySourceFeatures(VEC, {sourceLayer: 'poi'})) {
-    const p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name || f.geometry.type !== 'Point') continue;
-    const cat = POICAT[p.subclass] || POICAT[p.class]; if (!cat) continue;
-    const key = cat + norm(name); if (seen.has(key)) continue; seen.add(key);
-    const [x, y] = f.geometry.coordinates;
-    out.push({id: 't' + out.length, name, cat, kind: p.subclass || p.class, label: TAGTR[p.subclass] || TAGTR[p.class] || String(p.subclass || p.class).replace(/_/g, ' '), lat: y, lng: x, d: km({lat, lng}, {lat: y, lng: x}), score: 10 - (+p.rank || 10)});
+let tileTpl = null;
+async function tilePois(lat, lng, rad = 3000){
+  // read POIs straight from OpenFreeMap vector tiles (z14) around the point; independent of what the map is showing
+  if (!VEC) throw new Error('no vector source');
+  if (!tileTpl) { const src = map.getStyle().sources[VEC]; tileTpl = src.tiles ? src.tiles[0] : (await getJSON(src.url)).tiles[0] }
+  const [{VectorTile}, {PbfReader}] = await Promise.all([import('https://cdn.jsdelivr.net/npm/@mapbox/vector-tile@3.0.0/+esm'), import('https://cdn.jsdelivr.net/npm/pbf@5.2.0/+esm')]);
+  const z = 14, n = 2 ** z, xt = Math.floor((lng + 180) / 360 * n), yt = Math.floor((1 - Math.asinh(Math.tan(lat * Math.PI / 180)) / Math.PI) / 2 * n), h = rad > 3500 ? 2 : 1;
+  const jobs = [];
+  for (let dx = -h; dx <= h; dx++) for (let dy = -h; dy <= h; dy++) { const x = (xt + dx + n) % n, y = yt + dy; if (y < 0 || y >= n) continue;
+    jobs.push(fetch(tileTpl.replace('{z}', z).replace('{x}', x).replace('{y}', y)).then(r => r.ok ? r.arrayBuffer() : null).then(b => b && {b, x, y}).catch(() => null)) }
+  const tiles = (await Promise.all(jobs)).filter(Boolean), seen = new Set(), out = [];
+  const toLL = (x, y, f, ext) => { const X = (x + f.x / ext) / n, Y = (y + f.y / ext) / n; return {lng: X * 360 - 180, lat: Math.atan(Math.sinh(Math.PI * (1 - 2 * Y))) * 180 / Math.PI} };
+  for (const t of tiles) {
+    const vt = new VectorTile(new PbfReader(t.b));
+    const poi = vt.layers.poi;
+    if (poi) for (let i = 0; i < poi.length; i++) {
+      const f = poi.feature(i), p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name) continue;
+      const cat = POICAT[p.subclass] || POICAT[p.class]; if (!cat) continue;
+      const key = cat + norm(name); if (seen.has(key)) continue; seen.add(key);
+      const g = f.loadGeometry()[0][0], ll = toLL(t.x, t.y, g, f.extent);
+      out.push({id: 't' + out.length, name, cat, kind: p.subclass || p.class, label: TAGTR[p.subclass] || TAGTR[p.class] || String(p.subclass || p.class).replace(/_/g, ' '), lat: ll.lat, lng: ll.lng, d: km({lat, lng}, ll), score: 30 - (+p.rank || 30)});
+    }
+    const tn = vt.layers.transportation_name;
+    if (tn) for (let i = 0; i < tn.length; i++) {
+      const f = tn.feature(i), p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name || !/pedestrian|living_street/.test(p.subclass + ' ' + p.class)) continue;
+      const key = 'sokak' + norm(name); if (seen.has(key)) continue; seen.add(key);
+      const line = f.loadGeometry()[0], ll = toLL(t.x, t.y, line[line.length >> 1], f.extent);
+      out.push({id: 't' + out.length, name, cat: 'sokak', kind: 'pedestrian', label: 'Yaya caddesi', lat: ll.lat, lng: ll.lng, d: km({lat, lng}, ll), score: 0});
+    }
   }
-  for (const f of map.querySourceFeatures(VEC, {sourceLayer: 'transportation_name'})) {
-    const p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name || !/pedestrian|living_street/.test(p.subclass + ' ' + p.class)) continue;
-    const key = 'sokak' + norm(name); if (seen.has(key)) continue; seen.add(key);
-    const g = f.geometry.type === 'LineString' ? f.geometry.coordinates : f.geometry.coordinates[0], [x, y] = g[g.length >> 1];
-    out.push({id: 't' + out.length, name, cat: 'sokak', kind: 'pedestrian', label: 'Yaya caddesi', lat: y, lng: x, d: km({lat, lng}, {lat: y, lng: x}), score: 0});
-  }
-  out.src = 'tiles';
-  return out;
+  return out.filter(p => p.d * 1000 <= rad * 1.2);
 }
-const nearR = v => v.pop > 3e6 ? 6000 : v.pop > 8e5 ? 4500 : v.pop > 2e5 ? 3500 : v.g ? 2500 : 4500;
+const nearR = v => v.pop > 3e6 ? 4500 : v.pop > 8e5 ? 4000 : v.pop > 2e5 ? 3000 : v.g ? 2500 : 4000;
 let poiList = [], poiCat = 'gezi', poiCenter = null;
 function showPois(list){ poiList = list; setSrc('k-poi', fc(list.map((p, i) => pt([p.lng, p.lat], {i, name: p.name, col: (CATS.find(c => c[0] === p.cat) || CATS[0])[2]})))) }
 
@@ -1498,7 +1528,7 @@ function renderToday(c, tb){
     $$('#advBox [data-pl]').forEach(li => li.onclick = () => { activePlace = +li.dataset.pl; tab = 'gezi'; $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === 'gezi')); renderTab(); drawMini() });
   }).catch(() => { if (cur === me && $('#wxBox')) $('#wxBox').innerHTML = '<p class="empty2">Hava durumu alınamadı.</p>' });
   const en = c.g ? c.name : ({istanbul: 'Istanbul', goreme: 'Göreme', roma: 'Rome', paris: 'Paris', barselona: 'Barcelona', atina: 'Athens', kahire: 'Cairo', marakes: 'Marrakesh', kyoto: 'Kyoto', bangkok: 'Bangkok', newyork: 'New York City', meksiko: 'Mexico City', cusco: 'Cusco', safranbolu: 'Safranbolu'})[c.id] || c.name;
-  wikiFor(c.name + (c.g ? ' ' + c.country : ''), en).then(w => { if (cur === me && $('#wikiBox')) $('#wikiBox').innerHTML = wikiCard(w) || '<p class="empty2">Wikipedia özeti bulunamadı.</p>' });
+  wikiCity(c, en).then(w => { if (cur === me && $('#wikiBox')) $('#wikiBox').innerHTML = wikiCard(w) || '<p class="empty2">Wikipedia özeti bulunamadı.</p>' });
 }
 function renderNearby(c, tb){
   const me = cur, center = poiCenter || {lat: c.lat, lng: c.lng}, r = poiCenter ? 2500 : nearR(c);
@@ -1545,8 +1575,7 @@ function renderCuisine(c, tb){
     $$('#cuiBox [data-poi]').forEach(b => b.onclick = () => focusPoi(+b.dataset.poi));
     $$('#cuiBox [data-pgo]').forEach(b => b.onclick = () => { const p = poiList[+b.dataset.pgo]; startDir({name: p.name, lat: p.lat, lng: p.lng}) });
   }).catch(() => { if (cur === me && $('#cuiBox')) $('#cuiBox').innerHTML = '<p class="empty2">Mekan verisine ulaşılamadı.</p>' });
-  const cn = c.country || of(RN, c.cc);
-  wikiFor(cn + ' mutfağı', null).then(w => { if (cur === me && $('#cwBox')) $('#cwBox').innerHTML = wikiCard(w) || '<p class="empty2">Bulunamadı.</p>' });
+  wikiCuisine(c.cc).then(w => { if (cur === me && $('#cwBox')) $('#cwBox').innerHTML = wikiCard(w) || '<p class="empty2">Bulunamadı.</p>' });
 }
 
 /* ---------- map layers: satellite · 3D terrain · 3D buildings ---------- */
