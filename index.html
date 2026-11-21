@@ -1302,15 +1302,14 @@ const CATS = [['gezi','Gezilecek','#b9a8ff'],['yemek','Yemek','#ff9a78'],['kafe'
 function getNearby(lat, lng, r){
   return cached(`ov:${lat.toFixed(3)},${lng.toFixed(3)},${r}`, async () => {
     const A = (x = r) => `(around:${x},${lat.toFixed(5)},${lng.toFixed(5)})`, rf = Math.min(r, 2500);
-    const q = `[out:json][timeout:30];(
-nwr["tourism"~"^(attraction|museum|viewpoint|gallery|zoo|aquarium|theme_park)$"]["name"]${A()};
-nwr["historic"~"^(monument|castle|ruins|archaeological_site|memorial|fort|city_gate|palace)$"]["name"]${A()};
-nwr["amenity"="place_of_worship"]["name"]["wikidata"]${A()};
-nwr["amenity"~"^(restaurant|fast_food|cafe|ice_cream|bar|pub)$"]["name"]${A(rf)};
-nwr["leisure"~"^(park|garden|water_park|nature_reserve|beach_resort)$"]["name"]${A()};
-nwr["amenity"~"^(theatre|cinema|arts_centre)$"]["name"]${A()};
-way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};
-);out center tags 600;`;
+    const T = '["tourism"~"^(attraction|museum|viewpoint|gallery|zoo|aquarium|theme_park)$"]', H = '["historic"~"^(monument|castle|ruins|archaeological_site|memorial|fort|city_gate|palace)$"]', L = '["leisure"~"^(park|garden|water_park|nature_reserve|beach_resort)$"]';
+    const q = `[out:json][timeout:30];
+(nwr${T}["name"]["wikidata"]${A()};nwr${H}["name"]["wikidata"]${A()};nwr["amenity"="place_of_worship"]["name"]["wikidata"]${A()};nwr${L}["name"]["wikidata"]${A()};);out center tags 250;
+(nwr${T}["name"]${A()};nwr${H}["name"]${A()};);out center tags 220;
+nwr["amenity"~"^(restaurant|fast_food)$"]["name"]${A(rf)};out center tags 220;
+nwr["amenity"~"^(cafe|ice_cream|bar|pub)$"]["name"]${A(rf)};out center tags 160;
+(nwr${L}["name"]${A()};nwr["amenity"~"^(theatre|cinema|arts_centre)$"]["name"]${A()};);out center tags 160;
+way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};out center tags 120;`;
     const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 13000);
     let j = null;
     try { j = await Promise.any(OVERPASS.map(u => getJSON(u, {method: 'POST', signal: ctl.signal, headers: {'content-type': 'application/x-www-form-urlencoded'}, body: 'data=' + encodeURIComponent(q)}))) } catch(e) {}
