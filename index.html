@@ -1649,7 +1649,7 @@ function renderNearby(c, tb){
   $('#hereB').onclick = () => { const m = map.getCenter(); poiCenter = {lat: m.lat, lng: m.lng}; renderNearby(c, tb) };
   if (poiCat === 'hikaye') return renderStories(center, me);
   getNearby(center.lat, center.lng, r).then(all => {
-    if (cur !== me || tab !== 'yakin') return;
+    if (cur !== me || tab !== 'yakin' || poiCat === 'hikaye') return;
     const list = all.filter(p => p.cat === poiCat).sort((x, y) => (y.score - x.score) || (x.d - y.d)).slice(0, 40);
     showPois(list);
     $('#poiBox').innerHTML = list.length ? `<ol class="pois">${list.map((p, i) => `<li><button data-poi="${i}"><b>${esc(p.name)}</b><small>${esc(p.label)}${p.cuisine ? ' · ' + esc(p.cuisine.split(';').map(x => CUI[x.trim()] || x.trim().replace(/_/g, ' ')).slice(0, 2).join(', ')) : ''}</small><span>${fmtKm(p.d)}</span></button><button class="go" data-pgo="${i}" aria-label="${esc(p.name)} için yol tarifi">${MI.foot.replace('<svg', '<svg width="16" height="16"')}</button></li>`).join('')}</ol>` : '<p class="empty2">Bu kategoride kayıtlı yer bulunamadı. Haritayı kaydırıp "Haritadaki alanda ara"yı dene.</p>';
@@ -2020,7 +2020,7 @@ function renderTools(c, tb){
 /* ---------- stories: Wikipedia articles geotagged around a point ---------- */
 function getStories(lat, lng){
   return cached(`st:${lat.toFixed(3)},${lng.toFixed(3)}`, async () => {
-    const q = lang => getJSON(`https://${lang}.wikipedia.org/w/api.php?action=query&generator=geosearch&ggscoord=${lat}|${lng}&ggsradius=10000&ggslimit=40&prop=coordinates|pageimages|extracts|pageprops&exintro=1&explaintext=1&exsentences=2&exlimit=max&piprop=thumbnail&pithumbsize=200&format=json&origin=*`)
+    const q = lang => getJSON(`https://${lang}.wikipedia.org/w/api.php?action=query&generator=geosearch&ggscoord=${lat}|${lng}&ggsradius=10000&ggslimit=20&prop=coordinates|pageimages|extracts&colimit=max&exintro=1&explaintext=1&exsentences=2&exlimit=max&piprop=thumbnail&pithumbsize=200&format=json&origin=*`)
       .then(j => Object.values((j.query || {}).pages || {}).filter(p => p.coordinates && p.extract && !/^(Liste|List of)/.test(p.title)).map(p => ({title: p.title, text: p.extract, img: p.thumbnail && p.thumbnail.source, lat: p.coordinates[0].lat, lng: p.coordinates[0].lon,
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(p.title.replace(/ /g, '_'))}`, d: km({lat, lng}, p.coordinates[0].lat != null ? {lat: p.coordinates[0].lat, lng: p.coordinates[0].lon} : {lat, lng}), lang, len: p.extract.length + (p.thumbnail ? 200 : 0)})));
     let a = []; try { a = await q('tr') } catch(e) {}
