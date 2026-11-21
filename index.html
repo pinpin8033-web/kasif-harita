@@ -2090,11 +2090,11 @@ async function storyCard(v){
   try { const w = await getWeather(v.lat, v.lng), k = w.current, a = advice(w, v);
     let px = 84; px += pill(`${Math.round(k.temperature_2m)}° · ${(WMO[k.weather_code] || ['—'])[0]}`, px, py, '#ffffff', '#1e1b2e') + 14;
     pill('Yerel saat ' + clock(v.tz || w.timezone), px, py, 'rgba(255,255,255,.7)', '#1e1b2e'); py += 110;
-    x.font = '500 34px Geist, system-ui'; x.fillStyle = '#4b4766'; wrap(x, 'Ne giymeli: ' + a.wear[0], 84, py, W - 168, 46); py += 70 } catch(e) { py += 40 }
+    x.font = '500 34px Geist, system-ui'; x.fillStyle = '#4b4766'; py = wrap(x, 'Ne giymeli: ' + a.wear[0], 84, py, W - 168, 46) + 80 } catch(e) { py += 40 }
   let top = v.places ? v.places.map(p => p.n) : poiList.filter(p => p.cat === 'gezi').map(p => p.name);
   if (!top.length) { try { top = (await getNearby(v.lat, v.lng, nearR(v))).filter(p => p.cat === 'gezi').sort((a, b) => b.score - a.score).map(p => p.name) } catch(e) {} }
   if (top.length) { x.font = '650 40px Geist, system-ui'; x.fillStyle = '#5a46c8'; x.fillText('Mutlaka gör', 84, py + 20); py += 70;
-    top.slice(0, 5).forEach((n, i) => { x.fillStyle = '#ffffff'; x.beginPath(); x.roundRect(84, py, W - 168, 64, 20); x.fill(); x.fillStyle = '#8b7cf6'; x.font = '650 30px Geist, system-ui'; x.fillText(String(i + 1), 112, py + 43);
+    top.slice(0, 5).forEach((n, i) => { if (py + 64 > H - 130) return; x.fillStyle = '#ffffff'; x.beginPath(); x.roundRect(84, py, W - 168, 64, 20); x.fill(); x.fillStyle = '#8b7cf6'; x.font = '650 30px Geist, system-ui'; x.fillText(String(i + 1), 112, py + 43);
       x.fillStyle = '#1e1b2e'; x.font = '500 32px Geist, system-ui'; x.fillText(n.length > 42 ? n.slice(0, 41) + '…' : n, 160, py + 43); py += 76 }) }
   x.font = '500 28px Geist, system-ui'; x.fillStyle = '#6e6a86'; x.fillText('pinpin8033-web.github.io/kasif-harita', 84, H - 80);
   const url = cv.toDataURL('image/png'), file = await new Promise(r => cv.toBlob(b => r(new File([b], `kasif-${v.id}.png`, {type: 'image/png'})), 'image/png'));
@@ -2103,7 +2103,7 @@ async function storyCard(v){
   const sh = $('#cardSh'); sh.hidden = !(navigator.canShare && navigator.canShare({files: [file]}));
   sh.onclick = () => navigator.share({files: [file], title: 'kâşif · ' + v.name}).catch(() => {});
 }
-function wrap(x, t, px, py, mw, lh){ const words = t.split(' '); let line = ''; for (const w of words) { const tt = line ? line + ' ' + w : w; if (x.measureText(tt).width > mw && line) { x.fillText(line, px, py); line = w; py += lh } else line = tt } x.fillText(line, px, py) }
+function wrap(x, t, px, py, mw, lh){ const words = t.split(' '); let line = ''; for (const w of words) { const tt = line ? line + ' ' + w : w; if (x.measureText(tt).width > mw && line) { x.fillText(line, px, py); line = w; py += lh } else line = tt } x.fillText(line, px, py); return py }
 
 /* ---------- wiring ---------- */
 $('#lmBtn').onclick = () => openGallery(cur ? Math.max(0, LM_ALL.findIndex(x => x.cid === cur.id)) : 0);
