@@ -1328,11 +1328,12 @@ nwr["amenity"~"^(restaurant|fast_food)$"]["name"]${A(rf)};out center tags 220;
 nwr["amenity"~"^(cafe|ice_cream|bar|pub)$"]["name"]${A(rf)};out center tags 160;
 (nwr${L}["name"]${A()};nwr["amenity"~"^(theatre|cinema|arts_centre)$"]["name"]${A()};);out center tags 160;
 way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};out center tags 120;`;
-    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 9000);
+    const tp = tilePois(lat, lng, r).catch(() => null); // vector-tile list starts in parallel, so a slow Overpass costs at most ~8 s
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 8000);
     let j = null;
     try { j = await Promise.any(OVERPASS.map(u => getJSON(u, {method: 'POST', signal: ctl.signal, headers: {'content-type': 'application/x-www-form-urlencoded'}, body: 'data=' + encodeURIComponent(q)}))) } catch(e) {}
     clearTimeout(to); ctl.abort();
-    if (!j || !j.elements) return tilePois(lat, lng, r);
+    if (!j || !j.elements || !j.elements.length) { const t = await tp; if (t) return t; throw new Error('no poi data') }
     const seen = new Set(), out = [];
     for (const e of j.elements) {
       const t = e.tags || {}, name = t['name:tr'] || t.name; if (!name) continue;
@@ -1372,9 +1373,11 @@ async function tilePois(lat, lng, rad = 3000){
     if (poi) for (let i = 0; i < poi.length; i++) {
       const f = poi.feature(i), p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name) continue;
       const cat = POICAT[p.subclass] || POICAT[p.class]; if (!cat) continue;
+      const nk = Object.keys(p).filter(k => k.startsWith('name:')).length; // translations ≈ how well-known a place is
+      if (cat === 'gezi' && /artwork|information|bench/.test(p.subclass) && nk < 3) continue;
       const key = cat + norm(name); if (seen.has(key)) continue; seen.add(key);
       const g = f.loadGeometry()[0][0], ll = toLL(t.x, t.y, g, f.extent);
-      out.push({id: 't' + out.length, name, cat, kind: p.subclass || p.class, label: TAGTR[p.subclass] || TAGTR[p.class] || String(p.subclass || p.class).replace(/_/g, ' '), lat: ll.lat, lng: ll.lng, d: km({lat, lng}, ll), score: 30 - (+p.rank || 30)});
+      out.push({id: 't' + out.length, name, cat, kind: p.subclass || p.class, label: TAGTR[p.subclass] || TAGTR[p.class] || String(p.subclass || p.class).replace(/_/g, ' '), lat: ll.lat, lng: ll.lng, d: km({lat, lng}, ll), nk});
     }
     const tn = vt.layers.transportation_name;
     if (tn) for (let i = 0; i < tn.length; i++) {
@@ -1384,7 +1387,7 @@ async function tilePois(lat, lng, rad = 3000){
       out.push({id: 't' + out.length, name, cat: 'sokak', kind: 'pedestrian', label: 'Yaya caddesi', lat: ll.lat, lng: ll.lng, d: km({lat, lng}, ll), score: 0});
     }
   }
-  return out.filter(p => p.d * 1000 <= rad * 1.2);
+  return out.filter(p => p.d * 1000 <= rad * 1.2).map(p => (p.score = (p.nk || 0) - p.d * 1.5, p));
 }
 const nearR = v => v.pop > 3e6 ? 4500 : v.pop > 8e5 ? 4000 : v.pop > 2e5 ? 3000 : v.g ? 2500 : 4000;
 let poiList = [], poiCat = 'gezi', poiCenter = null;
