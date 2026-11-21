@@ -682,7 +682,7 @@ function onStyle(cfill){
   mapReady = true;
   restyle(); repaint(); renderTrip(); applyLayers();
   ['k-poi'].forEach(id => { map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', id, () => map.getCanvas().style.cursor = '') });
-  map.once('idle', () => $('#loader').classList.add('done'));
+  map.once('idle', () => { $('#loader').classList.add('done'); const at = document.querySelector('.maplibregl-ctrl-attrib'); if (at && innerWidth < 700) at.classList.remove('maplibregl-compact-show') });
   setTimeout(() => $('#loader').classList.add('done'), 6000);
   route(); updateWhere(world.pointOfView());
 }
