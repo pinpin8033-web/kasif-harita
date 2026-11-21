@@ -405,6 +405,83 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
   body.open .trip{display:none}
   .mini{height:210px}
 }
+
+/* ---- kâşif+ ---- */
+.lmov,.wxfx{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.lmov{transition:opacity .3s;filter:drop-shadow(0 6px 8px rgba(60,40,140,.18))}
+.cover.has3d{padding-top:8px}
+.stage{position:relative;height:210px;margin:0 -8px 4px;border-radius:18px;cursor:grab;touch-action:none}
+.stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+.stage:active{cursor:grabbing}
+.stage.ld::after,.lmbig.ld::after{content:"";position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px;border-radius:50%;border:3px solid rgba(139,124,246,.25);border-top-color:#8b7cf6;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage .cap{position:absolute;left:10px;bottom:8px;z-index:1;display:flex;align-items:center;gap:6px;padding:5px 10px 5px 5px;border-radius:12px;background:color-mix(in srgb,var(--surface) 80%,transparent);font-size:12.5px;backdrop-filter:blur(6px);pointer-events:none}
+.stage .cap span{font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:7px;background:#8b7cf6;color:#fff}
+.stage .stp{position:absolute;right:56px;bottom:8px;z-index:1;display:flex;gap:4px}
+.stage .stp button,.stage .big{width:34px;height:34px;border-radius:11px;background:color-mix(in srgb,var(--surface) 85%,transparent);display:grid;place-items:center;font-size:20px;line-height:1;backdrop-filter:blur(6px)}
+.stage .big{position:absolute;right:12px;bottom:8px;z-index:1}.stage .big svg{width:16px;height:16px}
+.lmm{width:min(980px,100%);height:min(720px,calc(100vh - 32px));border-radius:28px;padding:0;position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden}
+.lmm header{padding:22px 24px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.lmm h2{margin:0;font-size:30px;font-weight:650;letter-spacing:-.04em}.lmm header small{color:var(--mut);font-size:14px}
+.lmm .close{position:static;flex:none}
+.lmbig{position:relative;margin:0 12px;border-radius:22px;background:radial-gradient(60% 55% at 50% 60%,light-dark(#fff,#2a2640) 0,transparent 75%),linear-gradient(180deg,var(--lav),var(--mnt));cursor:grab;touch-action:none}
+.lmbig canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+.lmbig .nav{position:absolute;z-index:1;inset:auto 14px 14px;display:flex;justify-content:space-between;pointer-events:none}
+.lmbig .nav button{pointer-events:auto;width:44px;height:44px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);font-size:24px}
+.lmbig .nav .btn{width:auto;flex:none;font-size:14px;padding:0 18px;background:var(--btn)}
+.lmlist{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:12px 16px 16px}
+.lmlist button{flex:none;display:grid;text-align:left;padding:8px 12px;border-radius:14px;background:var(--s2)}
+.lmlist button b{font-size:13.5px;font-weight:600}.lmlist button small{font-size:11.5px;color:var(--mut)}
+.lmlist button[aria-pressed=true]{background:var(--btn);color:var(--btn-i)}.lmlist button[aria-pressed=true] small{color:inherit;opacity:.75}
+.tools{display:grid;gap:10px}
+.tl{padding:14px 16px;border-radius:18px;background:var(--s2)}
+.tl h5{margin:0 0 10px;font-size:13px;font-weight:650;color:var(--lav-i)}.tl h5 em{font-style:normal;font-weight:500;color:var(--mut)}
+.tl h6{margin:12px 0 4px;font-size:12px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.row2{display:flex;justify-content:space-between;align-items:center}
+.lnk{font-size:12.5px;font-weight:600;color:var(--lav-i)}
+.mut{color:var(--mut);font-size:13px}
+.clockc{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(135deg,var(--lav),var(--sky))}
+.clockc small{display:block;font-size:12px;color:var(--mut)}.clockc b{display:block;font-size:34px;font-weight:650;letter-spacing:-.03em;line-height:1.1}.clockc span{font-size:13px}
+#tlSun{display:grid;gap:4px;text-align:right;font-size:12.5px;color:var(--mut)}#tlSun b{color:var(--ink);font-size:14px}
+.fx2{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:end}
+.fx2 label{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--mut)}
+.fx2 input{height:46px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font-size:18px;font-weight:600;width:100%}
+.fx2 select{border:0;background:none;font:inherit;color:inherit;padding:0}
+.eqs{height:46px;display:grid;place-items:center;color:var(--mut);font-weight:600}
+.fxq{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:10px 0 6px}
+.fxq span{flex:none;display:grid;padding:6px 10px;border-radius:10px;background:var(--surface);font-size:13px}.fxq b{font-size:11.5px;color:var(--mut);font-weight:600}
+.aq{display:flex;gap:12px;align-items:center}.aq p{margin:0;font-size:13.5px}
+.aqb{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;align-content:center;background:color-mix(in srgb,var(--c) 30%,var(--surface));flex:none}
+.aqb b{font-size:22px;line-height:1}.aqb span{font-size:11px;font-weight:600}
+.ess{margin:0;display:grid;gap:8px}.ess div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:8px;font-size:14px}
+.ess dt{color:var(--mut);font-size:12.5px;padding-top:1px}.ess dd{margin:0;font-weight:600}.ess dd small{display:block;font-weight:400;font-size:12.5px;color:var(--mut)}
+.ess dd a{color:var(--lav-i)}.ess .warn{color:light-dark(#b4542a,#ffb38c)!important}.ess .okc{color:var(--mnt-i)!important}
+.phr{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.phr button{width:100%;display:grid;text-align:left;padding:8px 30px 8px 10px;border-radius:12px;background:var(--surface);position:relative}
+.phr small{font-size:11.5px;color:var(--mut)}.phr b{font-size:14.5px;font-weight:600}.phr span{font-size:12px;color:var(--lav-i)}
+.phr i{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-style:normal;font-size:11px;color:var(--mut)}
+.phr button:hover{outline:1.5px solid #8b7cf6}
+.pack{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.pack label{display:flex;gap:10px;align-items:center;padding:6px 8px;border-radius:10px;font-size:14px;cursor:pointer}.pack label:hover{background:var(--surface)}
+.pack input{width:18px;height:18px;accent-color:#8b7cf6;flex:none}.pack input:checked+span{text-decoration:line-through;color:var(--mut)}
+.stories{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.stories button{width:100%;display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;text-align:left;padding:10px;border-radius:16px;background:var(--s2)}
+.stories img,.stories .ph{width:76px;height:76px;border-radius:12px;object-fit:cover;background:linear-gradient(135deg,var(--pnk),var(--lav))}
+.stories b{font-size:14.5px;font-weight:600}.stories p{margin:2px 0 4px;font-size:13px;line-height:1.45;color:var(--mut);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.stories small{font-size:12px;color:var(--mut)}.stories a{color:var(--lav-i);font-weight:600}
+.stories button:hover{outline:1.5px solid #f2a0c0}
+.cine{position:fixed;z-index:9;left:50%;bottom:34px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:12px 12px 12px 20px;border-radius:20px}
+.cine[hidden]{display:none}
+.cine small{font-size:12px;color:var(--mut);font-weight:600}.cine b{display:block;font-size:22px;font-weight:650;letter-spacing:-.02em}
+.cine.in div{animation:cin .7s cubic-bezier(.2,.8,.2,1)}@keyframes cin{from{opacity:0;transform:translateY(8px)}}
+body.cine .panel,body.cine .topL,body.cine .topR,body.cine .zoom,body.cine .intro,body.cine .where,body.cine .trip,body.cine .laypop{opacity:0;pointer-events:none;transition:opacity .4s}
+body.cine #globe{right:0!important;bottom:0!important}
+.cardm{width:min(460px,100%);max-height:calc(100vh - 32px);overflow:auto;border-radius:28px;padding:20px;position:relative}
+.cardm h2{margin:0 0 4px;font-size:24px;font-weight:650;letter-spacing:-.03em}.cardm p{margin:0 0 14px;color:var(--mut);font-size:14px}
+#cardOut img{width:100%;border-radius:18px;display:block;box-shadow:var(--shadow)}
+.eqp{display:grid;gap:2px}.eqp b{font-size:18px}.eqp span{font-size:13.5px;font-weight:600}.eqp small{font-size:12px;color:#6e6a86}
+.acts .btn.ic{flex:none;width:44px;padding:0}
+@media(max-width:700px){.stage{height:170px}.zoom{display:flex;right:10px;bottom:auto;top:124px}body.open .zoom{display:none}.phr{grid-template-columns:minmax(0,1fr)}.lmm h2{font-size:24px}.cine{bottom:18px;left:10px;right:10px;transform:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -434,6 +511,7 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
   <button class="ibtn card" id="dirBtn" title="Yol tarifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 22 12 12 22 2 12Z"/><path d="M9 14v-2a2 2 0 0 1 2-2h4M13 8l2 2-2 2"/></svg><span class="t">Yol tarifi</span></button>
   <button class="ibtn card" id="quizBtn" title="Şehri bul oyunu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg><span class="t">Oyna</span></button>
   <button class="ibtn card" id="shuffle" title="Rastgele bir şehre git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg><span class="t">Şaşırt</span></button>
+  <button class="ibtn card" id="lmBtn" title="3B simge galerisi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 7v4l7 4 7-4V7l-7-4Z"/><path d="M5 7l7 4 7-4M12 11v4"/><path d="M4 18c2.5 2 13.5 2 16 0"/></svg><span class="t">Simgeler</span></button>
   <button class="ibtn card" id="passBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="3"/><circle cx="12" cy="10" r="3.5"/><path d="M8.5 17h7"/></svg><span class="t">Pasaport</span><span class="badge" id="passN">0</span></button>
 </div>
 
@@ -460,6 +538,10 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
   <button data-lay="sat" aria-pressed="false"><span>Uydu görüntüsü</span><small>Sentinel-2, 10 m çözünürlük</small></button>
   <button data-lay="ter" aria-pressed="false"><span>3B arazi</span><small>Dağlar ve vadiler kabartmalı</small></button>
   <button data-lay="b3d" aria-pressed="true"><span>3B binalar</span><small>Yakınlaşınca görünür</small></button>
+  <button data-lay="lm" aria-pressed="true"><span>3B simgeler</span><small>Şehirlerin minyatür yapıları</small></button>
+  <button data-lay="night" aria-pressed="true"><span>Gece ve gündüz</span><small>Dünyada şu an gece olan yerler</small></button>
+  <button data-lay="eq" aria-pressed="false"><span>Son depremler</span><small>USGS · son 7 gün, M2,5 ve üstü</small></button>
+  <button data-lay="fx" aria-pressed="true"><span>Hava efektleri</span><small>Şehirde yağmur ya da kar varsa</small></button>
 </div>
 <aside class="panel card" id="panel" aria-live="polite"></aside>
 <div class="trip card" id="trip" hidden></div>
@@ -473,6 +555,22 @@ body.open .trip{max-width:calc(100vw - var(--pw) - 112px)}
     <p class="note" style="margin:16px 0 0">Damgalar ve tattıkların bu tarayıcıda saklanır.</p>
   </div>
 </div>
+<div class="modal" id="lmModal" hidden>
+  <div class="lmm card" role="dialog" aria-modal="true" aria-labelledby="lmName">
+    <header><div><h2 id="lmName">Simgeler</h2><small id="lmCity"></small></div><button class="close" id="lmClose" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="lmbig" id="lmBig"><div class="nav"><button id="lmPrev" aria-label="Önceki">‹</button><button class="btn pri" id="lmGo">Haritada git</button><button id="lmNext" aria-label="Sonraki">›</button></div></div>
+    <div class="lmlist" id="lmList"></div>
+  </div>
+</div>
+<div class="modal" id="cardModal" hidden>
+  <div class="cardm card" role="dialog" aria-modal="true" aria-labelledby="cardT">
+    <button class="close" id="cardClose" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <h2 id="cardT">Hikâye kartı</h2><p>Instagram ve TikTok hikâyesi boyutunda (1080×1920).</p>
+    <div id="cardOut"></div>
+    <div class="pact"><button class="btn pri" id="cardDl">İndir</button><button class="btn" id="cardSh" hidden>Paylaş</button></div>
+  </div>
+</div>
+<div class="cine card" id="cine" hidden><div><small id="cineN"></small><b id="cineT"></b></div><button class="btn" id="cineX">Turu bitir</button></div>
 <div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
@@ -679,6 +777,7 @@ function onStyle(cfill){
   map.addLayer({id: 'k-q-dot', type: 'circle', source: 'k-q', filter: ['==', ['geometry-type'], 'Point'], paint: {'circle-radius': 8, 'circle-color': ['get', 'col'], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5}});
   map.addLayer({id: 'k-q-lab', type: 'symbol', source: 'k-q', filter: ['==', ['geometry-type'], 'Point'], layout: {'text-field': ['get', 'name'], 'text-font': FONTB, 'text-size': 14, 'text-anchor': 'left', 'text-offset': [1, 0], 'text-allow-overlap': true}, paint: {'text-halo-width': 2.2}});
   ['k-cur-dot', 'k-cur-lab', 'k-cp-dot', 'k-cp-num'].forEach(id => { map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', id, () => map.getCanvas().style.cursor = '') });
+  addPlusLayers();
   mapReady = true;
   restyle(); repaint(); renderTrip(); applyLayers();
   ['k-poi'].forEach(id => { map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', id, () => map.getCanvas().style.cursor = '') });
@@ -718,6 +817,8 @@ function onMapClick(e){
   const {lng, lat} = e.lngLat, z = map.getZoom();
   if (quiz) { if (quiz.phase === 'ask') quizGuess(lat, ((lng + 540) % 360) - 180); return }
   const box = [[e.point.x - 8, e.point.y - 8], [e.point.x + 8, e.point.y + 8]];
+  const lh = lay.lm && lmHit(e.point); if (lh) { if (!cur || cur.id !== lh.cid) go(lh.cid); else map.flyTo({center: [lh.lng, lh.lat], zoom: 16.2, pitch: 60, duration: RM ? 0 : 2200, essential: true}); return }
+  if (lay.eq) { const eq = map.queryRenderedFeatures(box, {layers: ['k-eq']}); if (eq.length) return eqPopup(eq[0].properties, eq[0].geometry.coordinates) }
   const pq = map.queryRenderedFeatures(box, {layers: ['k-poi']}); if (pq.length) { const p = poiList[pq[0].properties.i]; if (p) return poiPopup(p) }
   const mine = map.queryRenderedFeatures(box, {layers: ['k-cp-dot', 'k-cp-num', 'k-cur-dot', 'k-cur-lab']});
   if (mine.length) { const p = mine[0].properties;
@@ -771,11 +872,12 @@ async function select(id, opt = {}){
   world.ringsData([c]);
   map.flyTo({center: [c.lng, c.lat], zoom: cityZoom(c), pitch: 0, bearing: 0, duration: RM ? 0 : 2200, essential: true});
   renderPanel(); repaint(); $('#panel').scrollTop = 0;
+  getWeather(c.lat, c.lng).then(w => { if (cur === c) wxFx(w.current.weather_code) }).catch(() => {});
   if (c.g && !guides[c.id]) { const g = await loadShared(c); if (g && cur === c) { guides[c.id] = g; store.set('guides', guides); IDX = null; renderPanel(); repaint() } }
 }
 function closePanel(push = true){
   if (genCtl) { genCtl.abort(); genCtl = null }
-  cur = null; curCC = null; setSelC(null); document.body.classList.remove('open', 'plan'); world.ringsData([]); repaint(); drawMini(); clearDir(); showPois([]);
+  cur = null; curCC = null; setSelC(null); document.body.classList.remove('open', 'plan'); wxFx(null); if (hero) { hero.dispose(); hero = null } world.ringsData([]); repaint(); drawMini(); clearDir(); showPois([]);
   if (push) history.replaceState(null, '', location.pathname + location.search);
   world.pointOfView({altitude: innerWidth < 700 ? 3.2 : 2.4}, RM ? 0 : 1400); idle = Date.now();
 }
@@ -790,10 +892,11 @@ function renderPanel(){
   const nearG = places.filter(x => x.id !== v.id && Math.abs(x.lat - v.lat) < 4 && Math.abs(x.lng - v.lng) < 6).map(x => [x, km(v, x)]).filter(x => x[1] < 400).sort((a,b) => b[0].pop - a[0].pop).slice(0, 4);
   const tm = v.tz ? clock(v.tz) : '';
   const m = meta[v.cc] || {};
-  const TB = full ? [['genel','Bugün'],['tarih','Tarih'],['lezzet','Mutfak'],['gezi','Gezilecek'],['rota','1 gün'],['yakin','Keşfet']] : [['genel','Bugün'],['yakin','Keşfet'],['lezzet','Mutfak']];
+  const TB = full ? [['genel','Bugün'],['tarih','Tarih'],['lezzet','Mutfak'],['gezi','Gezilecek'],['rota','1 gün'],['yakin','Keşfet'],['arac','Araçlar']] : [['genel','Bugün'],['yakin','Keşfet'],['lezzet','Mutfak'],['arac','Araçlar']];
   if (!TB.some(t => t[0] === tab)) tab = 'genel';
   $('#panel').innerHTML = `
-  <div class="cover" style="--cv:${coverBg(v)}">
+  <div class="cover${LMS[v.id] ? ' has3d' : ''}" style="--cv:${coverBg(v)}">
+    ${heroHtml(v)}
     <button class="close" id="closeP" aria-label="Kapat">${ICON.x}</button>
     <div class="crumb"><button class="pill" data-go="ulke-${esc(v.cc)}">${esc(v.country)}</button>${v.cont ? `<span>${esc(v.cont)}</span>` : ''}${tm ? `<span class="pill">Yerel saat <span id="clk">${tm}</span></span>` : ''}</div>
     <h1>${esc(v.name)}</h1>
@@ -804,7 +907,9 @@ function renderPanel(){
     <div class="acts">
       <button class="btn pri" id="stampB" aria-pressed="${!!st}">${st ? ICON.check + ' Damgalandı · ' + new Date(st).toLocaleDateString('tr-TR', {day:'numeric', month:'short'}) : 'Pasaporta damga bas'}</button>
       <button class="btn" id="tripB" aria-pressed="${inTrip}">${inTrip ? ICON.check + ' Planda' : ICON.plus + ' Plana ekle'}</button>
-      <button class="btn" id="shareB" aria-label="Bağlantıyı kopyala" title="Bağlantıyı kopyala">${ICON.link}</button>
+      <button class="btn ic" id="tourB" aria-label="Sinematik şehir turu" title="Sinematik tur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg></button>
+      <button class="btn ic" id="cardB" aria-label="Hikâye kartı oluştur" title="Hikâye kartı"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M9.5 15.5 12 13l2.5 2.5M12 13v6M9 7h6"/></svg></button>
+      <button class="btn ic" id="shareB" aria-label="Bağlantıyı kopyala" title="Bağlantıyı kopyala">${ICON.link}</button>
     </div>
     <dl class="facts">${full ? `
       <div><dt>En iyi zaman</dt><dd>${esc(v.season)}</dd></div><div><dt>Önerilen süre</dt><dd>${esc(v.days)}</dd></div>
@@ -820,6 +925,7 @@ function renderPanel(){
   <div class="near"><h5>${v.g && nearG.length ? 'Yakınındaki şehirler' : 'Buradan sonra'}</h5><div class="chips">${(v.g && nearG.length ? nearG : near).map(([x,d]) => `<button class="chip" data-go="${x.id}">${esc(x.name)} · ${fmtKm(d)}</button>`).join('')}</div></div>
   <p class="note">${v.guide ? 'Bu rehber Claude tarafından yazıldı; konumlar yaklaşık. Gitmeden önce doğrula.' : v.g ? 'Şehir verisi: GeoNames. Ülke bilgisi: açık veri.' : 'Elle hazırlanmış örnek içerik; konumlar yaklaşık.'} <a href="${wiki(v.name)}" target="_blank" rel="noopener">Wikipedia'da oku</a></p>`;
   $('#closeP').onclick = () => closePanel();
+  $('#cardB').onclick = () => storyCard(v); $('#tourB').onclick = () => startTour();
   $('#stampB').onclick = () => { if (stamps[v.id]) delete stamps[v.id]; else { stamps[v.id] = Date.now(); toast(v.name + ' pasaportuna damgalandı') } store.set('stamps', stamps); updatePass(); repaint(); renderPanel() };
   $('#tripB').onclick = () => { toggleTrip(v.id); renderPanel() };
   $('#shareB').onclick = async () => { try { await navigator.clipboard.writeText(location.href); toast('Bağlantı kopyalandı') } catch(e) { toast(location.href) } };
@@ -827,7 +933,7 @@ function renderPanel(){
   $$('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; activePlace = -1; if (tab !== 'yakin' && tab !== 'lezzet') showPois([]); $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b)); b.scrollIntoView({block: 'nearest', inline: 'nearest'}); renderTab(); drawMini() });
   renderTab();
   if (!full && apiOk) bindGen(v);
-  drawMini();
+  drawMini(); mountHero(v);
 }
 
 /* live guide via Claude */
@@ -881,6 +987,7 @@ function renderTab(){
   const c = view(cur), tb = $('#tb');
   if (tab === 'genel') return renderToday(c, tb);
   if (tab === 'yakin') return renderNearby(c, tb);
+  if (tab === 'arac') return renderTools(c, tb);
   if (tab === 'lezzet' && !c.foods) return renderCuisine(c, tb);
   if (tab === 'tarih') {
     const h = c.history[era], n = c.history.length;
@@ -1316,7 +1423,7 @@ const wikiCard = w => w ? `<article class="wiki">${w.img ? `<img src="${esc(w.im
 const OVERPASS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
 const TAGTR = {museum:'Müze',attraction:'Turistik yer',viewpoint:'Seyir noktası',gallery:'Galeri',zoo:'Hayvanat bahçesi',aquarium:'Akvaryum',theme_park:'Tema parkı',monument:'Anıt',castle:'Kale',ruins:'Kalıntı',archaeological_site:'Ören yeri',memorial:'Anıt',fort:'Kale',city_gate:'Kent kapısı',palace:'Saray',restaurant:'Restoran',fast_food:'Hızlı yemek',cafe:'Kafe',ice_cream:'Dondurmacı',bar:'Bar',pub:'Pub',park:'Park',garden:'Bahçe',water_park:'Su parkı',nature_reserve:'Doğa alanı',beach_resort:'Plaj',theatre:'Tiyatro',cinema:'Sinema',arts_centre:'Sanat merkezi',pedestrian:'Yaya caddesi',living_street:'Sokak',muslim:'Cami',christian:'Kilise',jewish:'Sinagog',buddhist:'Tapınak',hindu:'Tapınak',shinto:'Tapınak'};
 const CUI = {turkish:'Türk',kebab:'Kebap',regional:'Yöresel',local:'Yerel',pizza:'Pizza',burger:'Burger',coffee_shop:'Kahve',seafood:'Deniz ürünleri',fish:'Balık',italian:'İtalyan',chinese:'Çin',japanese:'Japon',sushi:'Suşi',indian:'Hint',mexican:'Meksika',thai:'Tay',french:'Fransız',greek:'Yunan',spanish:'İspanyol',american:'Amerikan',chicken:'Tavuk',sandwich:'Sandviç',ice_cream:'Dondurma',cake:'Pasta',bakery:'Fırın',breakfast:'Kahvaltı',vegetarian:'Vejetaryen',vegan:'Vegan',steak_house:'Et / steak',asian:'Asya',korean:'Kore',vietnamese:'Vietnam',middle_eastern:'Orta Doğu',lebanese:'Lübnan',arab:'Arap',moroccan:'Fas',noodle:'Erişte',ramen:'Ramen',tapas:'Tapas',dessert:'Tatlı',pastry:'Pastane',doner:'Döner',pide:'Pide',meze:'Meze',balkan:'Balkan',international:'Uluslararası',bubble_tea:'Bubble tea',tea:'Çay',donut:'Donut',german:'Alman',british:'İngiliz',russian:'Rus',georgian:'Gürcü',persian:'İran',syrian:'Suriye',egyptian:'Mısır',peruvian:'Peru',brazilian:'Brezilya',portuguese:'Portekiz',mediterranean:'Akdeniz',barbecue:'Izgara',grill:'Izgara',falafel:'Falafel',shawarma:'Şavurma',crepe:'Krep',bagel:'Bagel',hot_dog:'Sosisli',wine:'Şarap',beer:'Bira',fish_and_chips:'Fish & chips',tacos:'Taco',dim_sum:'Dim sum',curry:'Köri',bistro:'Bistro'};
-const CATS = [['gezi','Gezilecek','#b9a8ff'],['yemek','Yemek','#ff9a78'],['kafe','Kafe','#e3a65c'],['aktivite','Aktivite','#5fcf9b'],['sokak','Sokaklar','#6aa6ff']];
+const CATS = [['gezi','Gezilecek','#b9a8ff'],['yemek','Yemek','#ff9a78'],['kafe','Kafe','#e3a65c'],['aktivite','Aktivite','#5fcf9b'],['sokak','Sokaklar','#6aa6ff'],['hikaye','Hikâyeler','#f2a0c0']];
 function getNearby(lat, lng, r){
   return cached(`ov:${lat.toFixed(3)},${lng.toFixed(3)},${r}`, async () => {
     const A = (x = r) => `(around:${x},${lat.toFixed(5)},${lng.toFixed(5)})`, rf = Math.min(r, 2500);
@@ -1540,6 +1647,7 @@ function renderNearby(c, tb){
     <div id="poiBox"><div class="sk" style="height:60px"></div><div class="sk" style="height:60px"></div><div class="sk" style="height:60px"></div></div>`;
   tb.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { poiCat = b.dataset.cat; renderNearby(c, tb) });
   $('#hereB').onclick = () => { const m = map.getCenter(); poiCenter = {lat: m.lat, lng: m.lng}; renderNearby(c, tb) };
+  if (poiCat === 'hikaye') return renderStories(center, me);
   getNearby(center.lat, center.lng, r).then(all => {
     if (cur !== me || tab !== 'yakin') return;
     const list = all.filter(p => p.cat === poiCat).sort((x, y) => (y.score - x.score) || (x.d - y.d)).slice(0, 40);
@@ -1589,7 +1697,419 @@ function applyLayers(){
   v('k-sat', lay.sat); v('k-cfill', !lay.sat); v('k-hs', lay.ter && !lay.sat); v('k-b3d', lay.b3d);
   try { map.setTerrain(lay.ter ? {source: 'k-dem', exaggeration: 1.35} : null) } catch(e) {}
   $$('#layPop [data-lay]').forEach(b => b.setAttribute('aria-pressed', !!lay[b.dataset.lay]));
+  plusLayers();
 }
+
+/* ================= kâşif+ : 3D landmarks, live layers, traveller toolkit, stories, cinematic tour, story card ================= */
+const LMS = {
+  istanbul: [['ayasofya', 'Ayasofya', 41.0086, 28.9802], ['galata', 'Galata Kulesi', 41.0256, 28.9741]],
+  safranbolu: [['safranbolu', 'Safranbolu evi', 41.2449, 32.6946]], goreme: [['peribacasi', 'Peri bacaları', 38.6431, 34.8289]],
+  roma: [['kolezyum', 'Kolezyum', 41.8902, 12.4922]], paris: [['eyfel', 'Eyfel Kulesi', 48.8584, 2.2945]], barselona: [['sagrada', 'Sagrada Família', 41.4036, 2.1744]],
+  atina: [['partenon', 'Partenon', 37.9715, 23.7267]], kahire: [['piramit', 'Giza Piramitleri', 29.9792, 31.1342]], marakes: [['kutubiye', 'Kutubiye Camii', 31.6237, -7.9937]],
+  kyoto: [['pagoda', 'Yasaka Pagodası', 34.9985, 135.7808]], bangkok: [['watarun', 'Wat Arun', 13.7437, 100.4888]], newyork: [['ozgurluk', 'Özgürlük Heykeli', 40.6892, -74.0445]],
+  meksiko: [['gunes', 'Güneş Piramidi', 19.6925, -98.8438]], cusco: [['machupicchu', 'Machu Picchu', -13.1631, -72.545]],
+  g2643743: [['bigben', 'Big Ben', 51.5007, -0.1246]], g1279259: [['tacmahal', 'Tac Mahal', 27.1751, 78.0421]], g3451190: [['isa', 'Kurtarıcı İsa', -22.9519, -43.2105]],
+  g2147714: [['opera', 'Sidney Opera Binası', -33.8568, 151.2153]], g524901: [['basil', 'Aziz Vasil Katedrali', 55.7525, 37.6231]], g292223: [['burj', 'Burj Khalifa', 25.1972, 55.2744]],
+  g323786: [['anitkabir', 'Anıtkabir', 39.925, 32.8369]], g3170647: [['pisa', 'Pisa Kulesi', 43.723, 10.3966]],
+};
+const LM_ALL = Object.entries(LMS).flatMap(([cid, a]) => a.map(([m, n, lat, lng]) => ({cid, m, n, lat, lng})));
+const cityName = id => (byId[id] || {}).name || '';
+for (const [k, v] of Object.entries({lm: true, night: true, eq: false, fx: true})) if (!(k in lay)) lay[k] = v;
+
+let T3P = null;
+const t3 = () => T3P || (T3P = import('./vendor/three-kasif.js'));
+const glbs = new Map();
+async function loadModel(name){
+  const T = await t3();
+  if (!glbs.has(name)) glbs.set(name, new Promise((res, rej) => { const l = new T.GLTFLoader(); l.setMeshoptDecoder(T.MeshoptDecoder); l.load(`models/${name}.glb`, g => res(g.scene), undefined, rej) }).catch(e => { glbs.delete(name); throw e }));
+  const s = (await glbs.get(name)).clone(true);
+  const b = new T.Box3().setFromObject(s), sz = b.getSize(new T.Vector3()), c = b.getCenter(new T.Vector3()), k = 1 / Math.max(sz.y, sz.x * .9, sz.z * .9);
+  s.position.set(-c.x * k, -b.min.y * k, -c.z * k); s.scale.setScalar(k);
+  const g = new T.Group(); g.add(s); g.userData.h = sz.y * k; return g;
+}
+function addLights(T, scene, k = 1){
+  scene.add(new T.HemisphereLight(0xffffff, 0xd8cff5, 1.9 * k));
+  const d = new T.DirectionalLight(0xfff6ee, 1.7 * k); d.position.set(2.5, 4, 3); scene.add(d);
+  const f = new T.DirectionalLight(0xdcd6ff, .6 * k); f.position.set(-3, 1.5, -2); scene.add(f);
+}
+
+/* ---------- interactive 3D stage (city card hero + gallery) ---------- */
+function makeStage(el, items, {start = 0, onPick, big = false} = {}){
+  const st = {i: start, obj: null, alive: true, vis: true};
+  t3().then(T => {
+    if (!st.alive) return;
+    const r = new T.WebGLRenderer({antialias: true, alpha: true});
+    r.setPixelRatio(Math.min(2, devicePixelRatio)); el.prepend(r.domElement); st.r = r;
+    const scene = new T.Scene(); addLights(T, scene);
+    const cam = new T.PerspectiveCamera(big ? 28 : 30, 1, .01, 50);
+    const ctl = new T.OrbitControls(cam, r.domElement);
+    Object.assign(ctl, {enableZoom: big, enablePan: false, enableDamping: true, autoRotate: !RM, autoRotateSpeed: big ? 1.4 : 2, minPolarAngle: .35, maxPolarAngle: 1.42, minDistance: 1.6, maxDistance: 5});
+    const fit = () => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h) return; r.setSize(w, h); cam.aspect = w / h; cam.updateProjectionMatrix() };
+    st.set = async i => {
+      st.i = (i + items.length) % items.length; const it = items[st.i];
+      el.classList.add('ld');
+      try { const o = await loadModel(it.m); if (!st.alive) return; if (st.obj) scene.remove(st.obj); st.obj = o; scene.add(o);
+        const h = o.userData.h; ctl.target.set(0, h * .42, 0); const d = big ? 3.1 : 2.75; cam.position.set(d * .62, h * .45 + d * .42, d * .78); ctl.update() } catch(e) {}
+      el.classList.remove('ld'); onPick && onPick(it, st.i);
+    };
+    fit(); st.ro = new ResizeObserver(fit); st.ro.observe(el);
+    st.io = new IntersectionObserver(es => st.vis = es[0].isIntersecting); st.io.observe(el);
+    r.setAnimationLoop(() => { if (!st.vis || document.hidden) return; ctl.update(); r.render(scene, cam) });
+    st.set(start);
+  });
+  st.dispose = () => { st.alive = false; if (st.r) { st.r.setAnimationLoop(null); st.r.dispose(); st.r.domElement.remove() } st.ro && st.ro.disconnect(); st.io && st.io.disconnect() };
+  return st;
+}
+let hero = null;
+function mountHero(v){
+  if (hero) { hero.dispose(); hero = null }
+  const el = $('#lm3d'), list = LMS[v.id]; if (!el || !list) return;
+  const items = list.map(([m, n]) => ({m, n, cid: v.id}));
+  hero = makeStage(el, items, {onPick: it => { const c = el.querySelector('.cap b'); if (c) c.textContent = it.n }});
+  el.querySelectorAll('[data-lmstep]').forEach(b => b.onclick = e => { e.stopPropagation(); hero.set && hero.set(hero.i + +b.dataset.lmstep) });
+  el.querySelector('[data-lmbig]').onclick = () => openGallery(LM_ALL.findIndex(x => x.cid === v.id && x.m === items[hero.i || 0].m));
+}
+const heroHtml = v => LMS[v.id] ? `<div class="stage" id="lm3d"><div class="cap"><span>3B</span><b>${esc(LMS[v.id][0][1])}</b></div>
+  ${LMS[v.id].length > 1 ? `<div class="stp"><button data-lmstep="-1" aria-label="Önceki simge">‹</button><button data-lmstep="1" aria-label="Sonraki simge">›</button></div>` : ''}
+  <button class="big" data-lmbig aria-label="Simge galerisinde aç" title="Galeride aç"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></div>` : '';
+
+let gal = null;
+function openGallery(i = 0){
+  const md = $('#lmModal'); md.hidden = false;
+  md.querySelector('#lmList').innerHTML = LM_ALL.map((x, k) => `<button data-k="${k}"><b>${esc(x.n)}</b><small>${esc(cityName(x.cid))}</small></button>`).join('');
+  const box = md.querySelector('#lmBig'); if (gal) gal.dispose();
+  gal = makeStage(box, LM_ALL, {start: Math.max(0, i), big: true, onPick: (it, k) => {
+    md.querySelector('#lmName').textContent = it.n; md.querySelector('#lmCity').textContent = cityName(it.cid) + ' · ' + (k + 1) + '/' + LM_ALL.length;
+    md.querySelectorAll('#lmList button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.k === k));
+    const on = md.querySelector(`#lmList [data-k="${k}"]`); on && on.scrollIntoView({block: 'nearest', inline: 'center'});
+  }});
+  md.querySelectorAll('#lmList button').forEach(b => b.onclick = () => gal.set && gal.set(+b.dataset.k));
+  md.querySelector('#lmPrev').onclick = () => gal.set && gal.set(gal.i - 1); md.querySelector('#lmNext').onclick = () => gal.set && gal.set(gal.i + 1);
+  md.querySelector('#lmGo').onclick = () => { const it = LM_ALL[gal.i]; closeGallery(); go(it.cid); setTimeout(() => map.flyTo({center: [it.lng, it.lat], zoom: 16.2, pitch: 60, bearing: -20, duration: RM ? 0 : 3000, essential: true}), RM ? 0 : 2400) };
+}
+function closeGallery(){ $('#lmModal').hidden = true; if (gal) { gal.dispose(); gal = null } }
+
+/* ---------- miniatures standing on the map ---------- */
+const ov = {cv: null, r: null, scene: null, cam: null, items: [], placed: [], last: 0, T: null};
+async function initOverlay(){
+  const T = ov.T = await t3();
+  const cv = ov.cv = document.createElement('canvas'); cv.className = 'lmov'; map.getCanvas().after(cv);
+  const r = ov.r = new T.WebGLRenderer({canvas: cv, antialias: true, alpha: true}); r.setPixelRatio(Math.min(2, devicePixelRatio));
+  ov.scene = new T.Scene(); addLights(T, ov.scene, 1.05); ov.cam = new T.OrthographicCamera(0, 1, 0, -1, -4000, 4000);
+  for (const it of LM_ALL) loadModel(it.m).then(o => { const tilt = new T.Group(), yaw = new T.Group(); yaw.add(o); tilt.add(yaw); tilt.visible = false; ov.scene.add(tilt);
+    ov.items.push({...it, tilt, yaw, ph: hash(it.m) / 9973 * 6.28}) }).catch(() => {});
+  const loop = t => { requestAnimationFrame(loop); if (t - ov.last < 33 || document.hidden) return; ov.last = t; drawOverlay(t) };
+  requestAnimationFrame(loop);
+}
+function drawOverlay(t = performance.now()){
+  if (!ov.r || !mapReady) return;
+  const cv = ov.cv, w = cv.clientWidth, h = cv.clientHeight, z = map.getZoom(), on = lay.lm && !quiz && z < 15.2;
+  cv.style.opacity = on ? Math.min(1, (15.2 - z) / .8) : 0;
+  ov.placed = []; if (!on || !w) { if (ov.drawn) { ov.r.clear(); ov.drawn = false } return }
+  if (cv.width !== Math.round(w * ov.r.getPixelRatio()) || cv.height !== Math.round(h * ov.r.getPixelRatio())) ov.r.setSize(w, h, false);
+  Object.assign(ov.cam, {left: 0, right: w, top: 0, bottom: -h}); ov.cam.updateProjectionMatrix();
+  const c = map.getCenter(), pitch = map.getPitch() * Math.PI / 180, bear = map.getBearing() * Math.PI / 180;
+  const size = Math.max(30, Math.min(120, 26 + (z - 1.5) * 9.5)) * (innerWidth < 700 ? .8 : 1), lim = z < 4 ? 1.25 : 1.4;
+  const sel = cur ? cur.id : null;
+  const list = ov.items.map(it => ({it, d: km(c, it) / 6371})).sort((a, b) => (b.it.cid === sel) - (a.it.cid === sel) || a.d - b.d);
+  for (const {it, d} of list) {
+    let vis = d < lim;
+    if (vis) { const p = map.project([it.lng, it.lat]); vis = p.x > -size && p.x < w + size && p.y > -size && p.y < h + size * 1.5;
+      if (vis && ov.placed.some(q => Math.abs(q.x - p.x) < size * .72 && Math.abs(q.y - p.y) < size * .8)) vis = false;
+      if (vis) { const s = size * (1 - Math.min(.35, d * .35)) * (it.cid === sel ? 1.15 : 1);
+        it.tilt.position.set(p.x, -p.y, 0); it.tilt.scale.setScalar(s); it.tilt.rotation.x = Math.max(.08, .5 - pitch * .55);
+        it.yaw.rotation.y = (RM ? 0 : t * .00035) + it.ph - bear; ov.placed.push({x: p.x, y: p.y, s, it}) } }
+    it.tilt.visible = vis;
+  }
+  ov.r.render(ov.scene, ov.cam); ov.drawn = true;
+}
+function lmHit(pt){
+  for (const q of ov.placed) if (Math.abs(pt.x - q.x) < q.s * .45 && pt.y < q.y + q.s * .12 && pt.y > q.y - q.s * 1.05) return q.it;
+  return null;
+}
+
+/* ---------- day / night ---------- */
+function nightGeo(date = new Date()){
+  const rad = Math.PI / 180, d = (date - Date.UTC(2000, 0, 1, 12)) / 864e5;
+  const g = (357.529 + .98560028 * d) * rad, q = 280.459 + .98564736 * d, L = (q + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * rad;
+  const e = (23.439 - 3.6e-7 * d) * rad, dec = Math.asin(Math.sin(e) * Math.sin(L)), ra = Math.atan2(Math.cos(e) * Math.sin(L), Math.cos(L));
+  const gmst = ((18.697374558 + 24.06570982441908 * d) % 24 + 24) % 24;
+  const sunLng = (((ra / rad - gmst * 15) % 360) + 540) % 360 - 180, ring = [];
+  for (let lng = -180; lng <= 180; lng += 2) ring.push([lng, Math.atan(-Math.cos((lng - sunLng) * rad) / Math.tan(dec)) / rad]);
+  const pole = dec > 0 ? -90 : 90; ring.push([180, pole], [-180, pole], ring[0]);
+  return fc([{type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [ring]}}]);
+}
+/* ---------- earthquakes (USGS, M2.5+ last 7 days) ---------- */
+let eqT = 0, eqData = null;
+async function loadQuakes(force){
+  if (!force && Date.now() - eqT < 6e5 && eqData) return eqData; eqT = Date.now();
+  const j = await getJSON('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson');
+  eqData = fc(j.features.map(f => ({type: 'Feature', geometry: {type: 'Point', coordinates: f.geometry.coordinates.slice(0, 2)},
+    properties: {mag: f.properties.mag, place: f.properties.place, time: f.properties.time, depth: f.geometry.coordinates[2], h: (Date.now() - f.properties.time) / 36e5}})));
+  return eqData;
+}
+const ago = ms => { const m = Math.round((Date.now() - ms) / 6e4); return m < 60 ? m + ' dk önce' : m < 1440 ? Math.round(m / 60) + ' sa önce' : Math.round(m / 1440) + ' gün önce' };
+function eqPopup(p, ll){
+  if (popup) popup.remove();
+  popup = new maplibregl.Popup({closeButton: true, maxWidth: '260px', offset: 10}).setLngLat(ll)
+    .setHTML(`<div class="eqp"><b>M${(+p.mag).toFixed(1)}</b><span>${esc(p.place || '')}</span><small>${ago(+p.time)} · derinlik ${Math.round(+p.depth)} km</small><small class="src">Kaynak: USGS</small></div>`).addTo(map);
+}
+function addPlusLayers(){
+  const L = map.getStyle().layers, firstSym = (L.find(l => l.type === 'symbol') || {}).id;
+  map.addSource('k-night', {type: 'geojson', data: nightGeo()});
+  map.addLayer({id: 'k-night', type: 'fill', source: 'k-night', paint: {'fill-color': '#2b2456', 'fill-antialias': false, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, .2, 4, .13, 6.5, 0]}}, firstSym);
+  setInterval(() => setSrc('k-night', nightGeo()), 6e4);
+  map.addSource('k-eq', {type: 'geojson', data: fc([])});
+  map.addLayer({id: 'k-eq', type: 'circle', source: 'k-eq', layout: {visibility: 'none', 'circle-sort-key': ['get', 'mag']}, paint: {
+    'circle-radius': ['interpolate', ['linear'], ['get', 'mag'], 2.5, 3.5, 5, 10, 7.5, 26],
+    'circle-color': ['case', ['<', ['get', 'h'], 24], '#ff6f91', ['<', ['get', 'h'], 72], '#ffa36c', '#a99bf2'],
+    'circle-opacity': .72, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 1.5}});
+  map.on('mouseenter', 'k-eq', () => map.getCanvas().style.cursor = 'pointer'); map.on('mouseleave', 'k-eq', () => map.getCanvas().style.cursor = '');
+  initOverlay();
+}
+function plusLayers(){
+  const v = (id, on) => { try { map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none') } catch(e) {} };
+  v('k-night', lay.night); v('k-eq', lay.eq);
+  if (lay.eq) loadQuakes().then(d => setSrc('k-eq', d)).catch(() => toast('Deprem verisine ulaşılamadı'));
+  if (!lay.fx) wxFx(null); else if (cur && fxCode != null) wxFx(fxCode);
+}
+setInterval(() => { if (lay.eq && mapReady) loadQuakes().then(d => setSrc('k-eq', d)).catch(() => {}) }, 6e5);
+
+/* ---------- weather effects over the map ---------- */
+let fxCode = null, fx = null;
+function wxFx(code){
+  fxCode = code; const kind = code == null || !lay.fx || RM ? null : isSnow(code) ? 'snow' : isWet(code) ? 'rain' : null;
+  if (fx && fx.kind === kind) return; if (fx) { cancelAnimationFrame(fx.raf); fx.cv.remove(); fx = null } if (!kind) return;
+  const cv = document.createElement('canvas'); cv.className = 'wxfx'; (ov.cv || map.getCanvas()).after(cv);
+  const ctx = cv.getContext('2d'), n = kind === 'snow' ? 110 : 160, P = [];
+  const rs = () => { cv.width = cv.clientWidth; cv.height = cv.clientHeight }; rs();
+  for (let i = 0; i < n; i++) P.push({x: Math.random(), y: Math.random(), s: .5 + Math.random(), o: Math.random() * 6.28});
+  let last = 0, flash = 0;
+  const tick = t => { fx.raf = requestAnimationFrame(tick); if (t - last < 30) return; const dt = Math.min(60, t - last); last = t;
+    if (cv.width !== cv.clientWidth) rs(); const W = cv.width, H = cv.height, zf = Math.min(1, Math.max(.25, (map.getZoom() - 6) / 6));
+    ctx.clearRect(0, 0, W, H); if (code >= 95 && Math.random() < .004) flash = 1; if (flash > 0) { ctx.fillStyle = `rgba(255,255,255,${flash * .35})`; ctx.fillRect(0, 0, W, H); flash -= .08 }
+    ctx.globalAlpha = .55 * zf;
+    if (kind === 'rain') { ctx.strokeStyle = '#7f8fd6'; ctx.lineWidth = 1.2; ctx.beginPath();
+      for (const p of P) { p.y += dt * .0011 * p.s; p.x += dt * .00018; if (p.y > 1) { p.y = -.05; p.x = Math.random() } if (p.x > 1) p.x -= 1;
+        const x = p.x * W, y = p.y * H; ctx.moveTo(x, y); ctx.lineTo(x + 3 * p.s, y + 14 * p.s) } ctx.stroke() }
+    else { ctx.fillStyle = '#ffffff'; for (const p of P) { p.y += dt * .00012 * p.s; p.o += dt * .002; if (p.y > 1) { p.y = -.02; p.x = Math.random() }
+      ctx.beginPath(); ctx.arc((p.x + Math.sin(p.o) * .006) * W, p.y * H, 1.6 + p.s * 1.6, 0, 6.29); ctx.fill() } }
+    ctx.globalAlpha = 1 };
+  fx = {kind, cv, raf: requestAnimationFrame(tick)};
+}
+
+/* ---------- traveller toolkit data ---------- */
+const PHR_K = ['Merhaba', 'Teşekkürler', 'Lütfen', 'Evet', 'Hayır', 'Bu ne kadar?', 'Hesap lütfen', 'Tuvalet nerede?', 'Yardım edin!', 'Affedersiniz'];
+const PHR = {
+  en: ['en-US', 'İngilizce', 'Hello|helou;Thank you|tenkyu;Please|pliiz;Yes|yes;No|nou;How much is it?|hau maç iz it;The bill, please|dı bil, pliiz;Where is the toilet?|veır iz dı toylıt;Help!|help;Excuse me|ikskyuz mi'],
+  fr: ['fr-FR', 'Fransızca', "Bonjour|bonjur;Merci|mersi;S'il vous plaît|silvuple;Oui|vi;Non|non;C'est combien ?|se kombiyen;L'addition, s'il vous plaît|ladisyon silvuple;Où sont les toilettes ?|u son le tualet;Au secours !|o sökur;Excusez-moi|ekskuze mua"],
+  es: ['es-ES', 'İspanyolca', 'Hola|ola;Gracias|grasyas;Por favor|por favor;Sí|si;No|no;¿Cuánto cuesta?|kuanto kuesta;La cuenta, por favor|la kuenta por favor;¿Dónde está el baño?|donde esta el banyo;¡Ayuda!|ayuda;Perdón|perdon'],
+  it: ['it-IT', 'İtalyanca', 'Buongiorno|buonciorno;Grazie|gratsiye;Per favore|per favore;Sì|si;No|no;Quanto costa?|kuanto kosta;Il conto, per favore|il konto per favore;Dov\'è il bagno?|dove il banyo;Aiuto!|ayuto;Mi scusi|mi skuzi'],
+  de: ['de-DE', 'Almanca', 'Hallo|halo;Danke|danke;Bitte|bite;Ja|ya;Nein|nayn;Wie viel kostet das?|vi fil kostet das;Die Rechnung, bitte|di reşnung bite;Wo ist die Toilette?|vo ist di tualete;Hilfe!|hilfe;Entschuldigung|entşuldigung'],
+  el: ['el-GR', 'Yunanca', 'Γεια σας|ya sas;Ευχαριστώ|efharisto;Παρακαλώ|parakalo;Ναι|ne;Όχι|ohi;Πόσο κάνει;|poso kani;Τον λογαριασμό, παρακαλώ|ton logariazmo parakalo;Πού είναι η τουαλέτα;|pu ine i tualeta;Βοήθεια!|voithia;Συγγνώμη|signomi'],
+  ar: ['ar-SA', 'Arapça', 'مرحبا|merhaba;شكرا|şukran;من فضلك|min fadlik;نعم|na\'am;لا|la;بكم هذا؟|bikam haza;الحساب من فضلك|el-hisab min fadlik;أين الحمام؟|eyne el-hammam;النجدة!|en-necde;عفوا|afvan'],
+  ja: ['ja-JP', 'Japonca', 'こんにちは|konniçiva;ありがとうございます|arigato gozaimas;お願いします|onegay şimas;はい|hay;いいえ|iie;いくらですか？|ikura des ka;お会計お願いします|okaykey onegay şimas;トイレはどこですか？|toyre va doko des ka;助けて！|tasukete;すみません|sumimasen'],
+  th: ['th-TH', 'Tayca', 'สวัสดี|savaddii;ขอบคุณ|khop khun;กรุณา|karuna;ใช่|çay;ไม่|may;เท่าไหร่|tav ray;เช็คบิลด้วย|çek bin duay;ห้องน้ำอยู่ที่ไหน|hong nam yu tii nay;ช่วยด้วย|çuay duay;ขอโทษ|kho thot'],
+  pt: ['pt-BR', 'Portekizce', 'Olá|ola;Obrigado|obrigadu;Por favor|pur favor;Sim|sim;Não|naum;Quanto custa?|kuantu kusta;A conta, por favor|a konta pur favor;Onde fica o banheiro?|onci fika u banyeyru;Socorro!|sokoru;Com licença|kom lisensa'],
+  ru: ['ru-RU', 'Rusça', 'Здравствуйте|zdrastvuyte;Спасибо|spasiba;Пожалуйста|pajalusta;Да|da;Нет|nyet;Сколько стоит?|skolka stoit;Счёт, пожалуйста|şot pajalusta;Где туалет?|gdye tualet;Помогите!|pamagite;Извините|izviniti'],
+  zh: ['zh-CN', 'Çince', '你好|ni hao;谢谢|şiye şiye;请|çing;是|şı;不是|bu şı;多少钱？|duo şao çiyen;买单|may dan;厕所在哪里？|tsı suo zay na li;救命！|ciu ming;对不起|duey bu çi'],
+  ko: ['ko-KR', 'Korece', '안녕하세요|annyonghaseyo;감사합니다|kamsahamnida;주세요|cuseyo;네|ne;아니요|aniyo;얼마예요?|olma-yeyo;계산해 주세요|keysan-he cuseyo;화장실이 어디예요?|hvacangşiri odiyeyo;도와주세요!|dovacuseyo;실례합니다|şilleyhamnida'],
+  hi: ['hi-IN', 'Hintçe', 'नमस्ते|namaste;धन्यवाद|dhanyavad;कृपया|kripya;हाँ|haan;नहीं|nahin;कितने का है?|kitne ka hay;बिल दीजिए|bil diciye;शौचालय कहाँ है?|şauçalay kahan hay;बचाओ!|baçao;माफ़ कीजिए|maaf kiciye'],
+  nl: ['nl-NL', 'Felemenkçe', 'Hallo|halo;Dank u|dank ü;Alstublieft|alstüblift;Ja|ya;Nee|ne;Hoeveel kost het?|huvel kost het;De rekening, alstublieft|de rekening alstüblift;Waar is het toilet?|var is het tualet;Help!|help;Pardon|pardon'],
+  id: ['id-ID', 'Endonezce', 'Halo|halo;Terima kasih|terima kasih;Tolong|tolong;Ya|ya;Tidak|tidak;Berapa harganya?|berapa harganya;Minta bon|minta bon;Di mana toilet?|di mana toilet;Tolong!|tolong;Permisi|permisi'],
+};
+const EMG_EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS NO CH LI TR UA GE MD ME MK RS BA AL XK AD MC SM VA AZ AM BY KZ IN ID NG LB'.split(' ');
+const EMG = {US: {u: '911'}, CA: {u: '911'}, MX: {u: '911'}, PR: {u: '911'}, PH: {u: '911'}, AR: {u: '911'}, JO: {u: '911'}, SA: {u: '911'}, GB: {u: '999 / 112'}, RU: {u: '112'},
+  AU: {u: '000', n: 'Cep telefonundan 112 de çalışır'}, NZ: {u: '111'}, JP: {p: '110', a: '119', f: '119'}, CN: {p: '110', a: '120', f: '119'}, KR: {p: '112', a: '119', f: '119'}, TW: {p: '110', a: '119', f: '119'},
+  TH: {p: '191', a: '1669', f: '199', n: 'Turist polisi: 1155'}, EG: {p: '122', a: '123', f: '180', n: 'Turist polisi: 126'}, MA: {p: '19', a: '15', f: '15'}, AE: {p: '999', a: '998', f: '997'},
+  IL: {p: '100', a: '101', f: '102'}, ZA: {p: '10111', a: '10177', n: 'Cep telefonundan 112'}, SG: {p: '999', a: '995', f: '995'}, MY: {u: '999'}, HK: {u: '999'}, VN: {p: '113', a: '115', f: '114'},
+  BR: {p: '190', a: '192', f: '193'}, CL: {p: '133', a: '131', f: '132'}, PE: {p: '105', a: '106', f: '116'}, CO: {u: '123'}, IR: {p: '110', a: '115', f: '125'}, PK: {p: '15', a: '1122'}, KE: {u: '999 / 112'}, QA: {u: '999'}, TN: {p: '197', a: '190', f: '198'}};
+const PLUG = {TR: 'CF230', DE: 'CF230', FR: 'CE230', IT: 'CFL230', ES: 'CF230', PT: 'CF230', GR: 'CF230', NL: 'CF230', BE: 'CE230', AT: 'CF230', CH: 'CJ230', GB: 'G230', IE: 'G230', MT: 'G230', CY: 'G230',
+  DK: 'CEFK230', SE: 'CF230', NO: 'CF230', FI: 'CF230', IS: 'CF230', PL: 'CE230', CZ: 'CE230', SK: 'CE230', HU: 'CF230', RO: 'CF230', BG: 'CF230', HR: 'CF230', SI: 'CF230', RS: 'CF230', BA: 'CF230', ME: 'CF230', MK: 'CF230', AL: 'CF230',
+  RU: 'CF220', UA: 'CF230', GE: 'CF220', AZ: 'CF220', AM: 'CF230', US: 'AB120', CA: 'AB120', MX: 'AB127', BR: 'CN127/220', AR: 'CI220', CL: 'CL220', PE: 'AC220', CO: 'AB110', JP: 'AB100', CN: 'ACI220', KR: 'CF220',
+  TW: 'AB110', HK: 'G220', SG: 'G230', MY: 'G240', TH: 'ABCO230', VN: 'ACD220', ID: 'CF230', PH: 'ABC220', IN: 'CDM230', AU: 'I230', NZ: 'I230', ZA: 'CDMN230', EG: 'CF220', MA: 'CE220', TN: 'CE230', AE: 'G230',
+  SA: 'G230', QA: 'DG240', IL: 'CH230', IR: 'CF220', JO: 'BCDFGJ230', LB: 'ACDG220'};
+const LEFT = new Set('GB IE MT CY JP IN AU NZ ZA TH ID MY SG HK MO KE TZ UG PK BD LK NP BT JM BS BB TT MU MW ZM ZW BW NA LS SZ MZ FJ PG GY SR BN TL'.split(' '));
+const TIP = {US: 'Restoranda %15–20 bahşiş beklenir.', CA: 'Restoranda %15–20 bahşiş beklenir.', JP: 'Bahşiş verilmez; ısrar etmek tuhaf karşılanabilir.', KR: 'Bahşiş verilmez.', CN: 'Bahşiş genelde verilmez.',
+  AU: 'Bahşiş beklenmez, iyi hizmette yuvarlanabilir.', NZ: 'Bahşiş beklenmez.', TR: 'Restoranda %5–10 yaygındır.', EG: 'Küçük bahşişler (bakşiş) çok yaygındır.', MA: 'Küçük bahşişler yaygındır.',
+  TH: 'Zorunlu değil; küçük bozukluk bırakılır.', MX: '%10–15 yaygındır.', PE: '%10 yaygındır, bazen hesaba eklenir.', BR: 'Hesaba genelde %10 servis eklenir.', GB: 'Servis dahil değilse %10–12,5.', IN: '%5–10 yaygındır.', AE: '%10 yaygındır.'};
+const EUZONE = new Set('FR DE IT ES PT GR NL BE AT IE FI LU SI SK EE LV LT MT CY HR'.split(' '));
+const tipOf = cc => TIP[cc] || (EUZONE.has(cc) ? 'Servis dahil değilse hesabı %5–10 yuvarlamak yeterli.' : '');
+const COVER = new Set('TR EG MA AE SA QA JO IR ID MY IN TH VA IT'.split(' '));
+
+const homeCur = () => store.get('homeCur', 'TRY');
+function getRates(base){ const d = new Date().toISOString().slice(0, 10); return cached(`fx:${base}:${d}`, () => getJSON(`https://open.er-api.com/v6/latest/${base}`)) }
+function getAir(lat, lng){ const h = Math.floor(Date.now() / 18e5); return cached(`aq:${lat.toFixed(2)},${lng.toFixed(2)}:${h}`, () => getJSON(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat.toFixed(3)}&longitude=${lng.toFixed(3)}&current=european_aqi,pm2_5,uv_index&timezone=auto`)) }
+const AQI = [[20, 'Çok iyi', '#5fcf9b'], [40, 'İyi', '#9fd76f'], [60, 'Orta', '#f2c94c'], [80, 'Kötü', '#ffa36c'], [100, 'Çok kötü', '#ff6f91'], [1e9, 'Son derece kötü', '#b36ad8']];
+const UVT = u => u < 3 ? 'Düşük' : u < 6 ? 'Orta · güneş gözlüğü yeter' : u < 8 ? 'Yüksek · krem ve şapka' : 'Çok yüksek · öğlen gölgede kal';
+const fmtMoney = (x, c) => { try { return new Intl.NumberFormat('tr-TR', {style: 'currency', currency: c, maximumFractionDigits: x < 10 ? 2 : 0}).format(x) } catch(e) { return Math.round(x) + ' ' + c } };
+function plugInfo(cc){
+  const p = PLUG[cc]; if (!p) return null;
+  const types = p.match(/^[A-Z]+/)[0].split(''), volt = p.slice(types.length), vs = volt.split('/').map(Number);
+  const okT = types.includes('C') || types.includes('F'), okV = vs.some(x => x >= 220);
+  const msg = okT && okV ? 'Türkiye\'deki fişin uyar, adaptör gerekmez.' : !okV ? 'Fiş farklı ve voltaj düşük: adaptör al, cihazın 100–240 V destekliyor mu bak.' : 'Fiş farklı: adaptör almalısın.';
+  return {t: types.join(' / '), v: volt + ' V', msg, ok: okT && okV};
+}
+function speak(text, lang){ try { const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .85; speechSynthesis.cancel(); speechSynthesis.speak(u) } catch(e) { toast('Bu tarayıcı sesli okumayı desteklemiyor') } }
+function tzDiff(tz){
+  try { const now = new Date(), f = z => { const p = new Intl.DateTimeFormat('en-US', {timeZone: z, hour12: false, year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'}).formatToParts(now).reduce((a, x) => (a[x.type] = x.value, a), {});
+      return Date.UTC(+p.year, p.month - 1, +p.day, +p.hour % 24, +p.minute) };
+    const h = Math.round((f(tz) - f(Intl.DateTimeFormat().resolvedOptions().timeZone)) / 36e5 * 2) / 2;
+    return h === 0 ? 'Seninle aynı saat' : `Senden ${String(Math.abs(h)).replace('.', ',')} saat ${h > 0 ? 'ileri' : 'geri'}` } catch(e) { return '' }
+}
+function packList(v, w, days){
+  const d = w.daily, mx = Math.max(...d.temperature_2m_max), mn = Math.min(...d.temperature_2m_min), wet = d.precipitation_probability_max.some(x => x >= 45),
+    snow = d.weather_code.some(isSnow), uv = Math.max(...(d.uv_index_max || [0])), pl = plugInfo(v.cc), cc = v.cc;
+  const L = [['Belgeler', ['Pasaport / kimlik', 'Seyahat sigortası', 'Kartlar + biraz nakit (' + ((meta[cc] || {}).cur || ['yerel para'])[0] + ')']],
+    ['Giysi', [`${Math.min(7, days)} günlük iç çamaşırı ve çorap`, 'Rahat yürüyüş ayakkabısı', ...(mn < 8 ? ['Mont', 'Bere ve eldiven', 'Kalın kazak'] : mn < 15 ? ['Hafif mont ya da hırka'] : []),
+      ...(mx > 24 ? ['İnce tişörtler', 'Şort / hafif pantolon', 'Şapka'] : ['Uzun kollu üstler']), ...(snow ? ['Su geçirmez bot'] : []), ...(COVER.has(cc) ? ['Dini yerler için omuz/diz örten kıyafet, şal'] : [])]],
+    ['Hava', [...(wet ? ['Katlanır şemsiye', 'Yağmurluk'] : []), ...(uv >= 6 || mx > 26 ? ['Güneş kremi (SPF 50)', 'Güneş gözlüğü'] : []), 'Su matarası']],
+    ['Elektronik', ['Telefon şarj aleti', 'Powerbank', ...(pl && !pl.ok ? [`Priz adaptörü (Tip ${pl.t})`] : []), 'Kulaklık']],
+    ['Sağlık', ['Kişisel ilaçların', 'Küçük ilk yardım çantası', 'Islak mendil']]];
+  return L.map(([h, a]) => [h, a.filter(Boolean)]);
+}
+
+function renderTools(c, tb){
+  const me = cur, m = meta[c.cc] || {}, lc = (m.lang || []).find(x => PHR[x]) || (c.cc === 'TR' ? null : 'en'), cur0 = (m.cur || [])[0], hc = homeCur();
+  const em = EMG[c.cc] || (EMG_EU.includes(c.cc) ? {u: '112'} : null), pl = plugInfo(c.cc), tip = tipOf(c.cc);
+  tb.innerHTML = `<div class="tools">
+    <section class="tl clockc"><div><small>Yerel saat</small><b id="tlClock">—</b><span id="tlDiff"></span></div><div id="tlSun"></div></section>
+    ${cur0 ? `<section class="tl"><h5>Döviz çevirici</h5>${cur0 === hc ? `<p class="mut">Burada da ${esc(of(CN, cur0))} kullanılıyor.</p>` : `
+      <div class="fx2"><label><span>${esc(cur0)}</span><input id="fxA" type="number" inputmode="decimal" value="100" min="0"></label><span class="eqs">=</span>
+      <label><span><select id="fxH" aria-label="Kendi para birimin">${['TRY', 'EUR', 'USD', 'GBP'].map(x => `<option ${x === hc ? 'selected' : ''}>${x}</option>`).join('')}</select></span><input id="fxB" type="number" inputmode="decimal"></label></div>
+      <div class="fxq" id="fxQ"></div><small class="src" id="fxSrc">Kur yükleniyor…</small>`}</section>` : ''}
+    <section class="tl"><h5>Hava kalitesi ve UV</h5><div class="aq" id="tlAir"><div class="sk" style="height:52px"></div></div></section>
+    <section class="tl"><h5>Bilmen gerekenler</h5><dl class="ess">
+      ${em ? `<div><dt>Acil numara</dt><dd>${em.u ? `<a href="tel:${esc(em.u.split(' ')[0])}">${esc(em.u)}</a>` : `Polis <a href="tel:${em.p}">${em.p}</a>${em.a ? ` · Ambulans <a href="tel:${em.a}">${em.a}</a>` : ''}${em.f && em.f !== em.a ? ` · İtfaiye ${em.f}` : ''}`}${em.n ? `<small>${esc(em.n)}</small>` : ''}</dd></div>` : `<div><dt>Acil numara</dt><dd>112<small>Çoğu ülkede cep telefonundan 112 aranabilir; yerel numarayı konaklamandan teyit et.</small></dd></div>`}
+      ${pl ? `<div><dt>Priz ve voltaj</dt><dd>Tip ${esc(pl.t)} · ${esc(pl.v)}<small class="${pl.ok ? 'okc' : 'warn'}">${esc(pl.msg)}</small></dd></div>` : ''}
+      <div><dt>Trafik</dt><dd>${LEFT.has(c.cc) ? 'Soldan akar' : 'Sağdan akar'}<small>${LEFT.has(c.cc) ? 'Karşıdan karşıya geçerken önce sağa bak.' : 'Türkiye ile aynı yön.'}</small></dd></div>
+      ${tip ? `<div><dt>Bahşiş</dt><dd>${esc(tip)}</dd></div>` : ''}
+      <div><dt>Dil</dt><dd>${esc((m.lang || []).slice(0, 3).map(x => of(LN, x)).join(', ') || c.lang || '—')}</dd></div>
+    </dl><small class="src">Genel bilgilerdir; resmi kaynaklardan teyit et.</small></section>
+    ${lc ? `<section class="tl"><h5>Cep sözlüğü · ${esc(PHR[lc][1])}${!(m.lang || []).includes(lc) ? ' <em>(turistik yerlerde anlaşılır)</em>' : ''}</h5><ul class="phr">${PHR[lc][2].split(';').map((x, i) => { const [o, p] = x.split('|');
+      return `<li><button data-say="${i}" aria-label="${esc(PHR_K[i])} — sesli dinle"><small>${esc(PHR_K[i])}</small><b lang="${PHR[lc][0]}">${esc(o)}</b><span>${esc(p)}</span><i aria-hidden="true">▶</i></button></li>` }).join('')}</ul></section>` : ''}
+    <section class="tl"><h5 class="row2">Bavul listesi <button class="lnk" id="packCp">Kopyala</button></h5><div id="tlPack"><div class="sk" style="height:120px"></div></div></section>
+  </div>`;
+  if (lc) tb.querySelectorAll('[data-say]').forEach(b => b.onclick = () => speak(PHR[lc][2].split(';')[+b.dataset.say].split('|')[0], PHR[lc][0]));
+  if (cur0 && cur0 !== hc) {
+    let rate = null; const A = $('#fxA'), B = $('#fxB');
+    const upd = (src) => { if (!rate) return; if (src === 'B') A.value = +(B.value / rate).toFixed(2); else B.value = +(A.value * rate).toFixed(2);
+      $('#fxQ').innerHTML = [1, 10, 50, 100, 500].map(n => `<span><b>${n.toLocaleString('tr-TR')} ${esc(cur0)}</b>${fmtMoney(n * rate, $('#fxH').value)}</span>`).join('') };
+    const load = () => getRates(cur0).then(j => { if (cur !== me) return; rate = j.rates[$('#fxH').value]; if (!rate) throw 0;
+      $('#fxSrc').textContent = 'Kur: open.er-api.com · ' + new Date(j.time_last_update_unix * 1000).toLocaleDateString('tr-TR', {day: 'numeric', month: 'long'}); upd('A') }).catch(() => { if ($('#fxSrc')) $('#fxSrc').textContent = 'Kur bilgisine ulaşılamadı.' });
+    A.oninput = () => upd('A'); B.oninput = () => upd('B'); $('#fxH').onchange = () => { store.set('homeCur', $('#fxH').value); load() };
+    load();
+  }
+  getAir(c.lat, c.lng).then(j => { if (cur !== me || !$('#tlAir')) return; const k = j.current, a = AQI.find(x => k.european_aqi <= x[0]);
+    $('#tlAir').innerHTML = `<div class="aqb" style="--c:${a[2]}"><b>${Math.round(k.european_aqi)}</b><span>${a[1]}</span></div><div><p>PM2,5 · ${(+k.pm2_5).toFixed(1).replace('.', ',')} µg/m³</p><p>UV ${(+k.uv_index).toFixed(1).replace('.', ',')} · ${UVT(k.uv_index)}</p></div>` })
+    .catch(() => { if ($('#tlAir')) $('#tlAir').innerHTML = '<p class="empty2">Hava kalitesi alınamadı.</p>' });
+  getWeather(c.lat, c.lng).then(w => {
+    if (cur !== me || !$('#tlPack')) return;
+    const tz = c.tz || w.timezone; const tick = () => { const e = $('#tlClock'); if (!e) return clearInterval(t); e.textContent = clock(tz) }; const t = setInterval(tick, 15000); tick();
+    $('#tlDiff').textContent = tzDiff(tz);
+    $('#tlSun').innerHTML = `<span>Gün doğumu <b>${hhmm(w.daily.sunrise[0])}</b></span><span>Gün batımı <b>${hhmm(w.daily.sunset[0])}</b></span>`;
+    const days = parseInt(String(c.days || '').match(/\d+/)?.[0]) || 3, key = 'pack:' + c.id, done = new Set(store.get(key, [])), L = packList(c, w, days);
+    $('#tlPack').innerHTML = `<p class="mut" style="margin:0 0 8px">${days} günlük gezi ve önümüzdeki 6 günün havasına göre hazırlandı.</p>` + L.map(([h, a]) => `<h6>${esc(h)}</h6><ul class="pack">${a.map(x => `<li><label><input type="checkbox" data-it="${esc(x)}" ${done.has(x) ? 'checked' : ''}><span>${esc(x)}</span></label></li>`).join('')}</ul>`).join('');
+    $$('#tlPack input').forEach(i => i.onchange = () => { i.checked ? done.add(i.dataset.it) : done.delete(i.dataset.it); store.set(key, [...done]) });
+    $('#packCp').onclick = async () => { const txt = `${c.name} bavul listesi\n` + L.map(([h, a]) => `\n${h}\n` + a.map(x => (done.has(x) ? '[x] ' : '[ ] ') + x).join('\n')).join('\n');
+      try { await navigator.clipboard.writeText(txt); toast('Liste kopyalandı') } catch(e) { toast('Kopyalanamadı') } };
+  }).catch(() => { if ($('#tlPack')) $('#tlPack').innerHTML = '<p class="empty2">Hava durumu alınamadı, liste hazırlanamadı.</p>' });
+}
+
+/* ---------- stories: Wikipedia articles geotagged around a point ---------- */
+function getStories(lat, lng){
+  return cached(`st:${lat.toFixed(3)},${lng.toFixed(3)}`, async () => {
+    const q = lang => getJSON(`https://${lang}.wikipedia.org/w/api.php?action=query&generator=geosearch&ggscoord=${lat}|${lng}&ggsradius=10000&ggslimit=40&prop=coordinates|pageimages|extracts|pageprops&exintro=1&explaintext=1&exsentences=2&exlimit=max&piprop=thumbnail&pithumbsize=200&format=json&origin=*`)
+      .then(j => Object.values((j.query || {}).pages || {}).filter(p => p.coordinates && p.extract && !/^(Liste|List of)/.test(p.title)).map(p => ({title: p.title, text: p.extract, img: p.thumbnail && p.thumbnail.source, lat: p.coordinates[0].lat, lng: p.coordinates[0].lon,
+        url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(p.title.replace(/ /g, '_'))}`, d: km({lat, lng}, p.coordinates[0].lat != null ? {lat: p.coordinates[0].lat, lng: p.coordinates[0].lon} : {lat, lng}), lang, len: p.extract.length + (p.thumbnail ? 200 : 0)})));
+    let a = []; try { a = await q('tr') } catch(e) {}
+    if (a.length < 8) { try { const b = await q('en'), seen = new Set(a.map(x => norm(x.title))); a = a.concat(b.filter(x => !seen.has(norm(x.title)))) } catch(e) {} }
+    return a.sort((x, y) => (y.len - y.d * 120) - (x.len - x.d * 120)).slice(0, 30);
+  });
+}
+function renderStories(center, me){
+  getStories(center.lat, center.lng).then(list => {
+    if (cur !== me || tab !== 'yakin' || poiCat !== 'hikaye') return;
+    showPois(list.map(s => ({name: s.title, lat: s.lat, lng: s.lng, cat: 'hikaye', label: 'Hikâye', d: s.d, wiki: s.lang + ':' + s.title})));
+    $('#poiBox').innerHTML = list.length ? `<p class="mut" style="margin:0 0 8px">Bu çevrede yaşanmış olaylar, yapılar ve kişiler. Haritada pembe noktalar.</p><ol class="stories">${list.map((s, i) => `<li><button data-poi="${i}">${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<span class="ph"></span>'}<div><b>${esc(s.title)}</b><p>${esc(s.text)}</p><small>${fmtKm(s.d)} · <a href="${esc(s.url)}" target="_blank" rel="noopener">Wikipedia${s.lang === 'en' ? ' (EN)' : ''}</a></small></div></button></li>`).join('')}</ol>`
+      : '<p class="empty2">Bu çevrede konumlu Wikipedia maddesi bulunamadı.</p>';
+    $$('#poiBox [data-poi]').forEach(b => b.onclick = e => { if (e.target.closest('a')) return; focusPoi(+b.dataset.poi) });
+  }).catch(() => { if (cur === me && $('#poiBox')) $('#poiBox').innerHTML = '<p class="empty2">Wikipedia\'ya şu an ulaşılamadı.</p>' });
+}
+
+/* ---------- cinematic tour ---------- */
+let tourOn = null;
+async function tourStops(c){
+  const v = view(c);
+  if (tab === 'yakin' && poiList.length && poiCat !== 'yemek' && poiCat !== 'kafe') return poiList.slice(0, 7).map(p => ({n: p.name, lat: p.lat, lng: p.lng}));
+  if (v.places && v.places.length) return v.places.map(p => ({n: p.n, lat: p.lat, lng: p.lng}));
+  const all = await getNearby(c.lat, c.lng, nearR(c)); return all.filter(p => p.cat === 'gezi').sort((a, b) => b.score - a.score).slice(0, 7).map(p => ({n: p.name, lat: p.lat, lng: p.lng}));
+}
+async function startTour(){
+  if (!cur || tourOn) return; const c = cur, stops = await tourStops(c).catch(() => []);
+  if (stops.length < 2) return toast('Tur için yeterli yer bulunamadı');
+  const lm = (LMS[c.id] || []).map(([m, n, lat, lng]) => ({n, lat, lng})); const S = [...lm, ...stops.filter(s => !lm.some(l => km(l, s) < .25))].slice(0, 8);
+  const was = {b3d: lay.b3d}; lay.b3d = true; applyLayers();
+  const run = tourOn = {stop: false}; document.body.classList.add('cine'); const cap = $('#cine');
+  cap.hidden = false; $('#cineX').onclick = () => run.stop = true;
+  const wait = ms => new Promise(r => { const t0 = Date.now(), i = setInterval(() => { if (run.stop || Date.now() - t0 > ms) { clearInterval(i); r() } }, 100) });
+  let b = map.getBearing();
+  for (let i = 0; i < S.length && !run.stop; i++) {
+    const s = S[i]; $('#cineN').textContent = `${i + 1} / ${S.length}`; $('#cineT').textContent = s.n; cap.classList.remove('in'); void cap.offsetWidth; cap.classList.add('in');
+    b += 70; map.flyTo({center: [s.lng, s.lat], zoom: 16.4, pitch: 62, bearing: b, duration: RM ? 0 : 4200, essential: true}); await wait(RM ? 300 : 4300);
+    if (run.stop) break; b += 35; map.easeTo({bearing: b, duration: RM ? 0 : 3200, easing: x => x}); await wait(RM ? 1500 : 3300);
+  }
+  map.stop(); tourOn = null; document.body.classList.remove('cine'); cap.hidden = true; lay.b3d = was.b3d; applyLayers();
+  if (cur === c) map.flyTo({center: [c.lng, c.lat], zoom: cityZoom(c), pitch: 0, bearing: 0, duration: RM ? 0 : 1800, essential: true});
+}
+
+/* ---------- shareable story card (1080×1920) ---------- */
+async function storyCard(v){
+  const md = $('#cardModal'); md.hidden = false; const out = $('#cardOut'); out.innerHTML = '<div class="sk" style="aspect-ratio:9/16;border-radius:18px"></div>';
+  const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const x = cv.getContext('2d');
+  try { await Promise.all(['650 120px Geist', '500 44px Geist', '600 40px Geist'].map(f => document.fonts.load(f))) } catch(e) {}
+  const base = CONT[v.ct || (meta[v.cc] || {}).ct] || CONT.EU, h0 = base[0];
+  const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, `hsl(${h0},90%,93%)`); g.addColorStop(.55, `hsl(${(h0 + 40) % 360},85%,95%)`); g.addColorStop(1, '#f7f5fc'); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  const blob = (cx, cy, r, c) => { const rg = x.createRadialGradient(cx, cy, 0, cx, cy, r); rg.addColorStop(0, c); rg.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = rg; x.fillRect(cx - r, cy - r, r * 2, r * 2) };
+  blob(160, 260, 420, `hsla(${(h0 + 200) % 360},90%,85%,.55)`); blob(960, 1100, 520, `hsla(${(h0 + 120) % 360},80%,86%,.5)`);
+  x.fillStyle = '#1e1b2e'; x.font = '600 40px Geist, system-ui'; x.fillText('kâşif', 84, 120);
+  x.font = '500 30px Geist, system-ui'; x.fillStyle = '#6e6a86'; x.textAlign = 'right'; x.fillText(new Date().toLocaleDateString('tr-TR', {day: 'numeric', month: 'long', year: 'numeric'}), W - 84, 120); x.textAlign = 'left';
+  // hero: 3D landmark render or a pastel globe
+  const L = LMS[v.id];
+  if (L) { try { const T = await t3(), r = new T.WebGLRenderer({antialias: true, alpha: true, preserveDrawingBuffer: true}); r.setSize(900, 900); r.setPixelRatio(1);
+      const sc = new T.Scene(); addLights(T, sc, 1.05); const o = await loadModel(L[0][0]); sc.add(o); const hh = o.userData.h, cam = new T.PerspectiveCamera(28, 1, .01, 50);
+      cam.position.set(1.95, hh * .45 + 1.3, 2.45); cam.lookAt(0, hh * .42, 0); r.render(sc, cam); x.drawImage(r.domElement, 90, 170, 900, 900); r.dispose() } catch(e) {} }
+  else { x.fillStyle = `hsl(${h0},85%,86%)`; x.beginPath(); x.arc(W / 2, 620, 300, 0, 6.29); x.fill(); x.strokeStyle = 'rgba(139,124,246,.55)'; x.lineWidth = 6;
+    for (const k of [-.45, 0, .45]) { x.beginPath(); x.ellipse(W / 2, 620, 300 * Math.cos(k * 2.6) || 1, 300, 0, 0, 6.29); x.stroke() } x.beginPath(); x.moveTo(W / 2 - 300, 620); x.lineTo(W / 2 + 300, 620); x.stroke();
+    x.fillStyle = '#ffb59a'; x.beginPath(); x.arc(W / 2 + 150, 470, 46, 0, 6.29); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 10; x.stroke() }
+  x.fillStyle = '#1e1b2e'; let fs = 150; x.font = `650 ${fs}px Geist, system-ui`; while (x.measureText(v.name).width > W - 168 && fs > 70) { fs -= 6; x.font = `650 ${fs}px Geist, system-ui` }
+  x.fillText(v.name, 84, 1190); x.font = '500 44px Geist, system-ui'; x.fillStyle = '#4b4766'; x.fillText([v.country, L ? L[0][1] : ''].filter(Boolean).join(' · '), 88, 1262);
+  const pill = (txt, px, py, bg, fg) => { x.font = '600 36px Geist, system-ui'; const w = x.measureText(txt).width + 60; x.fillStyle = bg; x.beginPath(); x.roundRect(px, py, w, 72, 36); x.fill(); x.fillStyle = fg; x.fillText(txt, px + 30, py + 48); return w };
+  let py = 1320;
+  try { const w = await getWeather(v.lat, v.lng), k = w.current, a = advice(w, v);
+    let px = 84; px += pill(`${Math.round(k.temperature_2m)}° · ${(WMO[k.weather_code] || ['—'])[0]}`, px, py, '#ffffff', '#1e1b2e') + 14;
+    pill('Yerel saat ' + clock(v.tz || w.timezone), px, py, 'rgba(255,255,255,.7)', '#1e1b2e'); py += 110;
+    x.font = '500 34px Geist, system-ui'; x.fillStyle = '#4b4766'; wrap(x, 'Ne giymeli: ' + a.wear[0], 84, py, W - 168, 46); py += 70 } catch(e) { py += 40 }
+  let top = v.places ? v.places.map(p => p.n) : poiList.filter(p => p.cat === 'gezi').map(p => p.name);
+  if (!top.length) { try { top = (await getNearby(v.lat, v.lng, nearR(v))).filter(p => p.cat === 'gezi').sort((a, b) => b.score - a.score).map(p => p.name) } catch(e) {} }
+  if (top.length) { x.font = '650 40px Geist, system-ui'; x.fillStyle = '#5a46c8'; x.fillText('Mutlaka gör', 84, py + 20); py += 70;
+    top.slice(0, 5).forEach((n, i) => { x.fillStyle = '#ffffff'; x.beginPath(); x.roundRect(84, py, W - 168, 64, 20); x.fill(); x.fillStyle = '#8b7cf6'; x.font = '650 30px Geist, system-ui'; x.fillText(String(i + 1), 112, py + 43);
+      x.fillStyle = '#1e1b2e'; x.font = '500 32px Geist, system-ui'; x.fillText(n.length > 42 ? n.slice(0, 41) + '…' : n, 160, py + 43); py += 76 }) }
+  x.font = '500 28px Geist, system-ui'; x.fillStyle = '#6e6a86'; x.fillText('pinpin8033-web.github.io/kasif-harita', 84, H - 80);
+  const url = cv.toDataURL('image/png'), file = await new Promise(r => cv.toBlob(b => r(new File([b], `kasif-${v.id}.png`, {type: 'image/png'})), 'image/png'));
+  out.innerHTML = `<img src="${url}" alt="${esc(v.name)} hikâye kartı">`;
+  $('#cardDl').onclick = () => { const a = document.createElement('a'); a.href = url; a.download = `kasif-${v.id}.png`; a.click() };
+  const sh = $('#cardSh'); sh.hidden = !(navigator.canShare && navigator.canShare({files: [file]}));
+  sh.onclick = () => navigator.share({files: [file], title: 'kâşif · ' + v.name}).catch(() => {});
+}
+function wrap(x, t, px, py, mw, lh){ const words = t.split(' '); let line = ''; for (const w of words) { const tt = line ? line + ' ' + w : w; if (x.measureText(tt).width > mw && line) { x.fillText(line, px, py); line = w; py += lh } else line = tt } x.fillText(line, px, py) }
+
+/* ---------- wiring ---------- */
+$('#lmBtn').onclick = () => openGallery(cur ? Math.max(0, LM_ALL.findIndex(x => x.cid === cur.id)) : 0);
+$('#lmClose').onclick = closeGallery; $('#cardClose').onclick = () => $('#cardModal').hidden = true;
+for (const id of ['lmModal', 'cardModal']) $('#' + id).addEventListener('click', e => { if (e.target.id === id) id === 'lmModal' ? closeGallery() : ($('#' + id).hidden = true) });
+addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!$('#lmModal').hidden) closeGallery(); if (!$('#cardModal').hidden) $('#cardModal').hidden = true; if (tourOn) tourOn.stop = true });
+window.kasifDebug = {drawOverlay, ov, lmHit, nightGeo, wxFx, startTour, storyCard: () => cur && storyCard(view(cur))};
 
 boot().catch(err => { $('#loadT').textContent = 'Bir şeyler ters gitti: ' + err.message; console.error(err) });
 }
