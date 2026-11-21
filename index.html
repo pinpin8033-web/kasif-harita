@@ -183,7 +183,7 @@ body.plan .trip{display:none}
 body:has(.trip:not([hidden])) .where{bottom:86px}
 .maplibregl-ctrl-bottom-right{right:72px}body.open .maplibregl-ctrl-bottom-right{right:0}
 #z3d[aria-pressed=true]{background:var(--lav);color:var(--lav-i)}
-.tabs div{overflow-x:auto;scrollbar-width:none}.tabs button{flex:1 0 auto;padding:0 12px}
+.tabs div{overflow-x:auto;scrollbar-width:none}.tabs div button{flex:1 0 auto;padding:0 11px}
 .sk{border-radius:16px;background:linear-gradient(90deg,var(--s2),var(--s3),var(--s2));background-size:200% 100%;animation:skl 1.2s infinite linear;margin-bottom:8px}
 @keyframes skl{to{background-position:-200% 0}}
 .wx{border-radius:20px;background:var(--sky);padding:16px}
@@ -525,7 +525,7 @@ const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
 const API_URL = '/api/guide';
 let countries = [], geoF = [], quiz = null, apiOk = false;
 fetch('/api/guide', {method: 'GET'}).then(r => { apiOk = r.status !== 404 && r.status !== 501 }).catch(() => {});
-let map = null, mapReady = false, FONT = ['Noto Sans Regular'], FONTB = ['Noto Sans Bold'], quizHidden = [];
+let VEC = null, map = null, mapReady = false, FONT = ['Noto Sans Regular'], FONTB = ['Noto Sans Bold'], quizHidden = [];
 const spin = {autoRotate: !RM};
 const zFromAlt = a => Math.max(0, Math.min(20, 1.5 + Math.log2(2.4 / a)));
 const altFromZ = z => 2.4 / Math.pow(2, z - 1.5);
@@ -645,7 +645,7 @@ function onStyle(cfill){
   const L = map.getStyle().layers, sym = L.find(l => l.type === 'symbol' && l.layout && Array.isArray(l.layout['text-font']));
   if (sym) { FONT = sym.layout['text-font']; const bold = L.find(l => l.type === 'symbol' && l.layout && Array.isArray(l.layout['text-font']) && /Bold/.test(l.layout['text-font'][0])); FONTB = bold ? bold.layout['text-font'] : FONT }
   const firstSym = (L.find(l => l.type === 'symbol') || {}).id;
-  const vec = Object.entries(map.getStyle().sources).find(([, s]) => s.type === 'vector');
+  const vec = Object.entries(map.getStyle().sources).find(([, s]) => s.type === 'vector'); VEC = vec ? vec[0] : null;
   map.addSource('k-ctry', {type: 'geojson', data: cfill});
   map.addLayer({id: 'k-cfill', type: 'fill', source: 'k-ctry', paint: {'fill-color': ['get', isDark() ? 'cd' : 'cl'], 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, isDark() ? .6 : .9, 3, isDark() ? .5 : .75, 5, .2, 6.5, 0]}}, firstSym);
   map.addLayer({id: 'k-hl', type: 'line', source: 'k-ctry', filter: ['==', ['get', 'a2'], '__'], paint: {'line-color': '#8b7cf6', 'line-width': 2.5, 'line-opacity': .9}}, firstSym);
@@ -1311,9 +1311,11 @@ nwr["leisure"~"^(park|garden|water_park|nature_reserve|beach_resort)$"]["name"]$
 nwr["amenity"~"^(theatre|cinema|arts_centre)$"]["name"]${A()};
 way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};
 );out center tags 600;`;
-    let j = null, err;
-    for (const u of OVERPASS) { try { j = await getJSON(u, {method: 'POST', headers: {'content-type': 'application/x-www-form-urlencoded'}, body: 'data=' + encodeURIComponent(q)}); break } catch(e) { err = e } }
-    if (!j) throw err;
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 13000);
+    let j = null;
+    try { j = await Promise.any(OVERPASS.map(u => getJSON(u, {method: 'POST', signal: ctl.signal, headers: {'content-type': 'application/x-www-form-urlencoded'}, body: 'data=' + encodeURIComponent(q)}))) } catch(e) {}
+    clearTimeout(to); ctl.abort();
+    if (!j || !j.elements) return tilePois(lat, lng);
     const seen = new Set(), out = [];
     for (const e of j.elements) {
       const t = e.tags || {}, name = t['name:tr'] || t.name; if (!name) continue;
@@ -1330,6 +1332,30 @@ way["highway"~"^(pedestrian|living_street)$"]["name"]${A(Math.min(r, 3000))};
     }
     return out;
   });
+}
+/* fallback when the public Overpass servers are busy: read POIs from the map's own vector tiles */
+const POICAT = {restaurant: 'yemek', fast_food: 'yemek', food_court: 'yemek', cafe: 'kafe', ice_cream: 'kafe', bar: 'kafe', pub: 'kafe', beer: 'kafe', bakery: 'kafe',
+  museum: 'gezi', attraction: 'gezi', monument: 'gezi', castle: 'gezi', art_gallery: 'gezi', place_of_worship: 'gezi', viewpoint: 'gezi', memorial: 'gezi', ruins: 'gezi', archaeological_site: 'gezi', palace: 'gezi', fort: 'gezi', city_gate: 'gezi', gallery: 'gezi', mosque: 'gezi', church: 'gezi',
+  park: 'aktivite', garden: 'aktivite', zoo: 'aktivite', theatre: 'aktivite', cinema: 'aktivite', stadium: 'aktivite', aquarium: 'aktivite', theme_park: 'aktivite', water_park: 'aktivite', arts_centre: 'aktivite', playground: 'aktivite'};
+async function tilePois(lat, lng){
+  if (!mapReady || !VEC) throw new Error('no tiles');
+  if (map.getZoom() < 14.2 || km(map.getCenter(), {lat, lng}) > 1.5) { map.jumpTo({center: [lng, lat], zoom: 14.6, pitch: 0}); await new Promise(r => { const t = setTimeout(r, 6000); map.once('idle', () => { clearTimeout(t); r() }) }) }
+  const seen = new Set(), out = [];
+  for (const f of map.querySourceFeatures(VEC, {sourceLayer: 'poi'})) {
+    const p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name || f.geometry.type !== 'Point') continue;
+    const cat = POICAT[p.subclass] || POICAT[p.class]; if (!cat) continue;
+    const key = cat + norm(name); if (seen.has(key)) continue; seen.add(key);
+    const [x, y] = f.geometry.coordinates;
+    out.push({id: 't' + out.length, name, cat, kind: p.subclass || p.class, label: TAGTR[p.subclass] || TAGTR[p.class] || String(p.subclass || p.class).replace(/_/g, ' '), lat: y, lng: x, d: km({lat, lng}, {lat: y, lng: x}), score: 10 - (+p.rank || 10)});
+  }
+  for (const f of map.querySourceFeatures(VEC, {sourceLayer: 'transportation_name'})) {
+    const p = f.properties, name = p['name:tr'] || p['name:latin'] || p.name; if (!name || !/pedestrian|living_street/.test(p.subclass + ' ' + p.class)) continue;
+    const key = 'sokak' + norm(name); if (seen.has(key)) continue; seen.add(key);
+    const g = f.geometry.type === 'LineString' ? f.geometry.coordinates : f.geometry.coordinates[0], [x, y] = g[g.length >> 1];
+    out.push({id: 't' + out.length, name, cat: 'sokak', kind: 'pedestrian', label: 'Yaya caddesi', lat: y, lng: x, d: km({lat, lng}, {lat: y, lng: x}), score: 0});
+  }
+  out.src = 'tiles';
+  return out;
 }
 const nearR = v => v.pop > 3e6 ? 6000 : v.pop > 8e5 ? 4500 : v.pop > 2e5 ? 3500 : v.g ? 2500 : 4500;
 let poiList = [], poiCat = 'gezi', poiCenter = null;
@@ -1513,10 +1539,10 @@ function renderCuisine(c, tb){
     food.forEach(p => (p.cuisine || '').split(';').map(x => x.trim()).filter(Boolean).forEach(x => cnt[x] = (cnt[x] || 0) + 1));
     const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 8), mx = top.length ? top[0][1] : 1;
     const best = food.filter(p => p.score > 0).sort((a, b) => b.score - a.score || a.d - b.d).slice(0, 6);
-    showPois(best);
+    showPois(best.length ? best : food.slice(0, 8));
     $('#cuiBox').innerHTML = top.length ? `<h4 class="sh" style="margin-top:4px">Şehirde en yaygın mutfaklar <small>${food.length} mekan</small></h4><div class="bars">${top.map(([k, n]) => `<div><span>${esc(CUI[k] || k.replace(/_/g, ' '))}</span><i style="width:${Math.max(6, n / mx * 100)}%"></i><b>${n}</b></div>`).join('')}</div>`
       + (best.length ? `<h4 class="sh">Öne çıkan mekanlar</h4><ol class="pois">${best.map((p, i) => `<li><button data-poi="${i}"><b>${esc(p.name)}</b><small>${esc(p.label)}${p.cuisine ? ' · ' + esc(CUI[p.cuisine.split(';')[0]] || p.cuisine.split(';')[0]) : ''}</small><span>${fmtKm(p.d)}</span></button><button class="go" data-pgo="${i}" aria-label="Yol tarifi">${MI.foot.replace('<svg', '<svg width="16" height="16"')}</button></li>`).join('')}</ol>` : '')
-      : '<p class="empty2">Bu şehir için OpenStreetMap\'te mutfak bilgisi az.</p>';
+      : (best.length || food.length ? `<h4 class="sh" style="margin-top:4px">Öne çıkan yeme-içme mekanları</h4><ol class="pois">${(best.length ? best : food.slice(0, 8)).map((p, i) => `<li><button data-poi="${i}"><b>${esc(p.name)}</b><small>${esc(p.label)}</small><span>${fmtKm(p.d)}</span></button><button class="go" data-pgo="${i}" aria-label="Yol tarifi">${MI.foot.replace('<svg', '<svg width="16" height="16"')}</button></li>`).join('')}</ol>` : '<p class="empty2">Bu şehir için OpenStreetMap\'te mutfak bilgisi az.</p>');
     $$('#cuiBox [data-poi]').forEach(b => b.onclick = () => focusPoi(+b.dataset.poi));
     $$('#cuiBox [data-pgo]').forEach(b => b.onclick = () => { const p = poiList[+b.dataset.pgo]; startDir({name: p.name, lat: p.lat, lng: p.lng}) });
   }).catch(() => { if (cur === me && $('#cuiBox')) $('#cuiBox').innerHTML = '<p class="empty2">Mekan verisine ulaşılamadı.</p>' });
